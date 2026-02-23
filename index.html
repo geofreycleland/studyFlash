@@ -3,11 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>StudyFlash AI</title>
+<title>StudyFlash AI — Groq</title>
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist+Mono:wght@300;400;500&family=Geist:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
-:root{--bg:#080a0e;--bg1:#0e1117;--bg2:#141720;--bg3:#1a1e2a;--line:rgba(255,255,255,0.06);--line2:rgba(255,255,255,0.10);--text:#e2e4eb;--text2:#8b90a0;--text3:#555a6a;--gold:#c9a84c;--gold2:#e8c87a;--blue:#4a8fff;--green:#3ecf72;--red:#f06a6a;--amber:#f0a04a;--glow:rgba(201,168,76,0.12);--r:12px;--r2:16px}
+:root{--bg:#080a0e;--bg1:#0e1117;--bg2:#141720;--bg3:#1a1e2a;--line:rgba(255,255,255,0.06);--line2:rgba(255,255,255,0.10);--text:#e2e4eb;--text2:#8b90a0;--text3:#555a6a;--gold:#c9a84c;--gold2:#e8c87a;--blue:#f97316;--blue2:#fb923c;--green:#3ecf72;--red:#f06a6a;--amber:#f0a04a;--glow:rgba(249,115,22,0.14);--r:12px;--r2:16px}
 html{scroll-behavior:smooth}
 body{background:var(--bg);color:var(--text);font-family:'Geist',sans-serif;font-size:14px;min-height:100vh;line-height:1.6;overflow-x:hidden}
 .app{position:relative;z-index:1;display:grid;grid-template-columns:260px 1fr;min-height:100vh}
@@ -16,14 +16,14 @@ body{background:var(--bg);color:var(--text);font-family:'Geist',sans-serif;font-
 .logo{display:flex;align-items:center;gap:10px;margin-bottom:20px}
 .logo-mark{width:32px;height:32px;background:linear-gradient(135deg,var(--gold),var(--gold2));border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0;box-shadow:0 0 20px var(--glow)}
 .logo-text{font-family:'Instrument Serif',serif;font-size:18px;color:#fff}
-.logo-badge{font-family:'Geist Mono',monospace;font-size:9px;letter-spacing:0.12em;text-transform:uppercase;color:var(--blue);background:rgba(74,143,255,0.1);border:1px solid rgba(74,143,255,0.2);padding:2px 7px;border-radius:4px}
+.logo-badge{font-family:'Geist Mono',monospace;font-size:9px;letter-spacing:0.12em;text-transform:uppercase;color:var(--blue);background:rgba(249,115,22,0.1);border:1px solid rgba(249,115,22,0.2);padding:2px 7px;border-radius:4px}
 .field-label{font-size:10px;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:var(--text3);margin-bottom:8px;display:flex;align-items:center;gap:6px}
 .field-label::before{content:'';width:3px;height:3px;border-radius:50%;background:var(--blue)}
 .api-input-row{display:flex;gap:6px}
 .api-input{flex:1;background:var(--bg2);border:1px solid var(--line2);border-radius:var(--r);padding:9px 12px;color:var(--text);font-family:'Geist Mono',monospace;font-size:11px;outline:none;transition:border-color .2s,box-shadow .2s;min-width:0}
-.api-input:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(74,143,255,0.12)}
+.api-input:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(249,115,22,0.12)}
 .api-input::placeholder{color:var(--text3)}
-.btn-save{background:linear-gradient(135deg,var(--blue),#6aaeff);border:none;border-radius:var(--r);color:#fff;font-family:'Geist',sans-serif;font-size:11px;font-weight:600;padding:0 12px;cursor:pointer;transition:opacity .15s,transform .15s;white-space:nowrap;flex-shrink:0}
+.btn-save{background:linear-gradient(135deg,var(--blue),var(--blue2));border:none;border-radius:var(--r);color:#fff;font-family:'Geist',sans-serif;font-size:11px;font-weight:600;padding:0 12px;cursor:pointer;transition:opacity .15s,transform .15s;white-space:nowrap;flex-shrink:0}
 .btn-save:hover{opacity:.9;transform:translateY(-1px)}
 .api-status{font-size:11px;margin-top:6px;padding:5px 9px;border-radius:6px;display:none;font-family:'Geist Mono',monospace}
 .api-status.ok{display:block;background:rgba(62,207,114,0.08);color:var(--green);border:1px solid rgba(62,207,114,0.15)}
@@ -42,7 +42,7 @@ body{background:var(--bg);color:var(--text);font-family:'Geist',sans-serif;font-
 .topbar-title span{font-style:italic;color:var(--blue)}
 .step-indicators{display:flex;align-items:center;gap:6px}
 .step-dot{width:6px;height:6px;border-radius:50%;background:var(--bg3);border:1px solid var(--line2);transition:all .3s}
-.step-dot.active{background:var(--blue);border-color:var(--blue);box-shadow:0 0 8px rgba(74,143,255,0.4)}
+.step-dot.active{background:var(--blue);border-color:var(--blue);box-shadow:0 0 8px rgba(249,115,22,0.5)}
 .step-dot.done{background:var(--green);border-color:var(--green)}
 .screen-wrap{flex:1;padding:36px;display:none;animation:fadeIn .35s ease}
 .screen-wrap.active{display:block}
@@ -57,7 +57,7 @@ body{background:var(--bg);color:var(--text);font-family:'Geist',sans-serif;font-
 .panel-sub{font-size:11px;color:var(--text3);margin-top:1px}
 .panel-body{padding:20px 22px}
 .drop-zone{border:1.5px dashed var(--line2);border-radius:var(--r);padding:32px 20px;text-align:center;cursor:pointer;transition:all .2s;background:var(--bg2);position:relative}
-.drop-zone:hover,.drop-zone.drag-over{border-color:var(--blue);background:rgba(74,143,255,0.05)}
+.drop-zone:hover,.drop-zone.drag-over{border-color:var(--blue);background:rgba(249,115,22,0.05)}
 .drop-zone input[type="file"]{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%}
 .drop-icon{font-size:28px;margin-bottom:10px;display:block;transition:transform .2s}
 .drop-zone:hover .drop-icon{transform:translateY(-3px)}
@@ -71,14 +71,14 @@ body{background:var(--bg);color:var(--text);font-family:'Geist',sans-serif;font-
 .file-clear{background:none;border:none;color:var(--text3);cursor:pointer;font-size:14px;padding:0;line-height:1;transition:color .15s}
 .file-clear:hover{color:var(--red)}
 .study-textarea{width:100%;min-height:220px;background:var(--bg2);border:1px solid var(--line2);border-radius:var(--r);padding:14px;color:var(--text);font-family:'Geist Mono',monospace;font-size:12px;line-height:1.7;resize:vertical;outline:none;transition:border-color .2s,box-shadow .2s}
-.study-textarea:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(74,143,255,0.12)}
+.study-textarea:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(249,115,22,0.12)}
 .study-textarea::placeholder{color:var(--text3)}
 .char-row{display:flex;justify-content:space-between;align-items:center;margin-top:8px}
 .char-count{font-size:10px;font-family:'Geist Mono',monospace;color:var(--text3)}
 .char-count.good{color:var(--green)}
 .generate-section{max-width:900px;margin-top:20px}
-.btn-generate{width:100%;padding:16px 24px;background:linear-gradient(135deg,var(--blue),#6aaeff);border:none;border-radius:var(--r2);color:#fff;font-family:'Geist',sans-serif;font-size:15px;font-weight:700;cursor:pointer;transition:all .2s;display:flex;align-items:center;justify-content:center;gap:10px;box-shadow:0 4px 24px rgba(74,143,255,0.25)}
-.btn-generate:hover:not(:disabled){transform:translateY(-2px);box-shadow:0 8px 32px rgba(74,143,255,0.35)}
+.btn-generate{width:100%;padding:16px 24px;background:linear-gradient(135deg,var(--blue),var(--blue2));border:none;border-radius:var(--r2);color:#fff;font-family:'Geist',sans-serif;font-size:15px;font-weight:700;cursor:pointer;transition:all .2s;display:flex;align-items:center;justify-content:center;gap:10px;box-shadow:0 4px 24px rgba(249,115,22,0.25)}
+.btn-generate:hover:not(:disabled){transform:translateY(-2px);box-shadow:0 8px 32px rgba(249,115,22,0.35)}
 .btn-generate:disabled{opacity:.4;cursor:not-allowed;transform:none}
 .err-banner{background:rgba(240,106,106,0.08);border:1px solid rgba(240,106,106,0.2);border-radius:var(--r);padding:12px 16px;color:var(--red);font-size:12px;line-height:1.6;margin-bottom:16px;display:none}
 .err-banner.show{display:block}
@@ -92,7 +92,7 @@ body{background:var(--bg);color:var(--text);font-family:'Geist',sans-serif;font-
 .quiz-layout{max-width:760px;margin:0 auto}
 .quiz-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:24px}
 .q-progress-track{flex:1;height:2px;background:var(--bg3);border-radius:99px;margin:0 20px;overflow:hidden}
-.q-progress-fill{height:100%;background:linear-gradient(90deg,var(--blue),#6aaeff);border-radius:99px;transition:width .5s cubic-bezier(.4,0,.2,1)}
+.q-progress-fill{height:100%;background:linear-gradient(90deg,var(--blue),var(--blue2));border-radius:99px;transition:width .5s cubic-bezier(.4,0,.2,1)}
 .q-counter{font-family:'Geist Mono',monospace;font-size:11px;color:var(--text3);white-space:nowrap}
 .score-pills{display:flex;gap:8px;margin-bottom:28px}
 .score-pill{display:flex;align-items:center;gap:6px;background:var(--bg1);border:1px solid var(--line);border-radius:99px;padding:6px 14px;font-size:12px}
@@ -106,15 +106,15 @@ body{background:var(--bg);color:var(--text);font-family:'Geist',sans-serif;font-
 .q-meta-row{display:flex;align-items:center;gap:10px;margin-bottom:20px}
 .q-num-badge{font-family:'Geist Mono',monospace;font-size:10px;color:var(--text3);letter-spacing:.1em}
 .q-type-chip{font-family:'Geist Mono',monospace;font-size:9px;letter-spacing:.12em;text-transform:uppercase;padding:3px 9px;border-radius:4px}
-.q-type-chip.mc{background:rgba(74,143,255,0.1);color:var(--blue);border:1px solid rgba(74,143,255,0.2)}
+.q-type-chip.mc{background:rgba(249,115,22,0.1);color:var(--blue);border:1px solid rgba(249,115,22,0.2)}
 .q-type-chip.tf{background:rgba(240,160,74,0.1);color:var(--amber);border:1px solid rgba(240,160,74,0.2)}
 .q-text{font-family:'Instrument Serif',serif;font-size:20px;line-height:1.5;color:#fff;margin-bottom:28px;letter-spacing:-.01em}
 .opts-list{display:flex;flex-direction:column;gap:10px}
 .opt-btn{background:var(--bg2);border:1px solid var(--line2);border-radius:var(--r);padding:14px 18px;display:flex;align-items:flex-start;gap:14px;cursor:pointer;text-align:left;color:var(--text);font-family:'Geist',sans-serif;font-size:13px;line-height:1.5;transition:all .15s;width:100%}
-.opt-btn:hover:not(:disabled){border-color:var(--blue);background:rgba(74,143,255,0.06);transform:translateX(3px)}
+.opt-btn:hover:not(:disabled){border-color:var(--blue);background:rgba(249,115,22,0.07);transform:translateX(3px)}
 .opt-btn:disabled{cursor:default}
 .opt-key{width:22px;height:22px;border-radius:6px;background:var(--bg3);border:1px solid var(--line2);display:flex;align-items:center;justify-content:center;font-family:'Geist Mono',monospace;font-size:10px;color:var(--text3);flex-shrink:0;transition:all .15s}
-.opt-btn:hover:not(:disabled) .opt-key{background:rgba(74,143,255,0.15);border-color:var(--blue);color:var(--blue)}
+.opt-btn:hover:not(:disabled) .opt-key{background:rgba(249,115,22,0.15);border-color:var(--blue);color:var(--blue)}
 .opt-btn.correct{border-color:rgba(62,207,114,0.5);background:rgba(62,207,114,0.06);color:var(--green)}
 .opt-btn.correct .opt-key{background:rgba(62,207,114,0.15);border-color:var(--green);color:var(--green)}
 .opt-btn.wrong{border-color:rgba(240,106,106,0.5);background:rgba(240,106,106,0.06);color:var(--red)}
@@ -134,16 +134,16 @@ body{background:var(--bg);color:var(--text);font-family:'Geist',sans-serif;font-
 .fb-label{font-weight:600;margin-bottom:4px;display:block}
 .quiz-controls{display:flex;gap:10px}
 .ctrl-btn{padding:12px 24px;border-radius:var(--r);font-family:'Geist',sans-serif;font-size:13px;font-weight:600;cursor:pointer;transition:all .15s;border:1px solid var(--line2);letter-spacing:-.01em}
-.ctrl-btn.primary{background:linear-gradient(135deg,var(--blue),#6aaeff);color:#fff;border-color:transparent;box-shadow:0 2px 12px rgba(74,143,255,0.2);flex:1}
-.ctrl-btn.primary:hover{transform:translateY(-1px);box-shadow:0 4px 20px rgba(74,143,255,0.3)}
+.ctrl-btn.primary{background:linear-gradient(135deg,var(--blue),var(--blue2));color:#fff;border-color:transparent;box-shadow:0 2px 12px rgba(249,115,22,0.2);flex:1}
+.ctrl-btn.primary:hover{transform:translateY(-1px);box-shadow:0 4px 20px rgba(249,115,22,0.3)}
 .ctrl-btn.ghost{background:transparent;color:var(--text3)}
 .ctrl-btn.ghost:hover{color:var(--text);border-color:var(--line2)}
 .ctrl-btn.danger{background:rgba(240,106,106,0.08);color:var(--red);border-color:rgba(240,106,106,0.2)}
 .ctrl-btn.danger:hover{background:rgba(240,106,106,0.15)}
 .results-wrap{max-width:600px;margin:0 auto}
 .results-hero{background:var(--bg1);border:1px solid var(--line);border-radius:20px;padding:48px 36px;text-align:center;position:relative;overflow:hidden}
-.results-hero::before{content:'';position:absolute;top:-60px;left:50%;transform:translateX(-50%);width:200px;height:200px;background:radial-gradient(circle,rgba(74,143,255,0.12) 0%,transparent 70%);pointer-events:none}
-.results-pct{font-family:'Instrument Serif',serif;font-size:80px;line-height:1;background:linear-gradient(135deg,var(--blue),#6aaeff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:6px}
+.results-hero::before{content:'';position:absolute;top:-60px;left:50%;transform:translateX(-50%);width:200px;height:200px;background:radial-gradient(circle,rgba(249,115,22,0.14) 0%,transparent 70%);pointer-events:none}
+.results-pct{font-family:'Instrument Serif',serif;font-size:80px;line-height:1;background:linear-gradient(135deg,var(--blue),var(--blue2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:6px}
 .results-sublabel{color:var(--text3);font-size:12px;margin-bottom:36px;font-family:'Geist Mono',monospace;letter-spacing:.08em;text-transform:uppercase}
 .results-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:36px}
 .r-stat{background:var(--bg2);border:1px solid var(--line);border-radius:var(--r);padding:16px 10px}
@@ -163,15 +163,15 @@ body{background:var(--bg);color:var(--text);font-family:'Geist',sans-serif;font-
       <div class="logo-mark">⚡</div>
       <div><div class="logo-text">StudyFlash</div></div>
     </div>
-    <span class="logo-badge">Gemini Powered</span>
+    <span class="logo-badge">Groq Powered</span>
     <div style="margin-top:20px">
-      <div class="field-label">Google Gemini API Key</div>
+      <div class="field-label">Groq API Key</div>
       <div class="api-input-row">
-        <input class="api-input" type="password" id="api-key" placeholder="AIza..." autocomplete="off" oninput="onKeyChange()">
+        <input class="api-input" type="password" id="api-key" placeholder="gsk_..." autocomplete="off" oninput="onKeyChange()">
         <button class="btn-save" onclick="saveKey()">Save</button>
       </div>
       <div class="api-status" id="key-status"></div>
-      <div class="api-link">Free key at <a href="https://aistudio.google.com/app/apikey" target="_blank">aistudio.google.com</a></div>
+      <div class="api-link">Free key at <a href="https://console.groq.com/keys" target="_blank">console.groq.com</a></div>
     </div>
   </div>
   <div class="sidebar-settings">
@@ -203,13 +203,14 @@ body{background:var(--bg);color:var(--text);font-family:'Geist',sans-serif;font-
     <div class="settings-group">
       <div class="field-label">Model</div>
       <select class="select-field" id="model-sel">
-        <option value="gemini-2.0-flash" selected>Gemini 2.0 Flash (Fast)</option>
-        <option value="gemini-1.5-pro">Gemini 1.5 Pro (Powerful)</option>
-        <option value="gemini-1.5-flash">Gemini 1.5 Flash (Balanced)</option>
+        <option value="llama-3.3-70b-versatile" selected>Llama 3.3 70B (Best)</option>
+        <option value="llama-3.1-8b-instant">Llama 3.1 8B (Fastest)</option>
+        <option value="mixtral-8x7b-32768">Mixtral 8x7B (Large ctx)</option>
+        <option value="gemma2-9b-it">Gemma 2 9B</option>
       </select>
     </div>
   </div>
-  <div class="sidebar-footer">Your API key is stored only in your browser and sent directly to Google. Nothing passes through any third-party server.</div>
+  <div class="sidebar-footer">Your API key is stored only in your browser and sent directly to Groq. Nothing passes through any third-party server.</div>
 </aside>
 
 <div class="main">
@@ -329,7 +330,7 @@ The AI will read your content and generate quiz questions with detailed explanat
 let questions=[],cur=0,scores={c:0,w:0,s:0},didAnswer=false,uploadedText='';
 
 window.onload=()=>{
-  const k=localStorage.getItem('gemini_key');
+  const k=localStorage.getItem('groq_key');
   if(k){document.getElementById('api-key').value=k;setKeyStatus('✓ Key loaded from storage','ok');}
 };
 
@@ -338,8 +339,8 @@ function onKeyChange(){document.getElementById('key-status').className='api-stat
 function saveKey(){
   const k=document.getElementById('api-key').value.trim();
   if(!k){setKeyStatus('✗ Key cannot be empty','err');return;}
-  if(!k.startsWith('AIza')){setKeyStatus('✗ Should start with AIza','err');return;}
-  localStorage.setItem('gemini_key',k);
+  if(!k.startsWith('gsk_')){setKeyStatus('✗ Should start with gsk_','err');return;}
+  localStorage.setItem('groq_key',k);
   setKeyStatus('✓ Saved to browser storage','ok');
 }
 
@@ -420,9 +421,15 @@ async function generate(){
   const model=document.getElementById('model-sel').value;
   hideErr();
 
-  if(!key){showErr('Enter your Google Gemini API key in the sidebar.');return;}
-  if(!key.startsWith('AIza')){showErr('Invalid API key — should start with "AIza".');return;}
+  if(!key){showErr('Enter your Groq API key in the sidebar.');return;}
+  if(!key.startsWith('gsk_')){showErr('Invalid API key — should start with "gsk_".');return;}
   if(txt.length<80){showErr('Not enough text. Upload a file or paste at least a short paragraph.');return;}
+
+  // Groq/Llama context limit ~6k tokens safe; trim large docs
+  const maxChars = model==='mixtral-8x7b-32768' ? 24000 : 12000;
+  const studyText = txt.length > maxChars
+    ? txt.slice(0, maxChars) + '\n\n[Content trimmed to fit context window]'
+    : txt;
 
   const typeInstr={
     mixed:'Mix ~70% multiple-choice (type "mc") and ~30% true/false (type "tf").',
@@ -445,28 +452,28 @@ RULES:
 - For "tf": no options needed, answer is boolean true or false.
 - Each question needs a clear 2-3 sentence explanation.
 - Base ALL questions ONLY on the provided text.
+- IMPORTANT: Respond with ONLY a raw JSON object. No markdown, no code fences, no explanation.
 
-RESPOND WITH ONLY valid JSON, no markdown, no code fences:
+FORMAT:
 {"questions":[{"type":"mc","question":"...","options":["A","B","C","D"],"answer":0,"explanation":"..."},{"type":"tf","question":"...","answer":true,"explanation":"..."}]}
 
 STUDY MATERIAL:
-${txt.slice(0,12000)}`;
+${studyText}`;
 
   showScreen('S-loading');setDots(2);
 
   try{
-    // Gemini API endpoint
-    const url=`https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${key}`;
-    const res=await fetch(url,{
+    const res=await fetch('https://api.groq.com/openai/v1/chat/completions',{
       method:'POST',
-      headers:{'Content-Type':'application/json'},
+      headers:{
+        'Content-Type':'application/json',
+        'Authorization':'Bearer '+key
+      },
       body:JSON.stringify({
-        contents:[{parts:[{text:prompt}]}],
-        generationConfig:{
-          temperature:0.7,
-          maxOutputTokens:4096,
-          responseMimeType:'application/json'
-        }
+        model:model,
+        messages:[{role:'user',content:prompt}],
+        temperature:0.7,
+        max_tokens:4096
       })
     });
 
@@ -477,22 +484,24 @@ ${txt.slice(0,12000)}`;
     }
 
     const data=await res.json();
+    const raw=data?.choices?.[0]?.message?.content||'';
+    if(!raw) throw new Error('Empty response from Groq. Try again.');
 
-    // Extract text from Gemini response structure
-    const raw=data?.candidates?.[0]?.content?.parts?.[0]?.text||'';
-    if(!raw) throw new Error('Empty response from Gemini. Try again.');
-
+    // Strip any accidental markdown fences
     const cleaned=raw.replace(/```json|```/g,'').trim();
-    const parsed=JSON.parse(cleaned);
+    // Extract JSON object robustly
+    const jsonMatch=cleaned.match(/\{[\s\S]*\}/);
+    if(!jsonMatch) throw new Error('Could not find JSON in response. Try again.');
+    const parsed=JSON.parse(jsonMatch[0]);
 
-    if(!parsed.questions?.length) throw new Error('Unexpected response format. Try again.');
+    if(!parsed.questions?.length) throw new Error('No questions returned. Try again.');
 
     questions=parsed.questions;cur=0;scores={c:0,w:0,s:0};
     showScreen('S-quiz');setDots(2);renderQ();syncScores();
 
   }catch(e){
     showScreen('S-setup');setDots(1);
-    showErr('Error: '+e.message+' — Check your API key and credits at aistudio.google.com');
+    showErr('Error: '+e.message+' — Check your key at console.groq.com/keys');
   }
 }
 
