@@ -443,19 +443,18 @@ async function generate(){
     hard:'Include analysis, comparison, and nuanced edge cases.'
   }[dif];
 
-  const prompt=`You are an expert quiz generator. Generate exactly ${num} quiz questions from the study material below.
+  const prompt=`Generate exactly ${num} quiz questions from the study material. Reply with ONLY raw JSON, nothing else.
 
 RULES:
 - ${typeInstr}
 - Difficulty: ${difInstr}
-- For "mc": exactly 4 options array, answer is 0-indexed integer.
-- For "tf": no options needed, answer is boolean true or false.
-- Each question needs a clear 2-3 sentence explanation.
-- Base ALL questions ONLY on the provided text.
-- IMPORTANT: Respond with ONLY a raw JSON object. No markdown, no code fences, no explanation.
+- "mc": 4 options, answer is 0-indexed integer
+- "tf": answer is boolean, no options field
+- Keep explanations to 1-2 sentences max
+- Use only info from the provided text
 
-FORMAT:
-{"questions":[{"type":"mc","question":"...","options":["A","B","C","D"],"answer":0,"explanation":"..."},{"type":"tf","question":"...","answer":true,"explanation":"..."}]}
+JSON format (no markdown, no extra text):
+{"questions":[{"type":"mc","question":"...","options":["...","...","...","..."],"answer":0,"explanation":"..."},{"type":"tf","question":"...","answer":true,"explanation":"..."}]}
 
 STUDY MATERIAL:
 ${studyText}`;
@@ -473,7 +472,7 @@ ${studyText}`;
         model:model,
         messages:[{role:'user',content:prompt}],
         temperature:0.7,
-        max_tokens:4096
+        max_tokens:8192
       })
     });
 
@@ -487,13 +486,19 @@ ${studyText}`;
     const raw=data?.choices?.[0]?.message?.content||'';
     if(!raw) throw new Error('Empty response from Groq. Try again.');
 
-    // Strip any accidental markdown fences
-    const cleaned=raw.replace(/```json|```/g,'').trim();
-    // Extract JSON object robustly
-    const jsonMatch=cleaned.match(/\{[\s\S]*\}/);
-    if(!jsonMatch) throw new Error('Could not find JSON in response. Try again.');
-    const parsed=JSON.parse(jsonMatch[0]);
+    // Strip markdown fences
+    let cleaned=raw.replace(/```json|```/g,'').trim();
 
+    // Extract the JSON object — find outermost { }
+    const start=cleaned.indexOf('{');
+    const end=cleaned.lastIndexOf('}');
+    if(start===-1||end===-1) throw new Error('Could not find JSON in response. Try again.');
+    let jsonStr=cleaned.slice(start,end+1);
+
+    // If response was cut off mid-stream, repair by closing open arrays/objects
+    jsonStr=repairJson(jsonStr);
+
+    const parsed=JSON.parse(jsonStr);
     if(!parsed.questions?.length) throw new Error('No questions returned. Try again.');
 
     questions=parsed.questions;cur=0;scores={c:0,w:0,s:0};
@@ -609,7 +614,28 @@ function showScreen(id){document.querySelectorAll('.screen-wrap').forEach(s=>s.c
 function setDots(step){for(let i=1;i<=3;i++){const d=document.getElementById('dot-'+i);if(i<step)d.className='step-dot done';else if(i===step)d.className='step-dot active';else d.className='step-dot';}}
 function showErr(msg){const el=document.getElementById('err-banner');el.textContent=msg;el.classList.add('show');}
 function hideErr(){document.getElementById('err-banner').classList.remove('show');}
-function shuffle(a){const r=[...a];for(let i=r.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[r[i],r[j]]=[r[j],r[i]];}return r;}
+function repairJson(str){
+  // Remove trailing commas before ] or }
+  str=str.replace(/,\s*([\]}])/g,'$1');
+  // Count open braces/brackets and close them
+  let opens=0,openb=0;
+  let inStr=false,esc=false;
+  for(let i=0;i<str.length;i++){
+    const c=str[i];
+    if(esc){esc=false;continue;}
+    if(c==='\\'){esc=true;continue;}
+    if(c==='"'){inStr=!inStr;continue;}
+    if(inStr)continue;
+    if(c==='{')opens++;else if(c==='}')opens--;
+    else if(c==='[')openb++;else if(c===']')openb--;
+  }
+  // If we're inside an incomplete string, close it
+  if(inStr)str+='"';
+  // Close any open arrays/objects
+  while(openb-->0)str+=']';
+  while(opens-->0)str+='}';
+  return str;
+}const r=[...a];for(let i=r.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[r[i],r[j]]=[r[j],r[i]];}return r;}
 function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
 </script>
 </body>
