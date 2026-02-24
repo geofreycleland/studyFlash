@@ -3,230 +3,433 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>StudyFlash Pro — Predictive Analytics</title>
+<title>StudyFlash Pro</title>
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist+Mono:wght@300;400;500&family=Geist:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
-:root{--bg:#080a0e;--bg1:#0e1117;--bg2:#141720;--bg3:#1a1e2a;--line:rgba(255,255,255,0.06);--line2:rgba(255,255,255,0.10);--text:#e2e4eb;--text2:#8b90a0;--text3:#555a6a;--gold:#c9a84c;--gold2:#e8c87a;--blue:#f97316;--blue2:#fb923c;--green:#3ecf72;--red:#f06a6a;--r:12px;--r2:16px}
+:root{
+  --bg:#080a0e;--bg1:#0e1117;--bg2:#141720;--bg3:#1a1e2a;
+  --line:rgba(255,255,255,0.06);--line2:rgba(255,255,255,0.10);
+  --text:#e2e4eb;--text2:#8b90a0;--text3:#555a6a;
+  --gold:#c9a84c;--gold2:#e8c87a;
+  --orange:#f97316;--orange2:#fb923c;
+  --green:#3ecf72;--green-bg:rgba(62,207,114,0.12);
+  --red:#f06a6a;--red-bg:rgba(240,106,106,0.12);
+  --blue:#60a5fa;--blue-bg:rgba(96,165,250,0.08);
+  --r:12px;--r2:16px
+}
 body{background:var(--bg);color:var(--text);font-family:'Geist',sans-serif;font-size:14px;line-height:1.6;overflow-x:hidden}
 .app{display:flex;flex-direction:column;min-height:100vh}
-.sidebar{background:var(--bg1);border-bottom:1px solid var(--line);padding:20px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:100}
+.nav{background:var(--bg1);border-bottom:1px solid var(--line);padding:16px 24px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:100}
 .logo-text{font-family:'Instrument Serif',serif;font-size:22px;color:#fff}
-.logo-badge{font-size:10px;color:var(--blue);background:rgba(249,115,22,0.1);padding:2px 8px;border-radius:4px;margin-left:8px}
-.main{flex:1;padding:20px;max-width:800px;margin:0 auto;width:100%}
-.screen{display:none} .screen.active{display:block}
-h1{font-family:'Instrument Serif',serif;font-size:32px;margin-bottom:10px;color:var(--gold2)}
-.chapter-card{background:var(--bg1);border:1px solid var(--line);border-radius:var(--r);padding:20px;margin-bottom:15px;cursor:pointer;transition:0.2s;position:relative}
-.chapter-card:hover{border-color:var(--blue);background:var(--bg2)}
-.chapter-card h3{color:var(--blue);margin-bottom:4px}
-.sprint-tag{font-size:10px;text-transform:uppercase;color:var(--blue);background:rgba(249,115,22,0.1);padding:2px 8px;border-radius:4px;letter-spacing:1px;margin-bottom:8px;display:inline-block}
-.quiz-container{background:var(--bg2);border-radius:var(--r2);padding:24px;border:1px solid var(--line2)}
-.q-text{font-size:18px;font-weight:500;margin-bottom:20px}
-.options-grid{display:grid;gap:12px}
-.opt-btn{background:var(--bg3);border:1px solid var(--line2);padding:15px;border-radius:var(--r);color:var(--text);text-align:left;cursor:pointer;transition:0.2s;width:100%}
-.opt-btn.correct{border-color:var(--green);background:rgba(62,207,114,0.1)}
-.opt-btn.wrong{border-color:var(--red);background:rgba(240,106,106,0.1)}
-.progress-bar{height:6px;background:var(--bg3);border-radius:3px;margin-bottom:20px;overflow:hidden}
-.progress-fill{height:100%;background:var(--blue);width:0%;transition:0.3s}
-.btn-nav{background:var(--blue);color:white;border:none;padding:12px 24px;border-radius:var(--r);font-weight:600;margin-top:20px;cursor:pointer}
+.logo-badge{font-size:10px;color:var(--orange);background:rgba(249,115,22,0.1);padding:2px 8px;border-radius:4px;margin-left:8px}
+.nav-btn{background:var(--bg3);color:var(--text2);border:1px solid var(--line2);padding:7px 14px;border-radius:8px;font-size:13px;cursor:pointer;transition:0.15s;font-family:'Geist',sans-serif}
+.nav-btn:hover{border-color:var(--orange);color:var(--text)}
+.main{flex:1;padding:28px 20px;max-width:820px;margin:0 auto;width:100%}
+.screen{display:none}.screen.active{display:block}
+h1{font-family:'Instrument Serif',serif;font-size:34px;margin-bottom:8px;color:var(--gold2);line-height:1.2}
+.subtitle{color:var(--text2);margin-bottom:28px;font-size:14px}
+.chapter-card{background:var(--bg1);border:1px solid var(--line);border-radius:var(--r);padding:20px 22px;margin-bottom:14px;cursor:pointer;transition:0.2s;position:relative;overflow:hidden;user-select:none}
+.chapter-card:hover{border-color:var(--orange);transform:translateY(-1px)}
+.chapter-card h3{color:var(--orange2);margin-bottom:4px;font-size:15px}
+.chapter-card p{color:var(--text2);font-size:13px}
+.chapter-card.locked{opacity:0.4;cursor:default;border-style:dashed}
+.chapter-card.locked:hover{transform:none;border-color:var(--line)}
+.chapter-card.locked h3{color:var(--text3)}
+.sprint-tag{font-size:10px;text-transform:uppercase;color:var(--orange);background:rgba(249,115,22,0.1);padding:2px 8px;border-radius:4px;letter-spacing:1px;margin-bottom:8px;display:inline-block}
+.progress-wrap{margin-bottom:6px;display:flex;justify-content:space-between;align-items:center}
+.progress-label{font-size:12px;color:var(--text3);font-family:'Geist Mono',monospace}
+.progress-bar{height:4px;background:var(--bg3);border-radius:2px;margin-bottom:24px;overflow:hidden}
+.progress-fill{height:100%;background:linear-gradient(90deg,var(--orange),var(--orange2));width:0%;transition:0.4s cubic-bezier(0.4,0,0.2,1)}
+.quiz-card{background:var(--bg1);border:1px solid var(--line2);border-radius:var(--r2);padding:28px;margin-bottom:16px}
+.q-meta{display:flex;gap:8px;align-items:center;margin-bottom:18px;flex-wrap:wrap}
+.q-number{font-family:'Geist Mono',monospace;font-size:11px;color:var(--text3);background:var(--bg3);padding:3px 8px;border-radius:4px}
+.retry-badge{font-size:10px;color:var(--gold);background:rgba(201,168,76,0.12);border:1px solid rgba(201,168,76,0.2);padding:2px 8px;border-radius:4px}
+.q-text{font-size:17px;font-weight:500;color:var(--text);line-height:1.55}
+.options-grid{display:grid;gap:10px;margin-top:20px}
+.opt-btn{background:var(--bg2);border:1px solid var(--line2);padding:14px 18px;border-radius:var(--r);color:var(--text);text-align:left;cursor:pointer;transition:0.15s;width:100%;font-family:'Geist',sans-serif;font-size:14px;line-height:1.4;display:flex;align-items:flex-start;gap:12px}
+.opt-btn:hover:not(:disabled){border-color:var(--orange);background:rgba(249,115,22,0.06)}
+.opt-btn:disabled{cursor:default}
+.opt-letter{min-width:22px;height:22px;border-radius:6px;background:var(--bg3);border:1px solid var(--line2);display:flex;align-items:center;justify-content:center;font-size:11px;font-family:'Geist Mono',monospace;color:var(--text3);flex-shrink:0;margin-top:1px}
+.opt-btn.correct{border-color:var(--green);background:var(--green-bg)}
+.opt-btn.correct .opt-letter{background:var(--green);border-color:var(--green);color:#000;font-weight:600}
+.opt-btn.wrong{border-color:var(--red);background:var(--red-bg)}
+.opt-btn.wrong .opt-letter{background:var(--red);border-color:var(--red);color:#fff;font-weight:600}
+.opt-btn.reveal{border-color:rgba(62,207,114,0.4);background:var(--green-bg)}
+.opt-btn.reveal .opt-letter{background:rgba(62,207,114,0.3);border-color:var(--green);color:var(--green)}
+.explanation-box{background:var(--blue-bg);border:1px solid rgba(96,165,250,0.2);border-radius:var(--r);padding:16px 18px;margin-top:14px;animation:fadeIn 0.3s ease}
+.exp-label{font-size:10px;text-transform:uppercase;letter-spacing:1px;color:var(--blue);margin-bottom:6px;font-family:'Geist Mono',monospace}
+.explanation-box p{font-size:13px;color:var(--text2);line-height:1.6}
+@keyframes fadeIn{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}
+.next-btn{background:var(--orange);color:#fff;border:none;padding:12px 28px;border-radius:var(--r);font-weight:600;margin-top:18px;cursor:pointer;font-family:'Geist',sans-serif;font-size:14px;transition:0.15s;display:none}
+.next-btn:hover{background:var(--orange2)}
+.next-btn.visible{display:inline-block}
+.queue-status{background:var(--bg2);border:1px solid var(--line);border-radius:10px;padding:12px 16px;margin-bottom:20px;display:flex;align-items:center;gap:12px;font-size:13px;color:var(--text2)}
+.queue-dot{width:8px;height:8px;border-radius:50%;background:var(--gold);box-shadow:0 0 6px var(--gold);animation:pulse 2s infinite;flex-shrink:0}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.5}}
+.results-card{background:var(--bg1);border:1px solid var(--line2);border-radius:var(--r2);padding:32px;text-align:center}
+.score-ring{width:120px;height:120px;margin:0 auto 20px;position:relative}
+.score-ring svg{transform:rotate(-90deg)}
+.ring-bg{fill:none;stroke:var(--bg3);stroke-width:8}
+.ring-fill{fill:none;stroke:var(--gold);stroke-width:8;stroke-linecap:round;transition:stroke-dashoffset 1s cubic-bezier(0.4,0,0.2,1)}
+.score-number{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:'Instrument Serif',serif;font-size:32px;color:var(--gold2)}
+.result-label{font-size:22px;font-family:'Instrument Serif',serif;margin-bottom:6px;color:var(--text)}
+.result-sub{color:var(--text2);font-size:14px;margin-bottom:24px}
+.missed-list{text-align:left;margin-bottom:24px}
+.missed-item{background:var(--bg2);border:1px solid var(--line);border-radius:8px;padding:10px 14px;margin-bottom:8px;font-size:13px;color:var(--text2)}
+.missed-item strong{color:var(--red);font-size:11px;font-family:'Geist Mono',monospace;display:block;margin-bottom:2px}
+.btn-primary{background:var(--orange);color:#fff;border:none;padding:12px 24px;border-radius:var(--r);font-weight:600;cursor:pointer;font-family:'Geist',sans-serif;font-size:14px;transition:0.15s;margin:4px}
+.btn-primary:hover{background:var(--orange2)}
+.btn-secondary{background:var(--bg3);color:var(--text2);border:1px solid var(--line2);padding:12px 24px;border-radius:var(--r);font-weight:500;cursor:pointer;font-family:'Geist',sans-serif;font-size:14px;transition:0.15s;margin:4px}
+.btn-secondary:hover{border-color:var(--orange);color:var(--text)}
+.back-btn{background:var(--bg3);color:var(--text2);border:1px solid var(--line2);padding:8px 16px;border-radius:8px;font-size:13px;cursor:pointer;transition:0.15s;margin-bottom:22px;display:inline-flex;align-items:center;gap:6px;font-family:'Geist',sans-serif}
+.back-btn:hover{border-color:var(--orange);color:var(--text)}
+hr.divider{border:none;border-top:1px solid var(--line);margin:24px 0}
 </style>
 </head>
 <body>
-
 <div class="app">
-    <div class="sidebar">
-        <div class="logo"><span class="logo-text">StudyFlash <span class="logo-badge">PRO</span></span></div>
-        <button class="btn-nav" onclick="showScreen('home')" style="margin-top:0; padding:6px 12px">Home</button>
+  <div class="nav">
+    <div><span class="logo-text">StudyFlash</span><span class="logo-badge">PRO</span></div>
+    <button class="nav-btn" id="btn-home-nav">← Home</button>
+  </div>
+  <div class="main">
+
+    <div id="home" class="screen active">
+      <h1>Chapter 5</h1>
+      <p class="subtitle">Predictive Analytics I — Data Mining Process, Methods &amp; Algorithms</p>
+      <div class="chapter-card" id="go-sprints">
+        <span class="sprint-tag">Available</span>
+        <h3>Chapter 5: Predictive Analytics</h3>
+        <p>7 sprints · 70 questions · Wrong answers re-queued until correct</p>
+      </div>
+      <div class="chapter-card locked">
+        <h3>Chapter 6: Machine Learning</h3>
+        <p>Coming soon</p>
+      </div>
     </div>
 
-    <div class="main">
-        <div id="home" class="screen active">
-            <h1>Chapters</h1>
-            <p style="color:var(--text2); margin-bottom:25px;">Select a chapter to see available sprints.</p>
-            
-            <div class="chapter-card" onclick="showScreen('sprints')">
-                <h3>Chapter 5: Predictive Analytics</h3>
-                <p>Data Mining Process, Methods, and Algorithms.</p>
-            </div>
-
-            <div class="chapter-card" style="opacity:0.5; cursor:default; border-style:dashed">
-                <h3 style="color:var(--text3)">Chapter 6: Machine Learning</h3>
-                <p style="color:var(--text3)">Coming Soon</p>
-            </div>
-        </div>
-
-        <div id="sprints" class="screen">
-            <button class="btn-nav" onclick="showScreen('home')" style="margin-bottom:20px; background:var(--bg3); padding:8px 16px">← Back to Chapters</button>
-            <h1>Chapter 5 Study Sprints</h1>
-            <p style="color:var(--text2); margin-bottom:25px;">Each sprint contains 10 focused questions.</p>
-            
-            <div class="chapter-card" onclick="startSprint(0)">
-                <span class="sprint-tag">Sprint 1</span>
-                <h3>Foundations & Patterns</h3>
-                <p>Learn why 'Data Mining' is a misnomer and identify the 4 main pattern types.</p>
-            </div>
-            <div class="chapter-card" onclick="startSprint(1)">
-                <span class="sprint-tag">Sprint 2</span>
-                <h3>Standard Processes</h3>
-                <p>Deep dive into CRISP-DM, SEMMA, and KDD methodologies.</p>
-            </div>
-            <div class="chapter-card" onclick="startSprint(2)">
-                <span class="sprint-tag">Sprint 3</span>
-                <h3>Data Preprocessing</h3>
-                <p>Cleaning, consolidation, transformation, and reduction techniques.</p>
-            </div>
-            <div class="chapter-card" onclick="startSprint(3)">
-                <span class="sprint-tag">Sprint 4</span>
-                <h3>Classification & Trees</h3>
-                <p>Decision trees, Gini index, Entropy, and Accuracy Metrics.</p>
-            </div>
-            <div class="chapter-card" onclick="startSprint(4)">
-                <span class="sprint-tag">Sprint 5</span>
-                <h3>Clustering & Association</h3>
-                <p>K-means, Market-Basket Analysis, and Common Blunders.</p>
-            </div>
-        </div>
-
-        <div id="quiz" class="screen">
-            <div class="progress-bar"><div id="progress" class="progress-fill"></div></div>
-            <div id="quiz-content" class="quiz-container"></div>
-        </div>
-
-        <div id="results" class="screen">
-            <h1 id="res-title">Sprint Complete!</h1>
-            <div class="quiz-container" style="text-align:center">
-                <div id="score-display" style="font-size:48px; color:var(--gold); margin-bottom:10px">0%</div>
-                <p id="score-text"></p>
-                <button class="btn-nav" onclick="showScreen('sprints')">Back to Sprints</button>
-            </div>
-        </div>
+    <div id="sprints" class="screen">
+      <button class="back-btn" id="btn-back-home">← Chapters</button>
+      <h1>Study Sprints</h1>
+      <p class="subtitle">Each sprint has 10 questions. Wrong answers are re-queued until you get them right.</p>
+      <div class="chapter-card sprint-card" data-sprint="0"><span class="sprint-tag">Sprint 1</span><h3>Foundations &amp; Pattern Types</h3><p>Why 'Data Mining' is a misnomer, the four pattern types, and key definitions.</p></div>
+      <div class="chapter-card sprint-card" data-sprint="1"><span class="sprint-tag">Sprint 2</span><h3>Standard Processes</h3><p>CRISP-DM, SEMMA, and KDD — steps, differences, and purpose.</p></div>
+      <div class="chapter-card sprint-card" data-sprint="2"><span class="sprint-tag">Sprint 3</span><h3>Data Preprocessing</h3><p>Consolidation, cleaning, transformation, reduction — and supervised vs. unsupervised learning.</p></div>
+      <div class="chapter-card sprint-card" data-sprint="3"><span class="sprint-tag">Sprint 4</span><h3>Classification &amp; Decision Trees</h3><p>Gini index, entropy, accuracy metrics, ensemble models, and tree terminology.</p></div>
+      <div class="chapter-card sprint-card" data-sprint="4"><span class="sprint-tag">Sprint 5</span><h3>Clustering, Association &amp; Blunders</h3><p>K-means, Apriori, support/confidence, common myths, and Fool's Gold.</p></div>
+      <div class="chapter-card sprint-card" data-sprint="5"><span class="sprint-tag">Sprint 6</span><h3>Types &amp; Taxonomies</h3><p>"What are the types of..." — pattern types, tasks, data types, learning methods, accuracy metrics, ensemble models, clustering methods, and more.</p></div>
+      <div class="chapter-card sprint-card" data-sprint="6"><span class="sprint-tag">Sprint 7</span><h3>CRISP-DM Deep Dive</h3><p>Every step in detail — what happens, why, how long it takes, and what can go wrong. The kind of questions professors love.</p></div>
     </div>
+
+    <div id="quiz" class="screen">
+      <div class="progress-wrap">
+        <span class="progress-label" id="progress-text">1 / 10</span>
+        <span class="progress-label" id="score-live">Score: 0</span>
+      </div>
+      <div class="progress-bar"><div id="progress" class="progress-fill"></div></div>
+      <div id="queue-status-wrap"></div>
+      <div id="quiz-content"></div>
+      <button class="next-btn" id="next-btn">Next question →</button>
+    </div>
+
+    <div id="results" class="screen">
+      <div class="results-card">
+        <div class="score-ring">
+          <svg width="120" height="120" viewBox="0 0 120 120">
+            <circle class="ring-bg" cx="60" cy="60" r="52"/>
+            <circle class="ring-fill" id="ring-fill" cx="60" cy="60" r="52" stroke-dasharray="326.7" stroke-dashoffset="326.7"/>
+          </svg>
+          <div class="score-number" id="score-number">0%</div>
+        </div>
+        <div class="result-label" id="result-label">Sprint Complete!</div>
+        <div class="result-sub" id="result-sub"></div>
+        <div id="missed-section"></div>
+        <div>
+          <button class="btn-primary" id="btn-retry" style="display:none">Retry missed questions</button>
+          <button class="btn-secondary" id="btn-back-sprints">Back to sprints</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
 </div>
 
 <script>
 const questions = [
-    // SPRINT 1: FOUNDATIONS
-    { q: "Why is 'Data Mining' technically a misnomer?", a: ["It doesn't use real data", "Mining for gold in rocks is 'gold' mining, so this should be 'knowledge' mining", "It requires physical tools", "It is only for large corporations"], c: 1 },
-    { q: "Which pattern type identifies 'beer and diapers' co-occurring?", a: ["Predictions", "Clusters", "Associations", "Sequential Relationships"], c: 2 },
-    { q: "What does 'Nontrivial' mean in data mining?", a: ["It is very easy", "It involves experimentation-type search or inference", "It is a standard calculation", "It only uses SQL"], c: 1 },
-    { q: "Which discipline is NOT part of the intersection for data mining?", a: ["Statistics", "Artificial Intelligence", "Human Resources", "Machine Learning"], c: 2 },
-    { q: "What pattern discovers time-ordered events like opening a savings account after a checking account?", a: ["Clustering", "Associations", "Regression", "Sequential Relationships"], c: 3 },
-    { q: "What is 'Soft Data'?", a: ["Temporary data", "Unstructured text (e.g., enterprise intranets or text files)", "Encrypted data", "User passwords"], c: 1 },
-    { q: "In the definition of data mining, what does 'Novel' mean?", a: ["The patterns are fictional", "The patterns are long", "The patterns were not previously known to the user", "The patterns are based on books"], c: 2 },
-    { q: "Which sector is a common commercial user of data mining for fraud detection?", a: ["Retail", "Finance", "Healthcare", "All of the above"], c: 3 },
-    { q: "According to Dr. Arno Penzias, what happens if a company doesn't do data mining?", a: ["They will grow slowly", "They'll be out of business", "They will save money", "They will hire more people"], c: 1 },
-    { q: "What is the primary difference between Prediction and Forecasting?", a: ["They are identical", "Prediction is experience-based; Forecasting is data/model-based", "Forecasting is only for weather", "Prediction is more reliable"], c: 1 },
+  // SPRINT 1
+  { q: "Why is 'Data Mining' technically a misnomer?", a: ["It doesn't actually use data", "Mining gold from rock is called 'gold' mining, so this should be called 'knowledge mining'", "It only works on structured databases", "It was named before computers existed"], c: 1, exp: "The textbook explains: mining gold from rock is called 'gold mining' not 'rock mining' — so by the same logic, mining knowledge from data should be called 'knowledge mining'. The term 'data mining' stuck despite being technically misleading." },
+  { q: "Which pattern type describes the famous 'beer and diapers' finding?", a: ["Sequential relationships", "Clusters", "Predictions", "Associations"], c: 3, exp: "Associations find commonly co-occurring groupings of things, like beer and diapers appearing together in market-basket analysis. Sequential relationships differ — they involve time-ordered events." },
+  { q: "In the formal definition, what does 'Nontrivial' mean in data mining?", a: ["The results are unimportant", "Some experimentation-type search or inference is involved — not a straightforward computation", "The dataset must be very large", "Only experts can perform it"], c: 1, exp: "Nontrivial means 'some experimentation-type search or inference is involved; that is, it is not as straightforward as a computation of predefined quantities.' This distinguishes data mining from basic SQL queries." },
+  { q: "Data mining sits at the intersection of which group of disciplines?", a: ["Statistics, HR, and accounting", "Statistics, AI, machine learning, management science, IS, and databases", "Only statistics and SQL", "Physics, chemistry, and biology"], c: 1, exp: "Figure 5.1 shows data mining at the intersection of Statistics, Artificial Intelligence, Information Visualization, Database Management & Data Warehousing, Management Science & IS, and Machine Learning & Pattern Recognition." },
+  { q: "Which pattern type describes: 'A bank customer opens a savings account, then an investment account within a year'?", a: ["Clustering", "Associations", "Predictions", "Sequential relationships"], c: 3, exp: "Sequential relationships discover time-ordered events. The textbook uses this exact banking example: checking account → savings account → investment account. Associations are about co-occurrence without time order." },
+  { q: "What is 'soft data' in data mining?", a: ["Data that is easy to analyze", "Unstructured text in places like Lotus Notes, text files, or enterprise intranets", "Encrypted or protected data", "Data with many missing values"], c: 1, exp: "Soft data is 'unstructured text stored in such places as Lotus Notes databases, text files on the Internet, or enterprise-wide intranets.' It contrasts with structured relational database data." },
+  { q: "In the definition of data mining, 'Novel' means:", a: ["The patterns are long and detailed", "Based on fictional scenarios", "Not previously known to the user within the context of the system being analyzed", "Discovered automatically without human input"], c: 2, exp: "'Novel means that the patterns are not previously known to the user within the context of the system being analyzed.' This distinguishes true data mining from confirming already-known facts." },
+  { q: "What did Dr. Arno Penzias say would happen to companies that don't do data mining?", a: ["They grow more slowly", "They face higher IT costs", "They will be out of business", "They must rely on manual analysis"], c: 2, exp: "Penzias (Nobel laureate, former Bell Labs chief scientist) said: 'Data mining will become much more important and companies will throw away nothing about their customers... If you're not doing this, you're out of business.'" },
+  { q: "What is the key difference between Prediction and Forecasting?", a: ["They are exactly the same thing", "Prediction is experience/opinion-based; forecasting is data/model-based", "Forecasting is only for financial data", "Prediction always uses neural networks"], c: 1, exp: "Prediction is 'largely experience and opinion based' while forecasting is 'data and model based.' In order of increasing reliability: guessing → predicting → forecasting. In data mining, 'prediction' is used as the umbrella term for both." },
+  { q: "Which of the following is NOT a core discipline in data mining?", a: ["Statistics", "Machine Learning", "Human Resources Management", "Artificial Intelligence"], c: 2, exp: "Figure 5.1 shows the core disciplines as: Statistics, AI, Machine Learning & Pattern Recognition, Information Visualization, Database Management, and Management Science & IS. Human Resources is not among them." },
 
-    // SPRINT 2: PROCESS
-    { q: "Which standardized process is arguably the most popular?", a: ["SEMMA", "KDD", "CRISP-DM", "Agile"], c: 2 },
-    { q: "What is the very first step of CRISP-DM?", a: ["Data Preparation", "Modeling", "Business Understanding", "Evaluation"], c: 2 },
-    { q: "Which methodology uses Sample, Explore, Modify, Model, Assess?", a: ["KDD", "SEMMA", "CRISP-DM", "Waterfal"], c: 1 },
-    { q: "In CRISP-DM, which step involves handling missing values and noise?", a: ["Business Understanding", "Data Preparation", "Evaluation", "Deployment"], c: 1 },
-    { q: "How much time is typically spent on Data Preparation (Step 3 of CRISP-DM)?", a: ["10%", "30%", "50%", "Often more than 80%"], c: 3 },
-    { q: "What is the final step in the CRISP-DM process?", a: ["Evaluation", "Deployment", "Modeling", "Business Understanding"], c: 1 },
-    { q: "SEMMA assumes which of the following has already been identified?", a: ["The final model", "Business goals and objectives", "The budget", "The target hardware"], c: 1 },
-    { q: "Which process is often criticized for portraying data mining as a single step?", a: ["CRISP-DM", "KDD", "SEMMA", "DMAIC"], c: 1 },
-    { q: "In the KDD process, what is 'Knowledge' considered?", a: ["A starting point", "A single row of data", "Actionable Insight", "A software tool"], c: 2 },
-    { q: "Backtracking in CRISP-DM occurs because the process is:", a: ["Poorly designed", "Highly iterative", "Linear and strict", "Manual only"], c: 1 },
+  // SPRINT 2
+  { q: "Which standardized data mining process is 'arguably the most popular'?", a: ["SEMMA", "KDD", "DMAIC", "CRISP-DM"], c: 3, exp: "CRISP-DM (Cross-Industry Standard Process for Data Mining) 'was proposed in the mid-1990s by a European consortium of companies to serve as a nonproprietary standard methodology.' Poll data from KDnuggets confirmed it as the most widely used." },
+  { q: "What is the very first step of CRISP-DM?", a: ["Data Preparation", "Model Building", "Data Understanding", "Business Understanding"], c: 3, exp: "Step 1 is Business Understanding — establishing specific goals like 'What are typical profiles of our customers?' and developing a project plan. This comes before any data work." },
+  { q: "SEMMA stands for:", a: ["Structure, Explore, Mine, Model, Assess", "Sample, Explore, Modify, Model, Assess", "Select, Extract, Merge, Map, Analyze", "Sort, Examine, Modify, Measure, Apply"], c: 1, exp: "SEMMA was developed by SAS Institute: Sample, Explore, Modify, Model, Assess. It starts with a statistically representative sample and proceeds through exploration, variable selection, modeling, and accuracy assessment." },
+  { q: "Which CRISP-DM step handles missing values, noise, and outliers?", a: ["Business Understanding", "Data Understanding", "Data Preparation", "Testing and Evaluation"], c: 2, exp: "Step 3 (Data Preparation) addresses real-world data being 'incomplete (lacking attribute values), noisy (containing errors or outliers), and inconsistent (containing discrepancies).' It consumes the most time of any step." },
+  { q: "Approximately what proportion of total project time is spent on Data Preparation?", a: ["About 10–15%", "About 30–40%", "About 50–60%", "Often more than 80%"], c: 3, exp: "The textbook states data preparation 'accounts for roughly 80% of the total time spent on a data mining project' because real-world data are incomplete, noisy, and inconsistent." },
+  { q: "What is the final step in CRISP-DM?", a: ["Testing and Evaluation", "Model Building", "Business Understanding", "Deployment"], c: 3, exp: "Step 6 is Deployment, which ranges from generating a simple report to implementing a repeatable enterprise-wide process. Models also need ongoing maintenance since business data constantly changes." },
+  { q: "What key assumption makes SEMMA different from CRISP-DM?", a: ["SEMMA assumes data is already clean", "SEMMA assumes business goals and data sources have already been identified", "SEMMA assumes only one model type will be used", "SEMMA assumes a PhD-level analyst"], c: 1, exp: "CRISP-DM takes a comprehensive approach including business and data understanding. SEMMA 'implicitly assumes that the data mining project's goals and objectives along with the appropriate data sources have been identified and understood.'" },
+  { q: "Why is KDD criticized by analytics professionals?", a: ["It has too many steps", "It is too expensive", "It portrays data mining as a single step rather than the complete process", "It was invented too recently"], c: 2, exp: "'KDD process is often criticized by analytics professionals because it portrays data mining as a single-step in the overall process, as opposed to the complete process itself.'" },
+  { q: "In the KDD process, what does the final output 'Knowledge' represent?", a: ["A raw data export", "A summary statistics report", "Actionable Insight", "A trained model file"], c: 2, exp: "In Figure 5.6, the KDD process ends with 'Knowledge = Actionable Insight.' The flow goes: Data Selection → Cleaning → Transformation → Data Mining → Internalization → Knowledge (Actionable Insight)." },
+  { q: "Why does CRISP-DM involve significant backtracking between steps?", a: ["The software tools are buggy", "Business goals change every day", "Data mining is driven by experience and experimentation, making it highly iterative", "Analysts rarely have enough data"], c: 2, exp: "'Because the data mining is driven by experience and experimentation... the whole process can be very iterative (one should expect to go back and forth through the steps quite a few times) and time-consuming.'" },
 
-    // SPRINT 3: PREPROCESSING
-    { q: "What are the four main steps of Data Preprocessing?", a: ["Input, Process, Output, Store", "Consolidation, Cleaning, Transformation, Reduction", "Design, Code, Test, Deploy", "Collect, Filter, Save, Send"], c: 1 },
-    { q: "Which preprocessing step involves removing outliers?", a: ["Data Reduction", "Data Cleaning", "Data Transformation", "Data Consolidation"], c: 1 },
-    { q: "What is 'Data Transformation'?", a: ["Normalizing or discretizing data", "Deleting the database", "Moving data to the cloud", "Encrypting files"], c: 0 },
-    { q: "Which step aggregates data from multiple sources?", a: ["Data Cleaning", "Data Reduction", "Data Consolidation", "Data Transformation"], c: 2 },
-    { q: "What does 'Data Reduction' aim to preserve?", a: ["The file name", "Data integrity", "The original size", "The source code"], c: 1 },
-    { q: "Supervised learning training data includes both attributes and:", a: ["The class label", "The user name", "The server location", "The timestamp"], c: 0 },
-    { q: "In unsupervised learning, the training data includes:", a: ["Output variables", "Only descriptive attributes", "The final answer", "All class labels"], c: 1 },
-    { q: "Classification is used when the predicted thing is:", a: ["A real number", "A class label (e.g., rainy vs sunny)", "An average", "A percentage"], c: 1 },
-    { q: "Regression is used when the predicted thing is:", a: ["A class label", "A real number (e.g., temperature)", "A yes/no answer", "A folder"], c: 1 },
-    { q: "Good data leads to good information, which leads to:", a: ["More data", "Good decisions", "Faster computers", "Lower costs"], c: 1 },
+  // SPRINT 3
+  { q: "What are the four main steps of data preprocessing?", a: ["Input, Process, Output, Store", "Data Consolidation, Data Cleaning, Data Transformation, Data Reduction", "Design, Code, Test, Deploy", "Collect, Filter, Analyze, Visualize"], c: 1, exp: "From the Chapter Highlights: 'Data preprocessing includes four main steps: data consolidation, data cleaning, data transformation, and data reduction.' Each addresses a different aspect of preparing raw data." },
+  { q: "Which preprocessing step removes outliers and fixes errors?", a: ["Data Reduction", "Data Consolidation", "Data Transformation", "Data Cleaning"], c: 3, exp: "Data Cleaning addresses the fact that real-world data is 'noisy (containing errors or outliers), and inconsistent (containing discrepancies in codes or names).' Data reduction reduces size while preserving integrity." },
+  { q: "What does Data Transformation accomplish in preprocessing?", a: ["Moving data to a new server", "Deleting irrelevant columns", "Normalizing or discretizing data into a more useful form for analysis", "Encrypting sensitive fields"], c: 2, exp: "Data Transformation includes operations like normalization (scaling values) and discretization (converting continuous variables into categories/ranges). This is required for algorithms like decision trees that need categorical inputs." },
+  { q: "Which preprocessing step aggregates data from multiple sources into a unified view?", a: ["Data Cleaning", "Data Reduction", "Data Transformation", "Data Consolidation"], c: 3, exp: "Data Consolidation combines data from multiple databases or repositories (including data warehouses) into a single integrated dataset before cleaning and transformation." },
+  { q: "In supervised learning, the training data includes:", a: ["Only the output label", "Only the input attributes", "Both the descriptive attributes AND the class (output) label", "Neither — the model learns without any labels"], c: 2, exp: "'With supervised learning algorithms, the training data includes both the descriptive attributes (independent variables) as well as the class attribute (output variable).' Classification and regression are supervised tasks." },
+  { q: "In unsupervised learning (like clustering), the training data includes:", a: ["Only the class label", "Both inputs and outputs", "Pre-labeled clusters from an expert", "Only the descriptive input attributes — no class label"], c: 3, exp: "'With unsupervised learning the training data includes only the descriptive attributes.' No class label is provided — the algorithm discovers natural groupings on its own." },
+  { q: "Classification is used when the predicted output is:", a: ["A real number like temperature", "A continuous measurement", "A class label such as 'rainy' vs. 'sunny' or 'high risk' vs. 'low risk'", "A ranked list"], c: 2, exp: "'If what is being predicted is a class label (e.g., sunny, rainy, or cloudy), the prediction problem is called a classification.' If it's a numeric value, it's called regression." },
+  { q: "Regression is used when the predicted output is:", a: ["A class label like 'approve' or 'deny'", "A category from a predefined set", "A yes/no binary answer", "A real number, such as tomorrow's temperature in degrees"], c: 3, exp: "'If it is a numeric value (e.g., temperature, such as 65°F), the prediction problem is called a regression.' Predicting exact stock prices or house values are classic regression problems." },
+  { q: "Why does data preprocessing matter so much to outcomes?", a: ["More preprocessing makes the model run faster", "'Good data leads to good information; good information leads to good decisions'", "Preprocessing is only needed for large datasets", "Clean data eliminates the need for model evaluation"], c: 1, exp: "The Chapter Highlights state: 'Data preprocessing is essential to any successful data mining study. Good data leads to good information; good information leads to good decisions.' Garbage in, garbage out." },
+  { q: "Identifying the most relevant variables for a retail spending behavior project belongs to which CRISP-DM step?", a: ["Step 1: Business Understanding", "Step 2: Data Understanding", "Step 3: Data Preparation", "Step 4: Model Building"], c: 1, exp: "Step 2 (Data Understanding) involves identifying and selecting the most relevant data and variables. The textbook gives exactly this retail example for Step 2: identifying demographics, credit card transactions, and socioeconomic attributes." },
 
-    // SPRINT 4: CLASSIFICATION
-    { q: "What is a 'Leaf Node' in a decision tree?", a: ["The starting point", "A test on an attribute", "The final class choice", "An error"], c: 2 },
-    { q: "What are the two most popular indices for branching in trees?", a: ["Mean and Median", "Gini Index and Information Gain (Entropy)", "Standard Deviation", "Split and Merge"], c: 1 },
-    { q: "The Gini index measures the ________ of a sample.", a: ["Speed", "Purity", "Size", "Cost"], c: 1 },
-    { q: "If every pattern in a sample belongs to one class, the Gini index is:", a: ["Zero", "One", "0.5", "Infinite"], c: 0 },
-    { q: "What does Entropy measure in ID3 trees?", a: ["Algorithm speed", "The extent of uncertainty or randomness", "Data volume", "Memory usage"], c: 1 },
-    { q: "What is the goal of an ensemble model?", a: ["To reduce accuracy", "To combine multiple individual models for better results", "To simplify the code", "To use less data"], c: 1 },
-    { q: "Which accuracy assessment uses 'k' subsets for training/testing?", a: ["Simple Split", "k-fold Cross-Validation", "Bootstrapping", "AUC"], c: 1 },
-    { q: "What is 'AUC' in classifier assessment?", a: ["Average Unit Cost", "Area Under the ROC Curve", "Attribute Unit Change", "Automatic User Call"], c: 1 },
-    { q: "The 'Simple Split' usually designates how much for training?", a: ["10%", "Two-thirds", "Half", "90%"], c: 1 },
-    { q: "Decision trees are essentially a hierarchy of:", a: ["If-then statements", "Mathematical integrals", "Graphic pixels", "User IDs"], c: 0 },
+  // SPRINT 4
+  { q: "In a decision tree, what is a 'Leaf Node'?", a: ["The root where the tree starts", "A test on an attribute that splits data", "A branch connecting two nodes", "The final class choice at the end of a chain of branches"], c: 3, exp: "'A leaf node at the end represents the final class choice for a pattern (a chain of branches from the root node to the leaf node, which can be represented as a complex if-then statement).'" },
+  { q: "What are the two most popular splitting indices in decision trees?", a: ["Mean and Standard Deviation", "Precision and Recall", "Gini Index and Information Gain (Entropy)", "Support and Confidence"], c: 2, exp: "'Two of the most common ones are the Gini index and information gain.' Gini is used in CART/SPRINT; Information Gain (entropy) is used in ID3, C4.5, and C5 algorithms." },
+  { q: "What does the Gini index measure in a decision tree?", a: ["The speed of the algorithm", "The dataset size", "The purity of the class representation at a node", "The number of attributes used"], c: 2, exp: "'The Gini index measures the purity of a sample. If everything in a sample belongs to one class, the Gini index value is zero.' Lower Gini = purer split. The algorithm picks the split with the smallest ginisplit(S)." },
+  { q: "If all patterns in a node belong to exactly one class, the Gini index equals:", a: ["0.5", "1", "Infinity", "0 (zero)"], c: 3, exp: "'If everything in a sample belongs to one class, the Gini index value is zero.' Zero Gini means maximum purity — every item in that node is the same class, which is the goal of the splitting process." },
+  { q: "What does Entropy measure in the ID3 algorithm?", a: ["Computational cost of the model", "Training dataset size", "The extent of uncertainty or randomness in a dataset", "Number of leaf nodes"], c: 2, exp: "'Entropy measures the extent of uncertainty or randomness in a data set. If all the data in a subset belong to just one class, there is no uncertainty, so the entropy is zero.' The goal is to reduce entropy toward zero." },
+  { q: "What is the main goal of an ensemble model?", a: ["To simplify to a single rule", "To reduce training dataset size", "To intelligently combine predictions from multiple models for better accuracy and robustness", "To speed up computation using one algorithm"], c: 2, exp: "'Creating ensembles is essentially the process of intelligently combining the information created and provided by two or more information sources... combining forecasts can (and often will) improve accuracy and robustness while reducing uncertainty and bias.'" },
+  { q: "How does k-fold cross-validation work?", a: ["Once, on 50% of the data each way", "The data splits into k folds; model trains on all but one, tests on that fold, repeated k times", "Only on the first and last k records", "k models each trained on the full dataset"], c: 1, exp: "'The classification model is trained and tested k times. Each time it is trained on all but one fold and then tested on the remaining single fold.' Overall accuracy = the average of all k individual accuracy measures." },
+  { q: "What does an AUC value of 1.0 mean?", a: ["The model is very expensive to run", "All attributes changed equally", "A perfect classifier", "Full automation was achieved"], c: 2, exp: "'The area under the ROC curve (AUC) determines the predictive power of a classifier: A value of 1 indicates a perfect classifier, whereas 0.5 indicates no better than random chance.'" },
+  { q: "In the Simple Split method, what proportion is conventionally used for training?", a: ["50%", "25%", "Two-thirds (~67%)", "90%"], c: 2, exp: "'It is common to designate two-thirds of the data as the training set and the remaining one-third as the test set (also called the holdout set).' An exception is neural networks, which also use a validation set." },
+  { q: "Decision trees are structurally equivalent to a hierarchy of:", a: ["Mathematical integrals", "If-then statements", "Bayesian probability equations", "Recursive neural layers"], c: 1, exp: "'Decision trees are essentially a hierarchy of if-then statements and are thus significantly faster than neural networks.' Each path from root to leaf can be written as a chain of if-then rules." },
 
-    // SPRINT 5: CLUSTERING & BLUNDERS
-    { q: "Which algorithm is the most referenced for clustering?", a: ["Apriori", "k-means", "C4.5", "Decision Tree"], c: 1 },
-    { q: "In k-means, what is the center of a cluster called?", a: ["Middle", "Centroid", "Core", "Hub"], c: 1 },
-    { q: "Market-Basket Analysis is also known as:", a: ["Regression Analysis", "Association Rule Mining", "Data Reduction", "Predictive Policing"], c: 1 },
-    { q: "Which algorithm is most common for association rules?", a: ["k-means", "Apriori", "Neural Network", "ID3"], c: 1 },
-    { q: "What are the two main metrics for Association Rules?", a: ["Speed and Size", "Support and Confidence", "Gini and Entropy", "Mean and Median"], c: 1 },
-    { q: "What is 'Fool’s Gold' in data mining?", a: ["Buying fake software", "Using data from the future to predict the future", "Finding patterns that don't exist", "Losing data"], c: 1 },
-    { q: "Which blunder involves starting without a business problem?", a: ["Magic Bullet", "Beginning without the end in mind", "Fool's Gold", "Cleaning"], c: 1 },
-    { q: "Clustering is used when data records:", a: ["Have many class labels", "Do not have predefined class identifiers", "Are very small", "Are all identical"], c: 1 },
-    { q: "Which is a common myth about data mining?", a: ["It is a process", "It provides instant crystal-ball predictions", "It uses statistics", "It requires data preprocessing"], c: 1 },
-    { q: "The Apriori algorithm uses which approach?", a: ["Top-down", "Bottom-up", "Random", "Recursive-only"], c: 1 }
+  // SPRINT 5
+  { q: "Which clustering algorithm is 'arguably the most referenced'?", a: ["Apriori", "Self-organizing map", "DBSCAN", "k-means"], c: 3, exp: "'The k-means algorithm (where k stands for the predetermined number of clusters) is arguably the most referenced clustering algorithm. It has its roots in traditional statistical analysis.'" },
+  { q: "In k-means, what is the 'centroid'?", a: ["The outermost point in a cluster", "The center of a cluster, calculated as the arithmetic mean of all its points", "The first randomly assigned point", "The point with the most neighbors"], c: 1, exp: "'The algorithm assigns each data point to the cluster whose center (also called the centroid) is the nearest. The center is calculated as the average of all the points in the cluster — the arithmetic mean for each dimension.'" },
+  { q: "Association Rule Mining in retail is also called:", a: ["Customer segmentation analysis", "Regression analysis", "Market-Basket Analysis", "Discriminant analysis"], c: 2, exp: "'In the context of the retail industry, association rule mining is often called market-basket analysis.' The classic example: beer and diapers commonly bought together at grocery stores." },
+  { q: "Which algorithm is most commonly used for association rules?", a: ["k-means", "ID3", "Neural network backpropagation", "Apriori"], c: 3, exp: "'The Apriori algorithm is the most commonly used algorithm to discover association rules... Apriori uses a bottom-up approach, where frequent subsets are extended one item at a time.'" },
+  { q: "In Association Rule Mining, what do Support and Confidence measure?", a: ["Model speed and data size", "How often itemsets appear together (support) and how often the RHS occurs given the LHS (confidence)", "Training vs. test accuracy", "Gini purity and entropy"], c: 1, exp: "Support = proportion of all transactions containing all items in the rule. Confidence = conditional probability that the RHS appears given the LHS. Both must meet minimum thresholds for a rule to be actionable." },
+  { q: "What is 'Fool's Gold' in data mining blunders?", a: ["Buying expensive software that fails", "Using data from the future to predict the future, producing unrealistically accurate but invalid models", "Patterns that look good but have no business value", "Ignoring domain experts"], c: 1, exp: "Fool's Gold: 'analysts include variables that are unknown at the time the prediction is supposed to be made... their prediction models produce unbelievably accurate results.' If results seem too good to be true, check if you're accidentally using future data." },
+  { q: "Which blunder is described as 'Beginning without the end in mind'?", a: ["Using the wrong algorithm", "Starting a project without a stated business goal or problem", "Not cleaning the data first", "Skipping deployment"], c: 1, exp: "'Beginning without the end in mind. Although data mining is a process of knowledge discovery, one should have a goal/objective (a stated business problem) in mind to succeed. If you don't know where you are going, you will never get there.'" },
+  { q: "Clustering algorithms are used when data records:", a: ["Have clearly labeled class identifiers", "Are very small in size", "Do not have predefined class identifiers — membership is unknown in advance", "Are all identical in attributes"], c: 2, exp: "'Cluster algorithms are used when the data records do not have predefined class identifiers.' This is the fundamental difference from classification — in clustering, the algorithm discovers the classes itself." },
+  { q: "Which statement about data mining is listed as a myth in the textbook?", a: ["Data mining is a multi-step process", "Data mining uses statistical techniques", "Data mining provides instant, crystal-ball-like predictions", "Data mining requires preprocessing"], c: 2, exp: "Table 5.6 lists this myth: 'Data mining provides instant, crystal-ball-like predictions.' Reality: 'Data mining is a multistep process that requires deliberate, proactive design and use.' Expect significant effort before any results." },
+  { q: "The Apriori algorithm uses which approach to identify frequent itemsets?", a: ["Top-down: starts with all itemsets and prunes", "Random sampling until convergence", "Bottom-up: starts with single items and extends one item at a time", "Recursive divide-and-conquer"], c: 2, exp: "'Apriori uses a bottom-up approach, where frequent subsets are extended one item at a time (candidate generation), and groups of candidates at each level are tested against the data for minimum support. The algorithm terminates when no further extensions are found.'" },
+
+  // SPRINT 6 — Types & Taxonomies
+  { q: "What are the four types of patterns data mining seeks to identify?", a: ["Regression, Classification, Clustering, Forecasting", "Associations, Predictions, Clusters, Sequential Relationships", "Supervised, Unsupervised, Semi-supervised, Reinforced", "Input, Process, Output, Feedback"], c: 1, exp: "The textbook lists four major pattern types: (1) Associations — co-occurring items like beer & diapers; (2) Predictions — foretelling future events; (3) Clusters — natural groupings by characteristics; (4) Sequential Relationships — time-ordered events like banking account progression." },
+  { q: "What are the three broad categories of data mining tasks?", a: ["Input, Processing, Output", "Training, Testing, Deployment", "Prediction, Association, Clustering", "Classification, Regression, Visualization"], c: 2, exp: "The textbook states: 'generally speaking, data mining tasks can be classified into three main categories: prediction, association, and clustering.' Prediction includes both classification and regression as sub-types." },
+  { q: "What are the two types of learning algorithms used in data mining?", a: ["Active and passive learning", "Supervised and unsupervised learning", "Online and offline learning", "Inductive and deductive learning"], c: 1, exp: "Data mining learning algorithms are classified as either supervised (training data includes both input attributes AND the class label) or unsupervised (training data includes only input attributes — no class label provided)." },
+  { q: "What are the two specific types of Prediction tasks, and how do they differ?", a: ["Clustering and Association — differ by data size", "Forecasting and Guessing — differ by accuracy", "Classification and Regression — differ by output type (label vs. number)", "Supervised and Unsupervised — differ by training data"], c: 2, exp: "Prediction splits into: Classification (predicted output is a class label, e.g., 'rainy' or 'sunny') and Regression (predicted output is a real number, e.g., temperature of 68°F). The nature of the output variable determines which is appropriate." },
+  { q: "What are the two main types of quantitative data?", a: ["Nominal and ordinal", "Soft and hard", "Discrete and continuous", "Structured and unstructured"], c: 2, exp: "The textbook states: 'Quantitative data are measured using numeric values. It can be discrete (such as integers) or continuous (such as real numbers).' For example, number of transactions = discrete; temperature = continuous." },
+  { q: "What are the two types of qualitative (categorical) data, and what distinguishes them?", a: ["Discrete and continuous — differ by measurability", "Nominal and ordinal — differ by whether values have a meaningful order", "Hard and soft — differ by structure", "Primary and secondary — differ by collection method"], c: 1, exp: "Qualitative data contains: (1) Nominal data — finite non-ordered values (e.g., gender); (2) Ordinal data — finite ordered values (e.g., credit ratings of excellent, fair, bad). The key difference is whether the values have a meaningful rank or order." },
+  { q: "What are the five main accuracy metrics for evaluating classification models?", a: ["Speed, Robustness, Scalability, Interpretability, Cost", "Accuracy, True Positive Rate, True Negative Rate, Precision, Recall", "Support, Confidence, Lift, Gini, Entropy", "Training accuracy, Test accuracy, Validation accuracy, AUC, F1"], c: 1, exp: "Table 5.1 lists these five metrics from the confusion matrix: Accuracy (overall correct/total), True Positive Rate / Sensitivity (correctly classified positives), True Negative Rate / Specificity (correctly classified negatives), Precision (TP/(TP+FP)), and Recall (same as TPR)." },
+  { q: "What are the four main methods for estimating classification model accuracy?", a: ["Gini, Entropy, AUC, Lift", "CRISP-DM, SEMMA, KDD, Agile", "Simple Split, k-fold Cross-Validation, Bootstrapping, Leave-one-out / Jackknifing", "Training, Validation, Testing, Deployment"], c: 2, exp: "The textbook covers four main estimation methodologies: (1) Simple Split — two-thirds train / one-third test; (2) k-fold Cross-Validation — k subsets rotated for testing; (3) Bootstrapping — sampling with replacement; (4) Leave-one-out / Jackknifing — one sample left out per iteration." },
+  { q: "What are the two categories of ensemble models, and what is each based on?", a: ["Bagging and Boosting — based on data size vs. speed", "Supervised and Unsupervised — based on label availability", "Homogeneous and Heterogeneous — based on whether the combined models are the same type or different types", "Static and Dynamic — based on retraining frequency"], c: 2, exp: "Ensemble models are: (1) Homogeneous — combine the same model type (e.g., multiple decision trees); examples are Bagging (Random Forest) and Boosting (AdaBoosting). (2) Heterogeneous — combine different model types (e.g., decision trees + neural networks + SVM); also called information fusion models." },
+  { q: "What are the four general methods used for cluster analysis?", a: ["Classification, Regression, Association, Prediction", "CRISP-DM, SEMMA, KDD, Agile", "Statistical methods, Neural networks, Fuzzy logic, Genetic algorithms", "Apriori, k-means, ID3, CART"], c: 2, exp: "The textbook lists four cluster analysis method categories: (1) Statistical methods — k-means, k-modes; (2) Neural networks — self-organizing map (SOM); (3) Fuzzy logic — fuzzy c-means; (4) Genetic algorithms. Each can use either divisive (top-down) or agglomerative (bottom-up) approaches." },
+
+  // SPRINT 7 — CRISP-DM Deep Dive
+  { q: "How many steps does CRISP-DM have, and what is the correct order?", a: ["4 steps: Understand, Prepare, Model, Deploy", "5 steps: Sample, Explore, Modify, Model, Assess", "6 steps: Business Understanding → Data Understanding → Data Preparation → Model Building → Testing & Evaluation → Deployment", "7 steps: Plan, Collect, Clean, Explore, Model, Evaluate, Deploy"], c: 2, exp: "CRISP-DM has exactly 6 steps: (1) Business Understanding, (2) Data Understanding, (3) Data Preparation, (4) Model Building, (5) Testing and Evaluation, (6) Deployment. The process is iterative — expect significant backtracking between steps." },
+  { q: "What is the specific goal of Step 1 (Business Understanding) in CRISP-DM?", a: ["Select the best algorithm for the data", "Identify and clean the relevant data sources", "Establish a thorough understanding of the managerial need and explicitly specify the business objective", "Deploy the model into the production environment"], c: 2, exp: "Step 1 requires knowing 'what the study is for' — defining specific goals like 'What are the common characteristics of customers we lost to competitors?' A project plan, responsible parties, and high-level budget are also established at this stage." },
+  { q: "What is the primary activity in Step 2 (Data Understanding) of CRISP-DM?", a: ["Removing outliers and filling missing values", "Training and comparing multiple model types", "Identifying relevant data sources, understanding variables, and using statistical/graphical techniques to explore the data", "Deploying the model to end users"], c: 2, exp: "Step 2 involves identifying relevant data from available databases, understanding data sources (where stored, how collected, who collects it), and exploring variables using statistics (mean, median, std dev) and visuals (histograms, scatterplots, box plots)." },
+  { q: "Why does Step 3 (Data Preparation) consume more time than any other CRISP-DM step?", a: ["The algorithms used in this step are computationally slow", "Most analysts are unfamiliar with data cleaning tools", "Real-world data is generally incomplete, noisy, and inconsistent — requiring substantial effort to fix", "Data preparation requires approval from multiple departments"], c: 2, exp: "The textbook is explicit: real-world data is 'incomplete (lacking attribute values), noisy (containing errors or outliers), and inconsistent (containing discrepancies in codes or names).' Fixing these issues across large datasets routinely consumes ~80% of total project time." },
+  { q: "What does Step 4 (Model Building) involve beyond just training one model?", a: ["Only selecting the single best-known algorithm", "Applying multiple modeling techniques, comparing results, and calibrating parameters — because there is no universally best method", "Automatically generating models using AutoML tools only", "Reusing models from previous projects without modification"], c: 1, exp: "'Because there is not a universally known best method or algorithm for a data mining task, one should use a variety of viable model types along with a well-defined experimentation and assessment strategy to identify the best method for a given purpose.' Parameters also need calibration." },
+  { q: "What is the key challenge in Step 5 (Testing and Evaluation) of CRISP-DM?", a: ["Finding enough computing power to run the models", "Obtaining more labeled training data", "Determining business value from discovered knowledge patterns — requiring collaboration between data analysts, business analysts, and decision makers", "Publishing the model results in a research paper"], c: 2, exp: "'No value is added by the data mining task until the business value obtained from discovered knowledge patterns is identified and recognized.' This requires interaction among data analysts (technical), business analysts, and decision makers — each bringing different expertise." },
+  { q: "What two things can Step 6 (Deployment) range from, according to the textbook?", a: ["Publishing results online or storing them in a database", "Generating a simple report OR implementing a repeatable data mining process across the entire enterprise", "Sending results by email or presenting them in a meeting", "Creating a dashboard or writing a research paper"], c: 1, exp: "'The deployment phase can be as simple as generating a report or as complex as implementing a repeatable data mining process across the enterprise.' Deployment also includes maintenance — models must be monitored and updated as business data changes over time." },
+  { q: "Why is backtracking so common in CRISP-DM, and which direction does it most often go?", a: ["Forward only — each step improves on the last", "Backward — later steps often reveal problems that require returning to earlier steps, especially Data Preparation", "Sideways — analysts switch between projects frequently", "It is not common — CRISP-DM is designed to be linear"], c: 1, exp: "'Because later steps are built on the outcomes of the former ones, one should pay extra attention to the earlier steps.' For example, Model Building often reveals data issues requiring a return to Data Preparation, and Evaluation may prompt new Business Understanding questions." },
+  { q: "What specific tasks are involved in Step 2 (Data Understanding) to explore variables?", a: ["Normalizing, discretizing, and transforming all variables", "Deploying a prototype model and checking its output", "Simple statistical summaries (mean, min/max, median, std dev for numeric; mode and frequency tables for categorical), correlation analysis, scatterplots, histograms, and box plots", "Selecting the algorithm and splitting the data"], c: 2, exp: "The textbook details Step 2 exploration: for numeric variables — average, min/max, median, std dev; for categorical variables — mode and frequency tables; plus correlation analysis, scatterplots, histograms, and box plots. These tools build 'intimate understanding of the data.'" },
+  { q: "Why must models be maintained after Step 6 (Deployment)?", a: ["Because software licenses expire and models need to be re-purchased", "Because models are only valid for one year by regulation", "Because business data constantly changes — models built on old data can become obsolete, irrelevant, or misleading over time", "Because end users frequently request new features"], c: 2, exp: "'Because everything about the business is constantly changing, the data that reflect the business activities also are changing. Over time, the models built on the old data may become obsolete, irrelevant, or misleading.' A maintenance strategy and monitoring plan are essential." }
 ];
 
-let currentBatch = [];
-let qIdx = 0;
-let score = 0;
+// ── State ──────────────────────────────────────────────────────────────────
+let queue = [], originalBatch = [], qIdx = 0, score = 0;
+let answered = false, missedQuestions = [], requeue = [], totalAnswered = 0;
 
+// ── Helpers ────────────────────────────────────────────────────────────────
 function showScreen(id) {
-    document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-    document.getElementById(id).classList.add('active');
-    window.scrollTo(0,0);
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  window.scrollTo(0, 0);
 }
 
 function startSprint(idx) {
-    const start = idx * 10;
-    currentBatch = questions.slice(start, start + 10);
-    qIdx = 0;
-    score = 0;
-    showScreen('quiz');
-    renderQuestion();
+  const start = idx * 10;
+  originalBatch = questions.slice(start, start + 10);
+  queue = [...originalBatch];
+  qIdx = 0; score = 0; totalAnswered = 0;
+  missedQuestions = []; requeue = []; answered = false;
+  showScreen('quiz');
+  renderQuestion();
 }
 
-function renderQuestion() {
-    const data = currentBatch[qIdx];
-    const progress = (qIdx / 10) * 100;
-    document.getElementById('progress').style.width = progress + '%';
+function retryMissed() {
+  queue = missedQuestions.map(q => Object.assign({}, q, { _retried: true }));
+  qIdx = 0; score = 0; totalAnswered = 0;
+  missedQuestions = []; requeue = []; answered = false;
+  showScreen('quiz');
+  renderQuestion();
+}
 
-    let html = `<span class="sprint-tag">Question ${qIdx + 1} of 10</span>`;
-    html += `<div class="q-text">${data.q}</div><div class="options-grid">`;
-    data.a.forEach((opt, i) => {
-        html += `<button class="opt-btn" onclick="checkAnswer(${i})">${opt}</button>`;
-    });
-    html += `</div>`;
-    document.getElementById('quiz-content').innerHTML = html;
+// ── Render ─────────────────────────────────────────────────────────────────
+function renderQuestion() {
+  answered = false;
+  const q = queue[qIdx];
+  const isRetry = q._retried || false;
+  const total = queue.length;
+  const pct = (qIdx / total) * 100;
+
+  document.getElementById('progress').style.width = pct + '%';
+  document.getElementById('progress-text').textContent = (qIdx + 1) + ' / ' + total;
+  document.getElementById('score-live').textContent = 'Score: ' + score;
+
+  const requeueCount = requeue.length;
+  document.getElementById('queue-status-wrap').innerHTML = requeueCount > 0
+    ? '<div class="queue-status"><div class="queue-dot"></div><span>' + requeueCount + ' missed question' + (requeueCount > 1 ? 's' : '') + ' will be re-queued.</span></div>'
+    : '';
+
+  const letters = ['A', 'B', 'C', 'D'];
+  const sprintNum = (() => {
+    for (let i = 0; i < questions.length; i++) {
+      if (questions[i].q === q.q) return Math.floor(i / 10) + 1;
+    }
+    return '?';
+  })();
+
+  let html = '<div class="quiz-card"><div class="q-meta">'
+    + '<span class="q-number">Q' + (qIdx + 1) + '</span>'
+    + (isRetry ? '<span class="retry-badge">↺ Retry</span>' : '')
+    + '<span class="sprint-tag" style="margin-bottom:0">Sprint ' + sprintNum + '</span>'
+    + '</div><div class="q-text">' + q.q + '</div>'
+    + '<div class="options-grid" id="options">';
+
+  q.a.forEach(function(opt, i) {
+    html += '<button class="opt-btn" data-idx="' + i + '"><span class="opt-letter">' + letters[i] + '</span><span>' + opt + '</span></button>';
+  });
+
+  html += '</div><div id="explanation-area"></div></div>';
+  document.getElementById('quiz-content').innerHTML = html;
+
+  // Attach listeners via delegation
+  document.getElementById('options').addEventListener('click', function(e) {
+    const btn = e.target.closest('.opt-btn');
+    if (btn && !answered) checkAnswer(parseInt(btn.dataset.idx, 10));
+  });
+
+  const nextBtn = document.getElementById('next-btn');
+  nextBtn.classList.remove('visible');
+  nextBtn.textContent = 'Next question →';
 }
 
 function checkAnswer(idx) {
-    const correct = currentBatch[qIdx].c;
-    const buttons = document.querySelectorAll('.opt-btn');
-    
-    if(idx === correct) {
-        buttons[idx].classList.add('correct');
-        score++;
-    } else {
-        buttons[idx].classList.add('wrong');
-        buttons[correct].classList.add('correct');
-    }
+  if (answered) return;
+  answered = true;
 
-    setTimeout(() => {
-        qIdx++;
-        if(qIdx < 10) {
-            renderQuestion();
-        } else {
-            finishSprint();
-        }
-    }, 1200);
+  const q = queue[qIdx];
+  const correct = q.c;
+  const isCorrect = idx === correct;
+
+  document.querySelectorAll('.opt-btn').forEach(function(b) { b.disabled = true; });
+
+  document.getElementById('opt-' + idx) && (function(){
+    // find by data-idx
+    document.querySelectorAll('.opt-btn').forEach(function(b) {
+      if (parseInt(b.dataset.idx) === idx) b.classList.add(isCorrect ? 'correct' : 'wrong');
+      if (parseInt(b.dataset.idx) === correct && !isCorrect) b.classList.add('reveal');
+    });
+  })();
+
+  if (!isCorrect) {
+    requeue.push(Object.assign({}, q, { _retried: true }));
+    if (!missedQuestions.find(function(m){ return m.q === q.q; })) {
+      missedQuestions.push(q);
+    }
+  } else {
+    score++;
+  }
+
+  totalAnswered++;
+  document.getElementById('score-live').textContent = 'Score: ' + score;
+
+  document.getElementById('explanation-area').innerHTML =
+    '<div class="explanation-box"><div class="exp-label">'
+    + (isCorrect ? '✓ Correct' : '✗ Incorrect') + ' — Explanation</div><p>' + q.exp + '</p></div>';
+
+  const nextBtn = document.getElementById('next-btn');
+  const isLast = qIdx >= queue.length - 1;
+  nextBtn.textContent = (isLast && requeue.length === 0) ? 'See results →' : 'Next question →';
+  nextBtn.classList.add('visible');
+}
+
+function nextQuestion() {
+  qIdx++;
+  if (qIdx < queue.length) {
+    renderQuestion();
+  } else if (requeue.length > 0) {
+    queue = queue.concat(requeue);
+    requeue = [];
+    renderQuestion();
+  } else {
+    finishSprint();
+  }
 }
 
 function finishSprint() {
-    showScreen('results');
-    const percent = (score / 10) * 100;
-    document.getElementById('score-display').textContent = percent + '%';
-    document.getElementById('score-text').textContent = `You got ${score} out of 10 correct in this sprint.`;
+  showScreen('results');
+  const pct = Math.round((score / totalAnswered) * 100);
+
+  setTimeout(function() {
+    const offset = 326.7 - (pct / 100) * 326.7;
+    const ring = document.getElementById('ring-fill');
+    ring.style.strokeDashoffset = offset;
+    ring.style.stroke = pct >= 80 ? '#3ecf72' : pct >= 60 ? '#c9a84c' : '#f06a6a';
+  }, 100);
+
+  document.getElementById('score-number').textContent = pct + '%';
+
+  let label, sub;
+  if (pct === 100) { label = 'Perfect Score! 🎯'; sub = score + '/' + totalAnswered + ' correct. Flawless.'; }
+  else if (pct >= 80) { label = 'Great Work!'; sub = score + '/' + totalAnswered + ' correct. Solid grasp of the material.'; }
+  else if (pct >= 60) { label = 'Good Effort'; sub = score + '/' + totalAnswered + ' correct. Review the explanations for missed ones.'; }
+  else { label = 'Keep Practicing'; sub = score + '/' + totalAnswered + ' correct. Re-read the chapter and retry.'; }
+
+  document.getElementById('result-label').textContent = label;
+  document.getElementById('result-sub').textContent = sub;
+
+  let missedHtml = '';
+  if (missedQuestions.length > 0) {
+    missedHtml = '<hr class="divider"><p style="font-size:13px;color:var(--text2);margin-bottom:12px;text-align:left"><strong style="color:var(--text)">Questions you missed:</strong></p><div class="missed-list">';
+    missedQuestions.forEach(function(q) {
+      missedHtml += '<div class="missed-item"><strong>Correct: "' + q.a[q.c] + '"</strong>' + q.q + '</div>';
+    });
+    missedHtml += '</div><hr class="divider">';
+  }
+  document.getElementById('missed-section').innerHTML = missedHtml;
+
+  const retryBtn = document.getElementById('btn-retry');
+  if (missedQuestions.length > 0) {
+    retryBtn.style.display = 'inline-block';
+    retryBtn.textContent = 'Retry ' + missedQuestions.length + ' missed question' + (missedQuestions.length > 1 ? 's' : '');
+  } else {
+    retryBtn.style.display = 'none';
+  }
 }
+
+// ── Wire up all static buttons via addEventListener ────────────────────────
+document.addEventListener('DOMContentLoaded', function() {
+  document.getElementById('btn-home-nav').addEventListener('click', function() { showScreen('home'); });
+  document.getElementById('go-sprints').addEventListener('click', function() { showScreen('sprints'); });
+  document.getElementById('btn-back-home').addEventListener('click', function() { showScreen('home'); });
+  document.getElementById('next-btn').addEventListener('click', nextQuestion);
+  document.getElementById('btn-retry').addEventListener('click', retryMissed);
+  document.getElementById('btn-back-sprints').addEventListener('click', function() { showScreen('sprints'); });
+
+  document.querySelectorAll('.sprint-card').forEach(function(card) {
+    card.addEventListener('click', function() {
+      startSprint(parseInt(card.dataset.sprint, 10));
+    });
+  });
+});
 </script>
 </body>
 </html>
