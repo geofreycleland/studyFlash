@@ -23,24 +23,26 @@ body{background:var(--bg);color:var(--text);font-family:'Geist',sans-serif;font-
 .nav{background:var(--bg1);border-bottom:1px solid var(--line);padding:16px 24px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:100}
 .logo-text{font-family:'Instrument Serif',serif;font-size:22px;color:#fff}
 .logo-badge{font-size:10px;color:var(--orange);background:rgba(249,115,22,0.1);padding:2px 8px;border-radius:4px;margin-left:8px}
-.nav-btn{background:var(--bg3);color:var(--text2);border:1px solid var(--line2);padding:7px 14px;border-radius:8px;font-size:13px;cursor:pointer;transition:0.15s;font-family:'Geist',sans-serif}
-.nav-btn:hover{border-color:var(--orange);color:var(--text)}
+.nav-btn{background:var(--bg3);color:var(--text2);border:1px solid var(--line2);padding:7px 14px;border-radius:8px;font-size:13px;cursor:pointer;font-family:'Geist',sans-serif}
 .main{flex:1;padding:28px 20px;max-width:820px;margin:0 auto;width:100%}
 .screen{display:none}.screen.active{display:block}
 h1{font-family:'Instrument Serif',serif;font-size:34px;margin-bottom:8px;color:var(--gold2);line-height:1.2}
 .subtitle{color:var(--text2);margin-bottom:28px;font-size:14px}
-.chapter-card{background:var(--bg1);border:1px solid var(--line);border-radius:var(--r);padding:20px 22px;margin-bottom:14px;cursor:pointer;transition:0.2s;position:relative;overflow:hidden;user-select:none}
+.chapter-card{background:var(--bg1);border:1px solid var(--line);border-radius:var(--r);padding:20px 22px;margin-bottom:14px;cursor:pointer;transition:0.2s;user-select:none}
 .chapter-card:hover{border-color:var(--orange);transform:translateY(-1px)}
 .chapter-card h3{color:var(--orange2);margin-bottom:4px;font-size:15px}
 .chapter-card p{color:var(--text2);font-size:13px}
+.chapter-card.aws h3{color:var(--blue)}
+.chapter-card.aws:hover{border-color:var(--blue)}
 .chapter-card.locked{opacity:0.4;cursor:default;border-style:dashed}
 .chapter-card.locked:hover{transform:none;border-color:var(--line)}
 .chapter-card.locked h3{color:var(--text3)}
 .sprint-tag{font-size:10px;text-transform:uppercase;color:var(--orange);background:rgba(249,115,22,0.1);padding:2px 8px;border-radius:4px;letter-spacing:1px;margin-bottom:8px;display:inline-block}
-.progress-wrap{margin-bottom:6px;display:flex;justify-content:space-between;align-items:center}
+.sprint-tag.aws{color:var(--blue);background:rgba(96,165,250,0.1)}
+.progress-wrap{margin-bottom:6px;display:flex;justify-content:space-between}
 .progress-label{font-size:12px;color:var(--text3);font-family:'Geist Mono',monospace}
 .progress-bar{height:4px;background:var(--bg3);border-radius:2px;margin-bottom:24px;overflow:hidden}
-.progress-fill{height:100%;background:linear-gradient(90deg,var(--orange),var(--orange2));width:0%;transition:0.4s cubic-bezier(0.4,0,0.2,1)}
+.progress-fill{height:100%;background:linear-gradient(90deg,var(--orange),var(--orange2));width:0%;transition:0.4s}
 .quiz-card{background:var(--bg1);border:1px solid var(--line2);border-radius:var(--r2);padding:28px;margin-bottom:16px}
 .q-meta{display:flex;gap:8px;align-items:center;margin-bottom:18px;flex-wrap:wrap}
 .q-number{font-family:'Geist Mono',monospace;font-size:11px;color:var(--text3);background:var(--bg3);padding:3px 8px;border-radius:4px}
@@ -61,11 +63,10 @@ h1{font-family:'Instrument Serif',serif;font-size:34px;margin-bottom:8px;color:v
 .exp-label{font-size:10px;text-transform:uppercase;letter-spacing:1px;color:var(--blue);margin-bottom:6px;font-family:'Geist Mono',monospace}
 .explanation-box p{font-size:13px;color:var(--text2);line-height:1.6}
 @keyframes fadeIn{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}
-.next-btn{background:var(--orange);color:#fff;border:none;padding:12px 28px;border-radius:var(--r);font-weight:600;margin-top:18px;cursor:pointer;font-family:'Geist',sans-serif;font-size:14px;transition:0.15s;display:none}
-.next-btn:hover{background:var(--orange2)}
+.next-btn{background:var(--orange);color:#fff;border:none;padding:12px 28px;border-radius:var(--r);font-weight:600;margin-top:18px;cursor:pointer;font-family:'Geist',sans-serif;font-size:14px;display:none}
 .next-btn.visible{display:inline-block}
 .queue-status{background:var(--bg2);border:1px solid var(--line);border-radius:10px;padding:12px 16px;margin-bottom:20px;display:flex;align-items:center;gap:12px;font-size:13px;color:var(--text2)}
-.queue-dot{width:8px;height:8px;border-radius:50%;background:var(--gold);box-shadow:0 0 6px var(--gold);animation:pulse 2s infinite;flex-shrink:0}
+.queue-dot{width:8px;height:8px;border-radius:50%;background:var(--gold);flex-shrink:0;animation:pulse 2s infinite}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:0.5}}
 .results-card{background:var(--bg1);border:1px solid var(--line2);border-radius:var(--r2);padding:32px;text-align:center}
 .score-ring{width:120px;height:120px;margin:0 auto 20px;position:relative}
@@ -78,13 +79,11 @@ h1{font-family:'Instrument Serif',serif;font-size:34px;margin-bottom:8px;color:v
 .missed-list{text-align:left;margin-bottom:24px}
 .missed-item{background:var(--bg2);border:1px solid var(--line);border-radius:8px;padding:10px 14px;margin-bottom:8px;font-size:13px;color:var(--text2)}
 .missed-item strong{color:var(--red);font-size:11px;font-family:'Geist Mono',monospace;display:block;margin-bottom:2px}
-.btn-primary{background:var(--orange);color:#fff;border:none;padding:12px 24px;border-radius:var(--r);font-weight:600;cursor:pointer;font-family:'Geist',sans-serif;font-size:14px;transition:0.15s;margin:4px}
-.btn-primary:hover{background:var(--orange2)}
-.btn-secondary{background:var(--bg3);color:var(--text2);border:1px solid var(--line2);padding:12px 24px;border-radius:var(--r);font-weight:500;cursor:pointer;font-family:'Geist',sans-serif;font-size:14px;transition:0.15s;margin:4px}
-.btn-secondary:hover{border-color:var(--orange);color:var(--text)}
-.back-btn{background:var(--bg3);color:var(--text2);border:1px solid var(--line2);padding:8px 16px;border-radius:8px;font-size:13px;cursor:pointer;transition:0.15s;margin-bottom:22px;display:inline-flex;align-items:center;gap:6px;font-family:'Geist',sans-serif}
-.back-btn:hover{border-color:var(--orange);color:var(--text)}
+.btn-primary{background:var(--orange);color:#fff;border:none;padding:12px 24px;border-radius:var(--r);font-weight:600;cursor:pointer;font-family:'Geist',sans-serif;font-size:14px;margin:4px}
+.btn-secondary{background:var(--bg3);color:var(--text2);border:1px solid var(--line2);padding:12px 24px;border-radius:var(--r);font-weight:500;cursor:pointer;font-family:'Geist',sans-serif;font-size:14px;margin:4px}
+.back-btn{background:var(--bg3);color:var(--text2);border:1px solid var(--line2);padding:8px 16px;border-radius:8px;font-size:13px;cursor:pointer;margin-bottom:22px;display:inline-flex;align-items:center;gap:6px;font-family:'Geist',sans-serif}
 hr.divider{border:none;border-top:1px solid var(--line);margin:24px 0}
+.section-label{font-size:11px;text-transform:uppercase;letter-spacing:1.5px;color:var(--text3);margin-bottom:12px;margin-top:4px;font-family:'Geist Mono',monospace}
 </style>
 </head>
 <body>
@@ -95,55 +94,57 @@ hr.divider{border:none;border-top:1px solid var(--line);margin:24px 0}
   </div>
   <div class="main">
 
+    <!-- HOME -->
     <div id="home" class="screen active">
-      <h1>Chapter 5</h1>
-      <p class="subtitle">Predictive Analytics I — Data Mining Process, Methods &amp; Algorithms</p>
+      <h1>My Courses</h1>
+      <p class="subtitle">Select a subject to begin studying.</p>
+
+      <p class="section-label">Predictive Analytics</p>
       <div class="chapter-card" id="go-sprints">
-        <span class="sprint-tag">Available</span>
-        <h3>Chapter 5: Predictive Analytics</h3>
-        <p>7 sprints · 70 questions · Wrong answers re-queued until correct</p>
+        <span class="sprint-tag">7 Sprints</span>
+        <h3>Chapter 5: Data Mining</h3>
+        <p>70 questions · Foundations, CRISP-DM, classification, clustering, association &amp; more</p>
       </div>
-      <div class="chapter-card" id="go-aws-sprints">
-        <span class="sprint-tag" style="background:rgba(96,165,250,0.1);color:var(--blue)">Available</span>
-        <h3 style="color:var(--blue)">AWS VPC &amp; Networking</h3>
-        <p>2 sprints · 20 exam-style questions · VPC endpoints, Direct Connect, NAT, peering &amp; more</p>
+
+      <p class="section-label">AWS Solutions Architect</p>
+      <div class="chapter-card aws" id="go-aws-sprints">
+        <span class="sprint-tag aws">2 Sprints</span>
+        <h3>VPC &amp; Networking</h3>
+        <p>20 questions · Endpoints, Direct Connect, NAT, peering, Transit Gateway &amp; more</p>
       </div>
-      <div class="chapter-card locked">
+
+      <div class="chapter-card locked" onclick="return false;">
         <h3>Chapter 6: Machine Learning</h3>
         <p>Coming soon</p>
       </div>
     </div>
 
+    <!-- CH5 SPRINTS -->
     <div id="sprints" class="screen">
-      <button class="back-btn" id="btn-back-home">← Chapters</button>
-      <h1>Study Sprints</h1>
-      <p class="subtitle">Each sprint has 10 questions. Wrong answers are re-queued until you get them right.</p>
-      <div class="chapter-card sprint-card" data-sprint="0"><span class="sprint-tag">Sprint 1</span><h3>Foundations &amp; Pattern Types</h3><p>Why 'Data Mining' is a misnomer, the four pattern types, and key definitions.</p></div>
-      <div class="chapter-card sprint-card" data-sprint="1"><span class="sprint-tag">Sprint 2</span><h3>Standard Processes</h3><p>CRISP-DM, SEMMA, and KDD — steps, differences, and purpose.</p></div>
-      <div class="chapter-card sprint-card" data-sprint="2"><span class="sprint-tag">Sprint 3</span><h3>Data Preprocessing</h3><p>Consolidation, cleaning, transformation, reduction — and supervised vs. unsupervised learning.</p></div>
-      <div class="chapter-card sprint-card" data-sprint="3"><span class="sprint-tag">Sprint 4</span><h3>Classification &amp; Decision Trees</h3><p>Gini index, entropy, accuracy metrics, ensemble models, and tree terminology.</p></div>
-      <div class="chapter-card sprint-card" data-sprint="4"><span class="sprint-tag">Sprint 5</span><h3>Clustering, Association &amp; Blunders</h3><p>K-means, Apriori, support/confidence, common myths, and Fool's Gold.</p></div>
-      <div class="chapter-card sprint-card" data-sprint="5"><span class="sprint-tag">Sprint 6</span><h3>Types &amp; Taxonomies</h3><p>"What are the types of..." — pattern types, tasks, data types, learning methods, accuracy metrics, ensemble models, clustering methods, and more.</p></div>
-      <div class="chapter-card sprint-card" data-sprint="6"><span class="sprint-tag">Sprint 7</span><h3>CRISP-DM Deep Dive</h3><p>Every step in detail — what happens, why, how long it takes, and what can go wrong. The kind of questions professors love.</p></div>
+      <button class="back-btn" id="btn-back-home-ch5">← Home</button>
+      <h1>Chapter 5 — Data Mining</h1>
+      <p class="subtitle">Each sprint has 10 questions. Wrong answers re-queued until correct.</p>
+      <div class="chapter-card sprint-card" data-sprint="0" data-bank="ch5"><span class="sprint-tag">Sprint 1</span><h3>Foundations &amp; Pattern Types</h3><p>Why 'Data Mining' is a misnomer, the four pattern types, and key definitions.</p></div>
+      <div class="chapter-card sprint-card" data-sprint="1" data-bank="ch5"><span class="sprint-tag">Sprint 2</span><h3>Standard Processes</h3><p>CRISP-DM, SEMMA, and KDD — steps, differences, and purpose.</p></div>
+      <div class="chapter-card sprint-card" data-sprint="2" data-bank="ch5"><span class="sprint-tag">Sprint 3</span><h3>Data Preprocessing</h3><p>Consolidation, cleaning, transformation, reduction — supervised vs. unsupervised.</p></div>
+      <div class="chapter-card sprint-card" data-sprint="3" data-bank="ch5"><span class="sprint-tag">Sprint 4</span><h3>Classification &amp; Decision Trees</h3><p>Gini index, entropy, accuracy metrics, ensemble models, and tree terminology.</p></div>
+      <div class="chapter-card sprint-card" data-sprint="4" data-bank="ch5"><span class="sprint-tag">Sprint 5</span><h3>Clustering, Association &amp; Blunders</h3><p>K-means, Apriori, support/confidence, myths, and Fool's Gold.</p></div>
+      <div class="chapter-card sprint-card" data-sprint="5" data-bank="ch5"><span class="sprint-tag">Sprint 6</span><h3>Types &amp; Taxonomies</h3><p>"What are the types of..." — pattern types, data types, learning methods, metrics &amp; more.</p></div>
+      <div class="chapter-card sprint-card" data-sprint="6" data-bank="ch5"><span class="sprint-tag">Sprint 7</span><h3>CRISP-DM Deep Dive</h3><p>Every step in detail — what happens, why, how long, and what can go wrong.</p></div>
     </div>
 
+    <!-- AWS SPRINTS -->
     <div id="aws-sprints" class="screen">
-      <button class="back-btn" id="btn-back-home-aws">← Chapters</button>
+      <button class="back-btn" id="btn-back-home-aws">← Home</button>
       <h1 style="color:var(--blue)">AWS VPC &amp; Networking</h1>
-      <p class="subtitle">Exam-style scenario questions. Each sprint has 10 questions with full explanations.</p>
-      <div class="chapter-card aws-sprint-card" data-aws-sprint="0" style="border-color:rgba(96,165,250,0.2)">
-        <span class="sprint-tag" style="background:rgba(96,165,250,0.1);color:var(--blue)">Sprint 1</span>
-        <h3 style="color:var(--blue)">VPC Connectivity &amp; Endpoints</h3>
-        <p>PrivateLink, gateway vs. interface endpoints, VPC peering, NAT gateways, and security groups.</p>
-      </div>
-      <div class="chapter-card aws-sprint-card" data-aws-sprint="1" style="border-color:rgba(96,165,250,0.2)">
-        <span class="sprint-tag" style="background:rgba(96,165,250,0.1);color:var(--blue)">Sprint 2</span>
-        <h3 style="color:var(--blue)">Hybrid Networks &amp; Advanced Routing</h3>
-        <p>Direct Connect, Transit Gateway, VPN, egress-only gateways, NACLs, and IP addressing.</p>
-      </div>
+      <p class="subtitle">Exam-style scenario questions with full explanations.</p>
+      <div class="chapter-card aws sprint-card" data-sprint="0" data-bank="aws"><span class="sprint-tag aws">Sprint 1</span><h3>VPC Connectivity &amp; Endpoints</h3><p>PrivateLink, gateway vs. interface endpoints, NAT gateways, security groups, flow logs.</p></div>
+      <div class="chapter-card aws sprint-card" data-sprint="1" data-bank="aws"><span class="sprint-tag aws">Sprint 2</span><h3>Hybrid Networks &amp; Advanced Routing</h3><p>Direct Connect, Transit Gateway, VPN, egress-only gateways, NACLs, IP addressing.</p></div>
     </div>
 
-    <div id="quiz" class="screen">      <div class="progress-wrap">
+    <!-- QUIZ -->
+    <div id="quiz" class="screen">
+      <div class="progress-wrap">
         <span class="progress-label" id="progress-text">1 / 10</span>
         <span class="progress-label" id="score-live">Score: 0</span>
       </div>
@@ -153,6 +154,7 @@ hr.divider{border:none;border-top:1px solid var(--line);margin:24px 0}
       <button class="next-btn" id="next-btn">Next question →</button>
     </div>
 
+    <!-- RESULTS -->
     <div id="results" class="screen">
       <div class="results-card">
         <div class="score-ring">
@@ -166,7 +168,7 @@ hr.divider{border:none;border-top:1px solid var(--line);margin:24px 0}
         <div class="result-sub" id="result-sub"></div>
         <div id="missed-section"></div>
         <div>
-          <button class="btn-primary" id="btn-retry" style="display:none">Retry missed questions</button>
+          <button class="btn-primary" id="btn-retry" style="display:none">Retry missed</button>
           <button class="btn-secondary" id="btn-back-sprints">Back to sprints</button>
         </div>
       </div>
@@ -174,420 +176,262 @@ hr.divider{border:none;border-top:1px solid var(--line);margin:24px 0}
 
   </div>
 </div>
-
 <script>
-const questions = [
+// ── Question Banks ─────────────────────────────────────────────────────────
+var ch5Questions = [
   // SPRINT 1
-  { q: "Why is 'Data Mining' technically a misnomer?", a: ["It doesn't actually use data", "Mining gold from rock is called 'gold' mining, so this should be called 'knowledge mining'", "It only works on structured databases", "It was named before computers existed"], c: 1, exp: "The textbook explains: mining gold from rock is called 'gold mining' not 'rock mining' — so by the same logic, mining knowledge from data should be called 'knowledge mining'. The term 'data mining' stuck despite being technically misleading." },
-  { q: "Which pattern type describes the famous 'beer and diapers' finding?", a: ["Sequential relationships", "Clusters", "Predictions", "Associations"], c: 3, exp: "Associations find commonly co-occurring groupings of things, like beer and diapers appearing together in market-basket analysis. Sequential relationships differ — they involve time-ordered events." },
-  { q: "In the formal definition, what does 'Nontrivial' mean in data mining?", a: ["The results are unimportant", "Some experimentation-type search or inference is involved — not a straightforward computation", "The dataset must be very large", "Only experts can perform it"], c: 1, exp: "Nontrivial means 'some experimentation-type search or inference is involved; that is, it is not as straightforward as a computation of predefined quantities.' This distinguishes data mining from basic SQL queries." },
-  { q: "Data mining sits at the intersection of which group of disciplines?", a: ["Statistics, HR, and accounting", "Statistics, AI, machine learning, management science, IS, and databases", "Only statistics and SQL", "Physics, chemistry, and biology"], c: 1, exp: "Figure 5.1 shows data mining at the intersection of Statistics, Artificial Intelligence, Information Visualization, Database Management & Data Warehousing, Management Science & IS, and Machine Learning & Pattern Recognition." },
-  { q: "Which pattern type describes: 'A bank customer opens a savings account, then an investment account within a year'?", a: ["Clustering", "Associations", "Predictions", "Sequential relationships"], c: 3, exp: "Sequential relationships discover time-ordered events. The textbook uses this exact banking example: checking account → savings account → investment account. Associations are about co-occurrence without time order." },
-  { q: "What is 'soft data' in data mining?", a: ["Data that is easy to analyze", "Unstructured text in places like Lotus Notes, text files, or enterprise intranets", "Encrypted or protected data", "Data with many missing values"], c: 1, exp: "Soft data is 'unstructured text stored in such places as Lotus Notes databases, text files on the Internet, or enterprise-wide intranets.' It contrasts with structured relational database data." },
-  { q: "In the definition of data mining, 'Novel' means:", a: ["The patterns are long and detailed", "Based on fictional scenarios", "Not previously known to the user within the context of the system being analyzed", "Discovered automatically without human input"], c: 2, exp: "'Novel means that the patterns are not previously known to the user within the context of the system being analyzed.' This distinguishes true data mining from confirming already-known facts." },
-  { q: "What did Dr. Arno Penzias say would happen to companies that don't do data mining?", a: ["They grow more slowly", "They face higher IT costs", "They will be out of business", "They must rely on manual analysis"], c: 2, exp: "Penzias (Nobel laureate, former Bell Labs chief scientist) said: 'Data mining will become much more important and companies will throw away nothing about their customers... If you're not doing this, you're out of business.'" },
-  { q: "What is the key difference between Prediction and Forecasting?", a: ["They are exactly the same thing", "Prediction is experience/opinion-based; forecasting is data/model-based", "Forecasting is only for financial data", "Prediction always uses neural networks"], c: 1, exp: "Prediction is 'largely experience and opinion based' while forecasting is 'data and model based.' In order of increasing reliability: guessing → predicting → forecasting. In data mining, 'prediction' is used as the umbrella term for both." },
-  { q: "Which of the following is NOT a core discipline in data mining?", a: ["Statistics", "Machine Learning", "Human Resources Management", "Artificial Intelligence"], c: 2, exp: "Figure 5.1 shows the core disciplines as: Statistics, AI, Machine Learning & Pattern Recognition, Information Visualization, Database Management, and Management Science & IS. Human Resources is not among them." },
-
+  {q:"Why is 'Data Mining' technically a misnomer?",a:["It doesn't actually use data","Mining gold from rock is called 'gold mining', so this should be called 'knowledge mining'","It only works on structured databases","It was named before computers existed"],c:1,exp:"Mining gold from rock is called 'gold mining' not 'rock mining' — so by the same logic, mining knowledge from data should be 'knowledge mining'. The term stuck despite being misleading."},
+  {q:"Which pattern type describes the famous 'beer and diapers' finding?",a:["Sequential relationships","Clusters","Predictions","Associations"],c:3,exp:"Associations find commonly co-occurring groupings of things, like beer and diapers in market-basket analysis. Sequential relationships differ — they involve time-ordered events."},
+  {q:"In the formal definition, what does 'Nontrivial' mean in data mining?",a:["The results are unimportant","Some experimentation-type search or inference is involved — not a straightforward computation","The dataset must be very large","Only experts can perform it"],c:1,exp:"Nontrivial means 'some experimentation-type search or inference is involved; it is not as straightforward as a computation of predefined quantities.' This distinguishes data mining from basic SQL queries."},
+  {q:"Data mining sits at the intersection of which group of disciplines?",a:["Statistics, HR, and accounting","Statistics, AI, machine learning, management science, IS, and databases","Only statistics and SQL","Physics, chemistry, and biology"],c:1,exp:"Figure 5.1 shows data mining at the intersection of Statistics, Artificial Intelligence, Information Visualization, Database Management & Data Warehousing, Management Science & IS, and Machine Learning & Pattern Recognition."},
+  {q:"Which pattern type describes: 'A bank customer opens a savings account, then an investment account within a year'?",a:["Clustering","Associations","Predictions","Sequential relationships"],c:3,exp:"Sequential relationships discover time-ordered events. The textbook uses this exact banking example: checking → savings → investment account. Associations are about co-occurrence without time order."},
+  {q:"What is 'soft data' in data mining?",a:["Data that is easy to analyze","Unstructured text in places like Lotus Notes, text files, or enterprise intranets","Encrypted or protected data","Data with many missing values"],c:1,exp:"Soft data is 'unstructured text stored in such places as Lotus Notes databases, text files on the Internet, or enterprise-wide intranets.' It contrasts with structured relational database data."},
+  {q:"In the definition of data mining, 'Novel' means:",a:["The patterns are long and detailed","Based on fictional scenarios","Not previously known to the user within the context of the system being analyzed","Discovered automatically without human input"],c:2,exp:"'Novel means that the patterns are not previously known to the user within the context of the system being analyzed.' This distinguishes true data mining from confirming already-known facts."},
+  {q:"What did Dr. Arno Penzias say would happen to companies that don't do data mining?",a:["They grow more slowly","They face higher IT costs","They will be out of business","They must rely on manual analysis"],c:2,exp:"Penzias (Nobel laureate, former Bell Labs chief scientist) said: 'Data mining will become much more important... If you're not doing this, you're out of business.'"},
+  {q:"What is the key difference between Prediction and Forecasting?",a:["They are exactly the same thing","Prediction is experience/opinion-based; forecasting is data/model-based","Forecasting is only for financial data","Prediction always uses neural networks"],c:1,exp:"Prediction is 'largely experience and opinion based' while forecasting is 'data and model based.' In order of reliability: guessing → predicting → forecasting."},
+  {q:"Which of the following is NOT a core discipline in data mining?",a:["Statistics","Machine Learning","Human Resources Management","Artificial Intelligence"],c:2,exp:"Figure 5.1 shows the core disciplines: Statistics, AI, Machine Learning & Pattern Recognition, Information Visualization, Database Management, and Management Science & IS. HR is not among them."},
   // SPRINT 2
-  { q: "Which standardized data mining process is 'arguably the most popular'?", a: ["SEMMA", "KDD", "DMAIC", "CRISP-DM"], c: 3, exp: "CRISP-DM (Cross-Industry Standard Process for Data Mining) 'was proposed in the mid-1990s by a European consortium of companies to serve as a nonproprietary standard methodology.' Poll data from KDnuggets confirmed it as the most widely used." },
-  { q: "What is the very first step of CRISP-DM?", a: ["Data Preparation", "Model Building", "Data Understanding", "Business Understanding"], c: 3, exp: "Step 1 is Business Understanding — establishing specific goals like 'What are typical profiles of our customers?' and developing a project plan. This comes before any data work." },
-  { q: "SEMMA stands for:", a: ["Structure, Explore, Mine, Model, Assess", "Sample, Explore, Modify, Model, Assess", "Select, Extract, Merge, Map, Analyze", "Sort, Examine, Modify, Measure, Apply"], c: 1, exp: "SEMMA was developed by SAS Institute: Sample, Explore, Modify, Model, Assess. It starts with a statistically representative sample and proceeds through exploration, variable selection, modeling, and accuracy assessment." },
-  { q: "Which CRISP-DM step handles missing values, noise, and outliers?", a: ["Business Understanding", "Data Understanding", "Data Preparation", "Testing and Evaluation"], c: 2, exp: "Step 3 (Data Preparation) addresses real-world data being 'incomplete (lacking attribute values), noisy (containing errors or outliers), and inconsistent (containing discrepancies).' It consumes the most time of any step." },
-  { q: "Approximately what proportion of total project time is spent on Data Preparation?", a: ["About 10–15%", "About 30–40%", "About 50–60%", "Often more than 80%"], c: 3, exp: "The textbook states data preparation 'accounts for roughly 80% of the total time spent on a data mining project' because real-world data are incomplete, noisy, and inconsistent." },
-  { q: "What is the final step in CRISP-DM?", a: ["Testing and Evaluation", "Model Building", "Business Understanding", "Deployment"], c: 3, exp: "Step 6 is Deployment, which ranges from generating a simple report to implementing a repeatable enterprise-wide process. Models also need ongoing maintenance since business data constantly changes." },
-  { q: "What key assumption makes SEMMA different from CRISP-DM?", a: ["SEMMA assumes data is already clean", "SEMMA assumes business goals and data sources have already been identified", "SEMMA assumes only one model type will be used", "SEMMA assumes a PhD-level analyst"], c: 1, exp: "CRISP-DM takes a comprehensive approach including business and data understanding. SEMMA 'implicitly assumes that the data mining project's goals and objectives along with the appropriate data sources have been identified and understood.'" },
-  { q: "Why is KDD criticized by analytics professionals?", a: ["It has too many steps", "It is too expensive", "It portrays data mining as a single step rather than the complete process", "It was invented too recently"], c: 2, exp: "'KDD process is often criticized by analytics professionals because it portrays data mining as a single-step in the overall process, as opposed to the complete process itself.'" },
-  { q: "In the KDD process, what does the final output 'Knowledge' represent?", a: ["A raw data export", "A summary statistics report", "Actionable Insight", "A trained model file"], c: 2, exp: "In Figure 5.6, the KDD process ends with 'Knowledge = Actionable Insight.' The flow goes: Data Selection → Cleaning → Transformation → Data Mining → Internalization → Knowledge (Actionable Insight)." },
-  { q: "Why does CRISP-DM involve significant backtracking between steps?", a: ["The software tools are buggy", "Business goals change every day", "Data mining is driven by experience and experimentation, making it highly iterative", "Analysts rarely have enough data"], c: 2, exp: "'Because the data mining is driven by experience and experimentation... the whole process can be very iterative (one should expect to go back and forth through the steps quite a few times) and time-consuming.'" },
-
+  {q:"Which standardized data mining process is 'arguably the most popular'?",a:["SEMMA","KDD","DMAIC","CRISP-DM"],c:3,exp:"CRISP-DM (Cross-Industry Standard Process for Data Mining) was proposed in the mid-1990s by a European consortium. Poll data from KDnuggets confirmed it as the most widely used methodology."},
+  {q:"What is the very first step of CRISP-DM?",a:["Data Preparation","Model Building","Data Understanding","Business Understanding"],c:3,exp:"Step 1 is Business Understanding — establishing specific goals like 'What are typical profiles of our customers?' and developing a project plan. This comes before any data work."},
+  {q:"SEMMA stands for:",a:["Structure, Explore, Mine, Model, Assess","Sample, Explore, Modify, Model, Assess","Select, Extract, Merge, Map, Analyze","Sort, Examine, Modify, Measure, Apply"],c:1,exp:"SEMMA was developed by SAS Institute: Sample, Explore, Modify, Model, Assess. It starts with a representative sample and proceeds through exploration, variable selection, modeling, and assessment."},
+  {q:"Which CRISP-DM step handles missing values, noise, and outliers?",a:["Business Understanding","Data Understanding","Data Preparation","Testing and Evaluation"],c:2,exp:"Step 3 (Data Preparation) addresses real-world data being 'incomplete, noisy (containing errors or outliers), and inconsistent.' It consumes the most time of any CRISP-DM step."},
+  {q:"Approximately what proportion of total project time is spent on Data Preparation?",a:["About 10–15%","About 30–40%","About 50–60%","Often more than 80%"],c:3,exp:"The textbook states data preparation 'accounts for roughly 80% of the total time' because real-world data are incomplete, noisy, and inconsistent."},
+  {q:"What is the final step in CRISP-DM?",a:["Testing and Evaluation","Model Building","Business Understanding","Deployment"],c:3,exp:"Step 6 is Deployment, ranging from a simple report to an enterprise-wide repeatable process. Models need ongoing maintenance since business data constantly changes."},
+  {q:"What key assumption makes SEMMA different from CRISP-DM?",a:["SEMMA assumes data is already clean","SEMMA assumes business goals and data sources have already been identified","SEMMA assumes only one model type","SEMMA assumes a PhD-level analyst"],c:1,exp:"CRISP-DM takes a comprehensive approach including business and data understanding. SEMMA 'implicitly assumes that the goals and objectives along with appropriate data sources have been identified.'"},
+  {q:"Why is KDD criticized by analytics professionals?",a:["It has too many steps","It is too expensive","It portrays data mining as a single step rather than the complete process","It was invented too recently"],c:2,exp:"'KDD process is often criticized because it portrays data mining as a single-step in the overall process, as opposed to the complete process itself.'"},
+  {q:"In the KDD process, what does the final output 'Knowledge' represent?",a:["A raw data export","A summary statistics report","Actionable Insight","A trained model file"],c:2,exp:"In Figure 5.6, the KDD process ends with 'Knowledge = Actionable Insight.' Flow: Data Selection → Cleaning → Transformation → Data Mining → Internalization → Knowledge."},
+  {q:"Why does CRISP-DM involve significant backtracking between steps?",a:["The software tools are buggy","Business goals change every day","Data mining is driven by experience and experimentation, making it highly iterative","Analysts rarely have enough data"],c:2,exp:"'Because the data mining is driven by experience and experimentation... the whole process can be very iterative (one should expect to go back and forth quite a few times).'"},
   // SPRINT 3
-  { q: "What are the four main steps of data preprocessing?", a: ["Input, Process, Output, Store", "Data Consolidation, Data Cleaning, Data Transformation, Data Reduction", "Design, Code, Test, Deploy", "Collect, Filter, Analyze, Visualize"], c: 1, exp: "From the Chapter Highlights: 'Data preprocessing includes four main steps: data consolidation, data cleaning, data transformation, and data reduction.' Each addresses a different aspect of preparing raw data." },
-  { q: "Which preprocessing step removes outliers and fixes errors?", a: ["Data Reduction", "Data Consolidation", "Data Transformation", "Data Cleaning"], c: 3, exp: "Data Cleaning addresses the fact that real-world data is 'noisy (containing errors or outliers), and inconsistent (containing discrepancies in codes or names).' Data reduction reduces size while preserving integrity." },
-  { q: "What does Data Transformation accomplish in preprocessing?", a: ["Moving data to a new server", "Deleting irrelevant columns", "Normalizing or discretizing data into a more useful form for analysis", "Encrypting sensitive fields"], c: 2, exp: "Data Transformation includes operations like normalization (scaling values) and discretization (converting continuous variables into categories/ranges). This is required for algorithms like decision trees that need categorical inputs." },
-  { q: "Which preprocessing step aggregates data from multiple sources into a unified view?", a: ["Data Cleaning", "Data Reduction", "Data Transformation", "Data Consolidation"], c: 3, exp: "Data Consolidation combines data from multiple databases or repositories (including data warehouses) into a single integrated dataset before cleaning and transformation." },
-  { q: "In supervised learning, the training data includes:", a: ["Only the output label", "Only the input attributes", "Both the descriptive attributes AND the class (output) label", "Neither — the model learns without any labels"], c: 2, exp: "'With supervised learning algorithms, the training data includes both the descriptive attributes (independent variables) as well as the class attribute (output variable).' Classification and regression are supervised tasks." },
-  { q: "In unsupervised learning (like clustering), the training data includes:", a: ["Only the class label", "Both inputs and outputs", "Pre-labeled clusters from an expert", "Only the descriptive input attributes — no class label"], c: 3, exp: "'With unsupervised learning the training data includes only the descriptive attributes.' No class label is provided — the algorithm discovers natural groupings on its own." },
-  { q: "Classification is used when the predicted output is:", a: ["A real number like temperature", "A continuous measurement", "A class label such as 'rainy' vs. 'sunny' or 'high risk' vs. 'low risk'", "A ranked list"], c: 2, exp: "'If what is being predicted is a class label (e.g., sunny, rainy, or cloudy), the prediction problem is called a classification.' If it's a numeric value, it's called regression." },
-  { q: "Regression is used when the predicted output is:", a: ["A class label like 'approve' or 'deny'", "A category from a predefined set", "A yes/no binary answer", "A real number, such as tomorrow's temperature in degrees"], c: 3, exp: "'If it is a numeric value (e.g., temperature, such as 65°F), the prediction problem is called a regression.' Predicting exact stock prices or house values are classic regression problems." },
-  { q: "Why does data preprocessing matter so much to outcomes?", a: ["More preprocessing makes the model run faster", "'Good data leads to good information; good information leads to good decisions'", "Preprocessing is only needed for large datasets", "Clean data eliminates the need for model evaluation"], c: 1, exp: "The Chapter Highlights state: 'Data preprocessing is essential to any successful data mining study. Good data leads to good information; good information leads to good decisions.' Garbage in, garbage out." },
-  { q: "Identifying the most relevant variables for a retail spending behavior project belongs to which CRISP-DM step?", a: ["Step 1: Business Understanding", "Step 2: Data Understanding", "Step 3: Data Preparation", "Step 4: Model Building"], c: 1, exp: "Step 2 (Data Understanding) involves identifying and selecting the most relevant data and variables. The textbook gives exactly this retail example for Step 2: identifying demographics, credit card transactions, and socioeconomic attributes." },
-
+  {q:"What are the four main steps of data preprocessing?",a:["Input, Process, Output, Store","Data Consolidation, Data Cleaning, Data Transformation, Data Reduction","Design, Code, Test, Deploy","Collect, Filter, Analyze, Visualize"],c:1,exp:"From the Chapter Highlights: 'Data preprocessing includes four main steps: data consolidation, data cleaning, data transformation, and data reduction.'"},
+  {q:"Which preprocessing step removes outliers and fixes errors?",a:["Data Reduction","Data Consolidation","Data Transformation","Data Cleaning"],c:3,exp:"Data Cleaning addresses that real-world data is 'noisy (containing errors or outliers), and inconsistent (containing discrepancies).' Data reduction reduces size while preserving integrity."},
+  {q:"What does Data Transformation accomplish in preprocessing?",a:["Moving data to a new server","Deleting irrelevant columns","Normalizing or discretizing data into a more useful form for analysis","Encrypting sensitive fields"],c:2,exp:"Data Transformation includes normalization (scaling values) and discretization (converting continuous variables into ranges/categories). This is required for algorithms like decision trees."},
+  {q:"Which preprocessing step aggregates data from multiple sources into a unified view?",a:["Data Cleaning","Data Reduction","Data Transformation","Data Consolidation"],c:3,exp:"Data Consolidation combines data from multiple databases or repositories into a single integrated dataset before cleaning and transformation."},
+  {q:"In supervised learning, the training data includes:",a:["Only the output label","Only the input attributes","Both the descriptive attributes AND the class (output) label","Neither — the model learns without labels"],c:2,exp:"'With supervised learning, the training data includes both the descriptive attributes (independent variables) as well as the class attribute (output variable).'"},
+  {q:"In unsupervised learning (like clustering), the training data includes:",a:["Only the class label","Both inputs and outputs","Pre-labeled clusters from an expert","Only the descriptive input attributes — no class label"],c:3,exp:"'With unsupervised learning the training data includes only the descriptive attributes.' No class label is provided — the algorithm discovers natural groupings on its own."},
+  {q:"Classification is used when the predicted output is:",a:["A real number like temperature","A continuous measurement","A class label such as 'rainy' vs. 'sunny'","A ranked list"],c:2,exp:"'If what is being predicted is a class label (e.g., sunny, rainy, or cloudy), the prediction problem is called classification.' If it's a numeric value, it's regression."},
+  {q:"Regression is used when the predicted output is:",a:["A class label like 'approve' or 'deny'","A category from a predefined set","A yes/no binary answer","A real number, such as tomorrow's temperature in degrees"],c:3,exp:"'If it is a numeric value (e.g., temperature, such as 65°F), the prediction problem is called regression.' Predicting stock prices or house values are regression problems."},
+  {q:"Why does data preprocessing matter so much to outcomes?",a:["More preprocessing makes the model run faster","'Good data leads to good information; good information leads to good decisions'","Preprocessing is only needed for large datasets","Clean data eliminates the need for model evaluation"],c:1,exp:"The Chapter Highlights state: 'Data preprocessing is essential to any successful data mining study. Good data leads to good information; good information leads to good decisions.'"},
+  {q:"Identifying the most relevant variables for a retail project belongs to which CRISP-DM step?",a:["Step 1: Business Understanding","Step 2: Data Understanding","Step 3: Data Preparation","Step 4: Model Building"],c:1,exp:"Step 2 (Data Understanding) involves identifying and selecting the most relevant data and variables. The textbook gives the retail demographics/credit card example for exactly this step."},
   // SPRINT 4
-  { q: "In a decision tree, what is a 'Leaf Node'?", a: ["The root where the tree starts", "A test on an attribute that splits data", "A branch connecting two nodes", "The final class choice at the end of a chain of branches"], c: 3, exp: "'A leaf node at the end represents the final class choice for a pattern (a chain of branches from the root node to the leaf node, which can be represented as a complex if-then statement).'" },
-  { q: "What are the two most popular splitting indices in decision trees?", a: ["Mean and Standard Deviation", "Precision and Recall", "Gini Index and Information Gain (Entropy)", "Support and Confidence"], c: 2, exp: "'Two of the most common ones are the Gini index and information gain.' Gini is used in CART/SPRINT; Information Gain (entropy) is used in ID3, C4.5, and C5 algorithms." },
-  { q: "What does the Gini index measure in a decision tree?", a: ["The speed of the algorithm", "The dataset size", "The purity of the class representation at a node", "The number of attributes used"], c: 2, exp: "'The Gini index measures the purity of a sample. If everything in a sample belongs to one class, the Gini index value is zero.' Lower Gini = purer split. The algorithm picks the split with the smallest ginisplit(S)." },
-  { q: "If all patterns in a node belong to exactly one class, the Gini index equals:", a: ["0.5", "1", "Infinity", "0 (zero)"], c: 3, exp: "'If everything in a sample belongs to one class, the Gini index value is zero.' Zero Gini means maximum purity — every item in that node is the same class, which is the goal of the splitting process." },
-  { q: "What does Entropy measure in the ID3 algorithm?", a: ["Computational cost of the model", "Training dataset size", "The extent of uncertainty or randomness in a dataset", "Number of leaf nodes"], c: 2, exp: "'Entropy measures the extent of uncertainty or randomness in a data set. If all the data in a subset belong to just one class, there is no uncertainty, so the entropy is zero.' The goal is to reduce entropy toward zero." },
-  { q: "What is the main goal of an ensemble model?", a: ["To simplify to a single rule", "To reduce training dataset size", "To intelligently combine predictions from multiple models for better accuracy and robustness", "To speed up computation using one algorithm"], c: 2, exp: "'Creating ensembles is essentially the process of intelligently combining the information created and provided by two or more information sources... combining forecasts can (and often will) improve accuracy and robustness while reducing uncertainty and bias.'" },
-  { q: "How does k-fold cross-validation work?", a: ["Once, on 50% of the data each way", "The data splits into k folds; model trains on all but one, tests on that fold, repeated k times", "Only on the first and last k records", "k models each trained on the full dataset"], c: 1, exp: "'The classification model is trained and tested k times. Each time it is trained on all but one fold and then tested on the remaining single fold.' Overall accuracy = the average of all k individual accuracy measures." },
-  { q: "What does an AUC value of 1.0 mean?", a: ["The model is very expensive to run", "All attributes changed equally", "A perfect classifier", "Full automation was achieved"], c: 2, exp: "'The area under the ROC curve (AUC) determines the predictive power of a classifier: A value of 1 indicates a perfect classifier, whereas 0.5 indicates no better than random chance.'" },
-  { q: "In the Simple Split method, what proportion is conventionally used for training?", a: ["50%", "25%", "Two-thirds (~67%)", "90%"], c: 2, exp: "'It is common to designate two-thirds of the data as the training set and the remaining one-third as the test set (also called the holdout set).' An exception is neural networks, which also use a validation set." },
-  { q: "Decision trees are structurally equivalent to a hierarchy of:", a: ["Mathematical integrals", "If-then statements", "Bayesian probability equations", "Recursive neural layers"], c: 1, exp: "'Decision trees are essentially a hierarchy of if-then statements and are thus significantly faster than neural networks.' Each path from root to leaf can be written as a chain of if-then rules." },
-
+  {q:"In a decision tree, what is a 'Leaf Node'?",a:["The root where the tree starts","A test on an attribute that splits data","A branch connecting two nodes","The final class choice at the end of a chain of branches"],c:3,exp:"'A leaf node at the end represents the final class choice for a pattern (a chain of branches from the root node to the leaf node, which can be represented as a complex if-then statement).'"},
+  {q:"What are the two most popular splitting indices in decision trees?",a:["Mean and Standard Deviation","Precision and Recall","Gini Index and Information Gain (Entropy)","Support and Confidence"],c:2,exp:"'Two of the most common ones are the Gini index and information gain.' Gini is used in CART/SPRINT; Information Gain (entropy) is used in ID3, C4.5, and C5 algorithms."},
+  {q:"What does the Gini index measure in a decision tree?",a:["The speed of the algorithm","The dataset size","The purity of the class representation at a node","The number of attributes used"],c:2,exp:"'The Gini index measures the purity of a sample. If everything in a sample belongs to one class, the Gini index value is zero.' Lower Gini = purer split."},
+  {q:"If all patterns in a node belong to exactly one class, the Gini index equals:",a:["0.5","1","Infinity","0 (zero)"],c:3,exp:"'If everything in a sample belongs to one class, the Gini index value is zero.' Zero Gini means maximum purity — the goal of the splitting process."},
+  {q:"What does Entropy measure in the ID3 algorithm?",a:["Computational cost","Training dataset size","The extent of uncertainty or randomness in a dataset","Number of leaf nodes"],c:2,exp:"'Entropy measures the extent of uncertainty or randomness in a data set. If all the data in a subset belong to just one class, there is no uncertainty, so the entropy is zero.'"},
+  {q:"What is the main goal of an ensemble model?",a:["To simplify to a single rule","To reduce training dataset size","To intelligently combine predictions from multiple models for better accuracy and robustness","To speed up computation"],c:2,exp:"'Creating ensembles is essentially the process of intelligently combining the information created and provided by two or more information sources... combining forecasts can improve accuracy and robustness while reducing uncertainty and bias.'"},
+  {q:"How does k-fold cross-validation work?",a:["Once, on 50% of the data each way","The data splits into k folds; model trains on all but one, tests on that fold, repeated k times","Only on the first and last k records","k models each trained on the full dataset"],c:1,exp:"'The classification model is trained and tested k times. Each time it is trained on all but one fold and then tested on the remaining single fold.' Overall accuracy = average of all k individual measures."},
+  {q:"What does an AUC value of 1.0 mean?",a:["The model is very expensive to run","All attributes changed equally","A perfect classifier","Full automation was achieved"],c:2,exp:"'The area under the ROC curve (AUC) determines the predictive power of a classifier: A value of 1 indicates a perfect classifier, whereas 0.5 indicates no better than random chance.'"},
+  {q:"In the Simple Split method, what proportion is conventionally used for training?",a:["50%","25%","Two-thirds (~67%)","90%"],c:2,exp:"'It is common to designate two-thirds of the data as the training set and the remaining one-third as the test set (also called the holdout set).'"},
+  {q:"Decision trees are structurally equivalent to a hierarchy of:",a:["Mathematical integrals","If-then statements","Bayesian probability equations","Recursive neural layers"],c:1,exp:"'Decision trees are essentially a hierarchy of if-then statements and are thus significantly faster than neural networks.' Each path from root to leaf can be written as a chain of if-then rules."},
   // SPRINT 5
-  { q: "Which clustering algorithm is 'arguably the most referenced'?", a: ["Apriori", "Self-organizing map", "DBSCAN", "k-means"], c: 3, exp: "'The k-means algorithm (where k stands for the predetermined number of clusters) is arguably the most referenced clustering algorithm. It has its roots in traditional statistical analysis.'" },
-  { q: "In k-means, what is the 'centroid'?", a: ["The outermost point in a cluster", "The center of a cluster, calculated as the arithmetic mean of all its points", "The first randomly assigned point", "The point with the most neighbors"], c: 1, exp: "'The algorithm assigns each data point to the cluster whose center (also called the centroid) is the nearest. The center is calculated as the average of all the points in the cluster — the arithmetic mean for each dimension.'" },
-  { q: "Association Rule Mining in retail is also called:", a: ["Customer segmentation analysis", "Regression analysis", "Market-Basket Analysis", "Discriminant analysis"], c: 2, exp: "'In the context of the retail industry, association rule mining is often called market-basket analysis.' The classic example: beer and diapers commonly bought together at grocery stores." },
-  { q: "Which algorithm is most commonly used for association rules?", a: ["k-means", "ID3", "Neural network backpropagation", "Apriori"], c: 3, exp: "'The Apriori algorithm is the most commonly used algorithm to discover association rules... Apriori uses a bottom-up approach, where frequent subsets are extended one item at a time.'" },
-  { q: "In Association Rule Mining, what do Support and Confidence measure?", a: ["Model speed and data size", "How often itemsets appear together (support) and how often the RHS occurs given the LHS (confidence)", "Training vs. test accuracy", "Gini purity and entropy"], c: 1, exp: "Support = proportion of all transactions containing all items in the rule. Confidence = conditional probability that the RHS appears given the LHS. Both must meet minimum thresholds for a rule to be actionable." },
-  { q: "What is 'Fool's Gold' in data mining blunders?", a: ["Buying expensive software that fails", "Using data from the future to predict the future, producing unrealistically accurate but invalid models", "Patterns that look good but have no business value", "Ignoring domain experts"], c: 1, exp: "Fool's Gold: 'analysts include variables that are unknown at the time the prediction is supposed to be made... their prediction models produce unbelievably accurate results.' If results seem too good to be true, check if you're accidentally using future data." },
-  { q: "Which blunder is described as 'Beginning without the end in mind'?", a: ["Using the wrong algorithm", "Starting a project without a stated business goal or problem", "Not cleaning the data first", "Skipping deployment"], c: 1, exp: "'Beginning without the end in mind. Although data mining is a process of knowledge discovery, one should have a goal/objective (a stated business problem) in mind to succeed. If you don't know where you are going, you will never get there.'" },
-  { q: "Clustering algorithms are used when data records:", a: ["Have clearly labeled class identifiers", "Are very small in size", "Do not have predefined class identifiers — membership is unknown in advance", "Are all identical in attributes"], c: 2, exp: "'Cluster algorithms are used when the data records do not have predefined class identifiers.' This is the fundamental difference from classification — in clustering, the algorithm discovers the classes itself." },
-  { q: "Which statement about data mining is listed as a myth in the textbook?", a: ["Data mining is a multi-step process", "Data mining uses statistical techniques", "Data mining provides instant, crystal-ball-like predictions", "Data mining requires preprocessing"], c: 2, exp: "Table 5.6 lists this myth: 'Data mining provides instant, crystal-ball-like predictions.' Reality: 'Data mining is a multistep process that requires deliberate, proactive design and use.' Expect significant effort before any results." },
-  { q: "The Apriori algorithm uses which approach to identify frequent itemsets?", a: ["Top-down: starts with all itemsets and prunes", "Random sampling until convergence", "Bottom-up: starts with single items and extends one item at a time", "Recursive divide-and-conquer"], c: 2, exp: "'Apriori uses a bottom-up approach, where frequent subsets are extended one item at a time (candidate generation), and groups of candidates at each level are tested against the data for minimum support. The algorithm terminates when no further extensions are found.'" },
-
-  // SPRINT 6 — Types & Taxonomies
-  { q: "What are the four types of patterns data mining seeks to identify?", a: ["Regression, Classification, Clustering, Forecasting", "Associations, Predictions, Clusters, Sequential Relationships", "Supervised, Unsupervised, Semi-supervised, Reinforced", "Input, Process, Output, Feedback"], c: 1, exp: "The textbook lists four major pattern types: (1) Associations — co-occurring items like beer & diapers; (2) Predictions — foretelling future events; (3) Clusters — natural groupings by characteristics; (4) Sequential Relationships — time-ordered events like banking account progression." },
-  { q: "What are the three broad categories of data mining tasks?", a: ["Input, Processing, Output", "Training, Testing, Deployment", "Prediction, Association, Clustering", "Classification, Regression, Visualization"], c: 2, exp: "The textbook states: 'generally speaking, data mining tasks can be classified into three main categories: prediction, association, and clustering.' Prediction includes both classification and regression as sub-types." },
-  { q: "What are the two types of learning algorithms used in data mining?", a: ["Active and passive learning", "Supervised and unsupervised learning", "Online and offline learning", "Inductive and deductive learning"], c: 1, exp: "Data mining learning algorithms are classified as either supervised (training data includes both input attributes AND the class label) or unsupervised (training data includes only input attributes — no class label provided)." },
-  { q: "What are the two specific types of Prediction tasks, and how do they differ?", a: ["Clustering and Association — differ by data size", "Forecasting and Guessing — differ by accuracy", "Classification and Regression — differ by output type (label vs. number)", "Supervised and Unsupervised — differ by training data"], c: 2, exp: "Prediction splits into: Classification (predicted output is a class label, e.g., 'rainy' or 'sunny') and Regression (predicted output is a real number, e.g., temperature of 68°F). The nature of the output variable determines which is appropriate." },
-  { q: "What are the two main types of quantitative data?", a: ["Nominal and ordinal", "Soft and hard", "Discrete and continuous", "Structured and unstructured"], c: 2, exp: "The textbook states: 'Quantitative data are measured using numeric values. It can be discrete (such as integers) or continuous (such as real numbers).' For example, number of transactions = discrete; temperature = continuous." },
-  { q: "What are the two types of qualitative (categorical) data, and what distinguishes them?", a: ["Discrete and continuous — differ by measurability", "Nominal and ordinal — differ by whether values have a meaningful order", "Hard and soft — differ by structure", "Primary and secondary — differ by collection method"], c: 1, exp: "Qualitative data contains: (1) Nominal data — finite non-ordered values (e.g., gender); (2) Ordinal data — finite ordered values (e.g., credit ratings of excellent, fair, bad). The key difference is whether the values have a meaningful rank or order." },
-  { q: "What are the five main accuracy metrics for evaluating classification models?", a: ["Speed, Robustness, Scalability, Interpretability, Cost", "Accuracy, True Positive Rate, True Negative Rate, Precision, Recall", "Support, Confidence, Lift, Gini, Entropy", "Training accuracy, Test accuracy, Validation accuracy, AUC, F1"], c: 1, exp: "Table 5.1 lists these five metrics from the confusion matrix: Accuracy (overall correct/total), True Positive Rate / Sensitivity (correctly classified positives), True Negative Rate / Specificity (correctly classified negatives), Precision (TP/(TP+FP)), and Recall (same as TPR)." },
-  { q: "What are the four main methods for estimating classification model accuracy?", a: ["Gini, Entropy, AUC, Lift", "CRISP-DM, SEMMA, KDD, Agile", "Simple Split, k-fold Cross-Validation, Bootstrapping, Leave-one-out / Jackknifing", "Training, Validation, Testing, Deployment"], c: 2, exp: "The textbook covers four main estimation methodologies: (1) Simple Split — two-thirds train / one-third test; (2) k-fold Cross-Validation — k subsets rotated for testing; (3) Bootstrapping — sampling with replacement; (4) Leave-one-out / Jackknifing — one sample left out per iteration." },
-  { q: "What are the two categories of ensemble models, and what is each based on?", a: ["Bagging and Boosting — based on data size vs. speed", "Supervised and Unsupervised — based on label availability", "Homogeneous and Heterogeneous — based on whether the combined models are the same type or different types", "Static and Dynamic — based on retraining frequency"], c: 2, exp: "Ensemble models are: (1) Homogeneous — combine the same model type (e.g., multiple decision trees); examples are Bagging (Random Forest) and Boosting (AdaBoosting). (2) Heterogeneous — combine different model types (e.g., decision trees + neural networks + SVM); also called information fusion models." },
-  { q: "What are the four general methods used for cluster analysis?", a: ["Classification, Regression, Association, Prediction", "CRISP-DM, SEMMA, KDD, Agile", "Statistical methods, Neural networks, Fuzzy logic, Genetic algorithms", "Apriori, k-means, ID3, CART"], c: 2, exp: "The textbook lists four cluster analysis method categories: (1) Statistical methods — k-means, k-modes; (2) Neural networks — self-organizing map (SOM); (3) Fuzzy logic — fuzzy c-means; (4) Genetic algorithms. Each can use either divisive (top-down) or agglomerative (bottom-up) approaches." },
-
-  // SPRINT 7 — CRISP-DM Deep Dive
-  { q: "How many steps does CRISP-DM have, and what is the correct order?", a: ["4 steps: Understand, Prepare, Model, Deploy", "5 steps: Sample, Explore, Modify, Model, Assess", "6 steps: Business Understanding → Data Understanding → Data Preparation → Model Building → Testing & Evaluation → Deployment", "7 steps: Plan, Collect, Clean, Explore, Model, Evaluate, Deploy"], c: 2, exp: "CRISP-DM has exactly 6 steps: (1) Business Understanding, (2) Data Understanding, (3) Data Preparation, (4) Model Building, (5) Testing and Evaluation, (6) Deployment. The process is iterative — expect significant backtracking between steps." },
-  { q: "What is the specific goal of Step 1 (Business Understanding) in CRISP-DM?", a: ["Select the best algorithm for the data", "Identify and clean the relevant data sources", "Establish a thorough understanding of the managerial need and explicitly specify the business objective", "Deploy the model into the production environment"], c: 2, exp: "Step 1 requires knowing 'what the study is for' — defining specific goals like 'What are the common characteristics of customers we lost to competitors?' A project plan, responsible parties, and high-level budget are also established at this stage." },
-  { q: "What is the primary activity in Step 2 (Data Understanding) of CRISP-DM?", a: ["Removing outliers and filling missing values", "Training and comparing multiple model types", "Identifying relevant data sources, understanding variables, and using statistical/graphical techniques to explore the data", "Deploying the model to end users"], c: 2, exp: "Step 2 involves identifying relevant data from available databases, understanding data sources (where stored, how collected, who collects it), and exploring variables using statistics (mean, median, std dev) and visuals (histograms, scatterplots, box plots)." },
-  { q: "Why does Step 3 (Data Preparation) consume more time than any other CRISP-DM step?", a: ["The algorithms used in this step are computationally slow", "Most analysts are unfamiliar with data cleaning tools", "Real-world data is generally incomplete, noisy, and inconsistent — requiring substantial effort to fix", "Data preparation requires approval from multiple departments"], c: 2, exp: "The textbook is explicit: real-world data is 'incomplete (lacking attribute values), noisy (containing errors or outliers), and inconsistent (containing discrepancies in codes or names).' Fixing these issues across large datasets routinely consumes ~80% of total project time." },
-  { q: "What does Step 4 (Model Building) involve beyond just training one model?", a: ["Only selecting the single best-known algorithm", "Applying multiple modeling techniques, comparing results, and calibrating parameters — because there is no universally best method", "Automatically generating models using AutoML tools only", "Reusing models from previous projects without modification"], c: 1, exp: "'Because there is not a universally known best method or algorithm for a data mining task, one should use a variety of viable model types along with a well-defined experimentation and assessment strategy to identify the best method for a given purpose.' Parameters also need calibration." },
-  { q: "What is the key challenge in Step 5 (Testing and Evaluation) of CRISP-DM?", a: ["Finding enough computing power to run the models", "Obtaining more labeled training data", "Determining business value from discovered knowledge patterns — requiring collaboration between data analysts, business analysts, and decision makers", "Publishing the model results in a research paper"], c: 2, exp: "'No value is added by the data mining task until the business value obtained from discovered knowledge patterns is identified and recognized.' This requires interaction among data analysts (technical), business analysts, and decision makers — each bringing different expertise." },
-  { q: "What two things can Step 6 (Deployment) range from, according to the textbook?", a: ["Publishing results online or storing them in a database", "Generating a simple report OR implementing a repeatable data mining process across the entire enterprise", "Sending results by email or presenting them in a meeting", "Creating a dashboard or writing a research paper"], c: 1, exp: "'The deployment phase can be as simple as generating a report or as complex as implementing a repeatable data mining process across the enterprise.' Deployment also includes maintenance — models must be monitored and updated as business data changes over time." },
-  { q: "Why is backtracking so common in CRISP-DM, and which direction does it most often go?", a: ["Forward only — each step improves on the last", "Backward — later steps often reveal problems that require returning to earlier steps, especially Data Preparation", "Sideways — analysts switch between projects frequently", "It is not common — CRISP-DM is designed to be linear"], c: 1, exp: "'Because later steps are built on the outcomes of the former ones, one should pay extra attention to the earlier steps.' For example, Model Building often reveals data issues requiring a return to Data Preparation, and Evaluation may prompt new Business Understanding questions." },
-  { q: "What specific tasks are involved in Step 2 (Data Understanding) to explore variables?", a: ["Normalizing, discretizing, and transforming all variables", "Deploying a prototype model and checking its output", "Simple statistical summaries (mean, min/max, median, std dev for numeric; mode and frequency tables for categorical), correlation analysis, scatterplots, histograms, and box plots", "Selecting the algorithm and splitting the data"], c: 2, exp: "The textbook details Step 2 exploration: for numeric variables — average, min/max, median, std dev; for categorical variables — mode and frequency tables; plus correlation analysis, scatterplots, histograms, and box plots. These tools build 'intimate understanding of the data.'" },
-  { q: "Why must models be maintained after Step 6 (Deployment)?", a: ["Because software licenses expire and models need to be re-purchased", "Because models are only valid for one year by regulation", "Because business data constantly changes — models built on old data can become obsolete, irrelevant, or misleading over time", "Because end users frequently request new features"], c: 2, exp: "'Because everything about the business is constantly changing, the data that reflect the business activities also are changing. Over time, the models built on the old data may become obsolete, irrelevant, or misleading.' A maintenance strategy and monitoring plan are essential." }
+  {q:"Which clustering algorithm is 'arguably the most referenced'?",a:["Apriori","Self-organizing map","DBSCAN","k-means"],c:3,exp:"'The k-means algorithm (where k stands for the predetermined number of clusters) is arguably the most referenced clustering algorithm. It has its roots in traditional statistical analysis.'"},
+  {q:"In k-means, what is the 'centroid'?",a:["The outermost point in a cluster","The center of a cluster, calculated as the arithmetic mean of all its points","The first randomly assigned point","The point with the most neighbors"],c:1,exp:"'The algorithm assigns each data point to the cluster whose center (also called the centroid) is the nearest. The center is calculated as the arithmetic mean for each dimension over all points in the cluster.'"},
+  {q:"Association Rule Mining in retail is also called:",a:["Customer segmentation analysis","Regression analysis","Market-Basket Analysis","Discriminant analysis"],c:2,exp:"'In the context of the retail industry, association rule mining is often called market-basket analysis.' The classic example: beer and diapers commonly bought together."},
+  {q:"Which algorithm is most commonly used for association rules?",a:["k-means","ID3","Neural network backpropagation","Apriori"],c:3,exp:"'The Apriori algorithm is the most commonly used algorithm to discover association rules... Apriori uses a bottom-up approach, where frequent subsets are extended one item at a time.'"},
+  {q:"In Association Rule Mining, what do Support and Confidence measure?",a:["Model speed and data size","How often itemsets appear together (support) and how often the RHS occurs given the LHS (confidence)","Training vs. test accuracy","Gini purity and entropy"],c:1,exp:"Support = proportion of all transactions containing all items in the rule. Confidence = conditional probability that the RHS appears given the LHS. Both must meet minimum thresholds for a rule to be actionable."},
+  {q:"What is 'Fool's Gold' in data mining blunders?",a:["Buying expensive software that fails","Using data from the future to predict the future, producing unrealistically accurate but invalid models","Patterns that look good but have no business value","Ignoring domain experts"],c:1,exp:"Fool's Gold: analysts include variables unknown at prediction time, producing 'unbelievably accurate results.' If results seem too good to be true, check if you're accidentally using future data."},
+  {q:"Which blunder is described as 'Beginning without the end in mind'?",a:["Using the wrong algorithm","Starting a project without a stated business goal or problem","Not cleaning the data first","Skipping deployment"],c:1,exp:"'Beginning without the end in mind. One should have a goal/objective (a stated business problem) in mind to succeed. If you don't know where you are going, you will never get there.'"},
+  {q:"Clustering algorithms are used when data records:",a:["Have clearly labeled class identifiers","Are very small in size","Do not have predefined class identifiers — membership is unknown in advance","Are all identical in attributes"],c:2,exp:"'Cluster algorithms are used when the data records do not have predefined class identifiers.' This is the fundamental difference from classification — clustering discovers the classes itself."},
+  {q:"Which statement about data mining is listed as a myth in the textbook?",a:["Data mining is a multi-step process","Data mining uses statistical techniques","Data mining provides instant, crystal-ball-like predictions","Data mining requires preprocessing"],c:2,exp:"Table 5.6 lists this myth: 'Data mining provides instant, crystal-ball-like predictions.' Reality: 'Data mining is a multistep process that requires deliberate, proactive design and use.'"},
+  {q:"The Apriori algorithm uses which approach to identify frequent itemsets?",a:["Top-down: starts with all itemsets and prunes","Random sampling until convergence","Bottom-up: starts with single items and extends one item at a time","Recursive divide-and-conquer"],c:2,exp:"'Apriori uses a bottom-up approach, where frequent subsets are extended one item at a time (candidate generation), and groups of candidates at each level are tested against the data for minimum support.'"},
+  // SPRINT 6
+  {q:"What are the four types of patterns data mining seeks to identify?",a:["Regression, Classification, Clustering, Forecasting","Associations, Predictions, Clusters, Sequential Relationships","Supervised, Unsupervised, Semi-supervised, Reinforced","Input, Process, Output, Feedback"],c:1,exp:"The four major pattern types: (1) Associations — co-occurring items; (2) Predictions — foretelling future events; (3) Clusters — natural groupings by characteristics; (4) Sequential Relationships — time-ordered events like banking account progression."},
+  {q:"What are the three broad categories of data mining tasks?",a:["Input, Processing, Output","Training, Testing, Deployment","Prediction, Association, Clustering","Classification, Regression, Visualization"],c:2,exp:"'Data mining tasks can be classified into three main categories: prediction, association, and clustering.' Prediction includes both classification and regression as sub-types."},
+  {q:"What are the two types of learning algorithms used in data mining?",a:["Active and passive learning","Supervised and unsupervised learning","Online and offline learning","Inductive and deductive learning"],c:1,exp:"Learning algorithms are classified as: supervised (training data includes input attributes AND the class label) or unsupervised (training data includes only input attributes — no class label)."},
+  {q:"What are the two specific types of Prediction tasks, and how do they differ?",a:["Clustering and Association — differ by data size","Forecasting and Guessing — differ by accuracy","Classification and Regression — differ by output type (label vs. number)","Supervised and Unsupervised — differ by training data"],c:2,exp:"Classification: predicted output is a class label (e.g., 'rainy' or 'sunny'). Regression: predicted output is a real number (e.g., temperature of 68°F). The nature of the output variable determines which applies."},
+  {q:"What are the two main types of quantitative data?",a:["Nominal and ordinal","Soft and hard","Discrete and continuous","Structured and unstructured"],c:2,exp:"'Quantitative data can be discrete (such as integers) or continuous (such as real numbers).' For example, number of transactions = discrete; temperature = continuous."},
+  {q:"What are the two types of qualitative (categorical) data, and what distinguishes them?",a:["Discrete and continuous — differ by measurability","Nominal and ordinal — differ by whether values have a meaningful order","Hard and soft — differ by structure","Primary and secondary — differ by collection method"],c:1,exp:"Nominal data has finite non-ordered values (e.g., gender). Ordinal data has finite ordered values (e.g., credit ratings: excellent, fair, bad). The key difference is whether values have a meaningful rank."},
+  {q:"What are the five main accuracy metrics for evaluating classification models?",a:["Speed, Robustness, Scalability, Interpretability, Cost","Accuracy, True Positive Rate, True Negative Rate, Precision, Recall","Support, Confidence, Lift, Gini, Entropy","Training accuracy, Test accuracy, Validation accuracy, AUC, F1"],c:1,exp:"Table 5.1 lists: Accuracy (overall correct/total), True Positive Rate/Sensitivity, True Negative Rate/Specificity, Precision (TP/(TP+FP)), and Recall (same as TPR). All derived from the confusion matrix."},
+  {q:"What are the four main methods for estimating classification model accuracy?",a:["Gini, Entropy, AUC, Lift","CRISP-DM, SEMMA, KDD, Agile","Simple Split, k-fold Cross-Validation, Bootstrapping, Leave-one-out / Jackknifing","Training, Validation, Testing, Deployment"],c:2,exp:"(1) Simple Split — two-thirds train / one-third test; (2) k-fold Cross-Validation — k subsets rotated for testing; (3) Bootstrapping — sampling with replacement; (4) Leave-one-out/Jackknifing — one sample left out per iteration."},
+  {q:"What are the two categories of ensemble models, and what is each based on?",a:["Bagging and Boosting — based on data size vs. speed","Supervised and Unsupervised — based on label availability","Homogeneous and Heterogeneous — same model type vs. different model types combined","Static and Dynamic — based on retraining frequency"],c:2,exp:"Homogeneous: combine the same model type (e.g., multiple decision trees) — examples: Bagging (Random Forest) and Boosting (AdaBoosting). Heterogeneous: combine different model types (e.g., decision trees + neural networks + SVM) — also called information fusion models."},
+  {q:"What are the four general methods used for cluster analysis?",a:["Classification, Regression, Association, Prediction","CRISP-DM, SEMMA, KDD, Agile","Statistical methods, Neural networks, Fuzzy logic, Genetic algorithms","Apriori, k-means, ID3, CART"],c:2,exp:"The four cluster analysis method categories: (1) Statistical methods — k-means, k-modes; (2) Neural networks — self-organizing map (SOM); (3) Fuzzy logic — fuzzy c-means; (4) Genetic algorithms. Each can be divisive (top-down) or agglomerative (bottom-up)."},
+  // SPRINT 7
+  {q:"How many steps does CRISP-DM have, and what is the correct order?",a:["4 steps: Understand, Prepare, Model, Deploy","5 steps: Sample, Explore, Modify, Model, Assess","6 steps: Business Understanding → Data Understanding → Data Preparation → Model Building → Testing & Evaluation → Deployment","7 steps: Plan, Collect, Clean, Explore, Model, Evaluate, Deploy"],c:2,exp:"CRISP-DM has exactly 6 steps in this order: (1) Business Understanding, (2) Data Understanding, (3) Data Preparation, (4) Model Building, (5) Testing and Evaluation, (6) Deployment. The process is highly iterative with significant backtracking."},
+  {q:"What is the specific goal of Step 1 (Business Understanding) in CRISP-DM?",a:["Select the best algorithm for the data","Identify and clean the relevant data sources","Establish a thorough understanding of the managerial need and explicitly specify the business objective","Deploy the model into production"],c:2,exp:"Step 1 requires defining specific goals like 'What are the common characteristics of customers we lost to competitors?' A project plan, responsible parties, and high-level budget are also established here."},
+  {q:"What is the primary activity in Step 2 (Data Understanding) of CRISP-DM?",a:["Removing outliers and filling missing values","Training and comparing multiple model types","Identifying relevant data sources, understanding variables, and using statistical/graphical techniques to explore the data","Deploying the model to end users"],c:2,exp:"Step 2 involves identifying relevant data, understanding sources (where stored, how collected), and exploring variables using statistics (mean, median, std dev) and visuals (histograms, scatterplots, box plots)."},
+  {q:"Why does Step 3 (Data Preparation) consume more time than any other CRISP-DM step?",a:["The algorithms used are computationally slow","Most analysts are unfamiliar with cleaning tools","Real-world data is generally incomplete, noisy, and inconsistent — requiring substantial effort to fix","Data preparation requires approval from multiple departments"],c:2,exp:"Real-world data is 'incomplete (lacking attribute values), noisy (containing errors or outliers), and inconsistent (containing discrepancies).' Fixing these across large datasets routinely consumes ~80% of total project time."},
+  {q:"What does Step 4 (Model Building) involve beyond just training one model?",a:["Only selecting the single best-known algorithm","Applying multiple modeling techniques, comparing results, and calibrating parameters — because there is no universally best method","Automatically generating models using AutoML only","Reusing models from previous projects without modification"],c:1,exp:"'Because there is not a universally known best method or algorithm for a data mining task, one should use a variety of viable model types along with a well-defined experimentation and assessment strategy.' Parameters also need calibration for each method."},
+  {q:"What is the key challenge in Step 5 (Testing and Evaluation) of CRISP-DM?",a:["Finding enough computing power","Obtaining more labeled training data","Determining business value from discovered knowledge — requiring collaboration between data analysts, business analysts, and decision makers","Publishing the model results"],c:2,exp:"'No value is added until the business value obtained from discovered knowledge patterns is identified.' This requires interaction among data analysts (technical), business analysts, and decision makers — each with different expertise."},
+  {q:"What two things can Step 6 (Deployment) range from, according to the textbook?",a:["Publishing results online or storing in a database","Generating a simple report OR implementing a repeatable data mining process across the entire enterprise","Sending results by email or presenting in a meeting","Creating a dashboard or writing a research paper"],c:1,exp:"'The deployment phase can be as simple as generating a report or as complex as implementing a repeatable data mining process across the enterprise.' Deployment also includes maintenance as business data changes over time."},
+  {q:"Why is backtracking so common in CRISP-DM?",a:["Forward only — each step improves on the last","Later steps often reveal problems requiring a return to earlier steps, especially Data Preparation","Analysts switch between projects frequently","CRISP-DM is designed to be linear"],c:1,exp:"'Because later steps are built on the outcomes of the former ones, one should pay extra attention to the earlier steps.' Model Building often reveals data issues requiring a return to Data Preparation, and Evaluation may prompt new Business Understanding questions."},
+  {q:"What specific tasks are performed in Step 2 (Data Understanding) to explore variables?",a:["Normalizing, discretizing, and transforming all variables","Deploying a prototype model and checking output","Statistical summaries (mean, min/max, median, std dev for numeric; mode and frequency tables for categorical), correlation analysis, scatterplots, histograms, and box plots","Selecting the algorithm and splitting the data"],c:2,exp:"The textbook details Step 2 exploration: for numeric variables — average, min/max, median, std dev; for categorical — mode and frequency tables; plus correlation analysis, scatterplots, histograms, and box plots to build 'intimate understanding of the data.'"},
+  {q:"Why must models be maintained after Step 6 (Deployment)?",a:["Software licenses expire and models need re-purchasing","Models are only valid for one year by regulation","Business data constantly changes — models built on old data can become obsolete, irrelevant, or misleading over time","End users frequently request new features"],c:2,exp:"'Because everything about the business is constantly changing, the data that reflect the business activities also are changing. Over time, models built on old data may become obsolete, irrelevant, or misleading.' A monitoring and maintenance plan is essential."}
 ];
 
-const awsQuestions = [
-  // AWS SPRINT 1 — VPC Connectivity & Endpoints
-  {
-    q: "A company's VPC has no internet gateway, Direct Connect, or Site-to-Site VPN. The company needs to access a vendor's Amazon RDS for MySQL database in another AWS account. What should the solutions architect do?",
-    a: ["Use VPC peering to connect both VPCs directly", "Configure a client VPN connection between the VPCs, then use VPC peering", "Have the vendor create a Network Load Balancer in front of RDS, then use AWS PrivateLink to connect the VPCs", "Use AWS Transit Gateway to integrate both VPCs"],
-    c: 2,
-    exp: "PrivateLink is the right fit here because it allows private access to services in another VPC or account without requiring an internet gateway, VPN, or Direct Connect. The vendor exposes their RDS via an NLB, and PrivateLink creates a private endpoint in the company's VPC. VPC peering alone doesn't work without routing infrastructure."
-  },
-  {
-    q: "EC2 instances in private subnets need to communicate with an Amazon SQS queue securely. What is the correct implementation?",
-    a: ["Interface VPC endpoint for SQS in public subnets, with a VPC endpoint policy allowing private subnet access", "Interface VPC endpoint for SQS in public subnets, with an SQS access policy allowing requests from a specified endpoint", "Interface VPC endpoint for SQS in private subnets, with a security group allowing inbound traffic from the EC2 instances", "Gateway endpoint for SQS, plus a NAT gateway in the private subnets"],
-    c: 2,
-    exp: "SQS uses an interface VPC endpoint (not a gateway endpoint — SQS is not S3 or DynamoDB). The endpoint should be placed in the private subnets where the EC2 instances live. A security group on the endpoint restricts inbound access to only those EC2 instances. Putting the endpoint in public subnets would route traffic unnecessarily."
-  },
-  {
-    q: "A VPC has public subnets for a load balancer and private subnets for web servers and MySQL. Company policy requires least-privilege access. The load balancer SG already allows port 443 from 0.0.0.0/0. What should be created for the web servers and MySQL servers?",
-    a: ["SG for web servers allowing 443 from 0.0.0.0/0; SG for MySQL allowing 3306 from web server SG", "Network ACL for web servers allowing 443 from 0.0.0.0/0; NACL for MySQL allowing 3306 from web server SG", "SG for web servers allowing 443 from the load balancer SG; SG for MySQL allowing 3306 from the web server SG", "Network ACL for web servers allowing 443 from the load balancer; NACL for MySQL allowing 3306 from web server SG"],
-    c: 2,
-    exp: "Security groups are the right tool for least-privilege between tiers because you can reference another security group as the source — meaning only traffic from the load balancer SG reaches web servers, and only traffic from the web server SG reaches MySQL. Using 0.0.0.0/0 for web servers violates least privilege. NACLs are stateless and subnet-level, making them less precise for this use case."
-  },
-  {
-    q: "Containers in a VPC store and access 1 TB/day in Amazon S3. The company wants to minimize costs and avoid internet traversal. What should the solutions architect do?",
-    a: ["Enable S3 Intelligent-Tiering", "Enable S3 Transfer Acceleration", "Create a gateway VPC endpoint for S3 and associate it with all route tables in the VPC", "Create an interface endpoint for S3 in the VPC and associate it with all route tables"],
-    c: 2,
-    exp: "A gateway VPC endpoint for S3 is free and routes S3 traffic privately within the AWS network without going through the internet, NAT gateway, or incurring data transfer charges. Interface endpoints for S3 exist but cost money per hour and per GB. For high-volume S3 access from within a VPC, the gateway endpoint is always preferred for cost."
-  },
-  {
-    q: "EC2 instances in private subnets access S3 through a single NAT gateway. The company is concerned about data transfer charges. What is the most cost-effective fix?",
-    a: ["Launch a NAT gateway in each Availability Zone", "Replace the NAT gateway with a NAT instance", "Deploy a gateway VPC endpoint for Amazon S3", "Provision EC2 Dedicated Hosts"],
-    c: 2,
-    exp: "Traffic from private subnets to S3 via a NAT gateway incurs NAT gateway data processing charges plus regional data transfer charges. A gateway VPC endpoint for S3 routes traffic directly to S3 over the AWS private network at no additional cost, eliminating both charges. It's the canonical solution for this scenario."
-  },
-  {
-    q: "A solutions architect needs to apply least-privilege security group rules between application tiers in a three-tier VPC. What should be used as the source or destination in the security group rules?",
-    a: ["The EC2 instance ID", "The security group ID of the other tier", "The VPC CIDR block", "The subnet CIDR block of the other tier"],
-    c: 1,
-    exp: "Referencing a security group ID as the source/destination is the most precise way to apply least privilege between tiers. It means only resources that belong to the referenced security group can communicate — regardless of IP address or CIDR. Using CIDR blocks is less precise and could allow unintended resources in the same subnet range."
-  },
-  {
-    q: "A company needs to be notified when RDP or SSH access to EC2 demonstration environments (each in its own VPC) is established. Which solution meets this requirement?",
-    a: ["Use CloudWatch Application Insights to create Systems Manager OpsItems for RDP/SSH", "Attach IAM instance profiles with AmazonSSMManagedInstanceCore to the EC2 instances", "Publish VPC flow logs to CloudWatch Logs, create metric filters, and configure a CloudWatch alarm with SNS notification", "Create an EventBridge rule for EC2 Instance State-change Notification with an SNS target"],
-    c: 2,
-    exp: "VPC Flow Logs capture network traffic metadata including source/destination ports. Publishing them to CloudWatch Logs lets you create metric filters that detect traffic on port 22 (SSH) or port 3389 (RDP), then trigger a CloudWatch alarm that sends an SNS notification. EventBridge state-change events only capture instance start/stop — not network connections."
-  },
-  {
-    q: "An application on EC2 in private subnets needs to access a DynamoDB table. What is the MOST secure way to ensure traffic does not leave the AWS network?",
-    a: ["Use a NAT gateway in a public subnet", "Use a NAT instance in a private subnet", "Use a VPC endpoint for DynamoDB", "Use the internet gateway attached to the VPC"],
-    c: 2,
-    exp: "A VPC endpoint for DynamoDB (gateway type) routes traffic directly from the VPC to DynamoDB over the AWS private network — no internet gateway, NAT, or public IP needed. This is the most secure option because traffic never leaves the AWS network, and it's also free. NAT gateway routes traffic through AWS's network but adds cost and complexity."
-  },
-  {
-    q: "An EC2 instance in a private subnet needs to download monthly security updates from an outside vendor. The subnet has no internet access. What should the solutions architect do?",
-    a: ["Create an internet gateway and attach it to the VPC; update the private subnet route table to use it", "Create a NAT gateway in a public subnet; update the private subnet route table to use the NAT gateway as default route", "Create a NAT instance in the same private subnet; update the route table to use it", "Create an internet gateway and a NAT instance in the private subnet; use the internet gateway as default route"],
-    c: 1,
-    exp: "A NAT gateway in a public subnet allows outbound internet access for private subnet instances without exposing them to inbound connections. The private subnet's route table sends 0.0.0.0/0 traffic to the NAT gateway, which sits in a public subnet with a route to the internet gateway. The NAT instance in the same private subnet option is wrong because it can't route to the internet without an internet gateway path."
-  },
-  {
-    q: "A company's EC2 instances with IPv6 addresses must initiate outbound internet connections, but security policy forbids any external service from initiating inbound connections to the instances. What should the solutions architect recommend?",
-    a: ["Create a NAT gateway and make it the destination in the route table", "Create an internet gateway and make it the destination in the route table", "Create a virtual private gateway and make it the destination in the route table", "Create an egress-only internet gateway and make it the destination in the route table"],
-    c: 3,
-    exp: "An egress-only internet gateway is specifically designed for IPv6 traffic — it allows outbound connections from instances to the internet but prevents unsolicited inbound connections. A regular internet gateway would allow both inbound and outbound for IPv6. NAT gateways handle IPv4 private addresses, not public IPv6. Virtual private gateways are for VPN/Direct Connect, not internet access."
-  },
-
-  // AWS SPRINT 2 — Hybrid Networks & Advanced Routing
-  {
-    q: "A company uses Direct Connect to connect its on-premises network (no internet access) to AWS. An application needs to use an S3 bucket. What is the MOST cost-effective solution?",
-    a: ["Create a public virtual interface (VIF) and route AWS traffic over it", "Create a VPC and NAT gateway; route on-premises traffic to the NAT gateway", "Create a VPC and S3 interface endpoint; route on-premises traffic to the interface endpoint", "Create a VPC peering connection between on-premises and Direct Connect"],
-    c: 0,
-    exp: "A public VIF on a Direct Connect connection provides access to all AWS public endpoints (including S3) without going over the internet. It's the most cost-effective option because S3 interface endpoints cost per hour and per GB, and NAT gateways add unnecessary hops. VPC peering doesn't apply to on-premises networks. Public VIF is the standard solution for accessing AWS public services via Direct Connect."
-  },
-  {
-    q: "A company needs hybrid connectivity with single-digit latency between on-premises and AWS. They use Transit Gateway to connect multiple VPCs. What combination MOST cost-effectively meets requirements? (Choose two — select the correct pair)",
-    a: ["Site-to-Site VPN to each VPC + Direct Connect gateway associated with the transit gateway", "Direct Connect gateway associated with the transit gateway + Direct Connect connection with a transit VIF to that gateway", "Site-to-Site VPN to a Direct Connect gateway + Site-to-Site VPN connections associated with the transit gateway", "Direct Connect with a transit VIF to the gateway + Site-to-Site VPN connections associated with the transit gateway"],
-    c: 1,
-    exp: "The correct pair: (1) Establish a Direct Connect connection and create a transit VIF to a Direct Connect gateway — this provides the low-latency, high-bandwidth dedicated connection required. (2) Associate that Direct Connect gateway with the Transit Gateway — this enables all attached VPCs to be reachable from on-premises through one gateway. Site-to-Site VPN has higher latency and variable performance over the internet, failing the single-digit latency requirement."
-  },
-  {
-    q: "A company acquired a corporation with VPCs in eu-west-2 and a Direct Connect to eu-west-2. The original company has a Direct Connect to us-east-1. CIDRs don't overlap. The company needs connectivity between both regions and both data centers with minimal overhead. What should the solutions architect do?",
-    a: ["Set up inter-Region VPC peering between us-east-1 and eu-west-2 VPCs", "Create private VIFs from the us-east-1 Direct Connect to the eu-west-2 VPCs", "Establish VPN appliances in a fully meshed EC2-hosted VPN network using VPN CloudHub", "Connect both Direct Connect connections to a Direct Connect gateway; route traffic from virtual private gateways in each Region to that gateway"],
-    c: 3,
-    exp: "A Direct Connect gateway is a globally available resource that can connect Direct Connect connections from multiple Regions to VPCs across Regions, using a single gateway. This eliminates the need to create individual connections, peering relationships, or VPN meshes between all the VPCs and data centers. It's the scalable, low-overhead solution for multi-region, multi-DC connectivity."
-  },
-  {
-    q: "A company needs to connect three VPCs in us-east-1 to an on-premises data center that requires latency-sensitive communication of hundreds of GB/day. What is the MOST cost-effective solution?",
-    a: ["Three Site-to-Site VPN connections, one per VPC", "A third-party IPsec VPN appliance in each VPC", "Three Direct Connect connections, one per VPC", "One Direct Connect connection + a Transit Gateway with all three VPCs attached"],
-    c: 3,
-    exp: "One Direct Connect connection paired with a Transit Gateway is the most cost-effective and scalable approach. The Transit Gateway acts as a hub connecting all three VPCs, and a single transit VIF on the Direct Connect connection reaches all of them. This avoids paying for three separate Direct Connect connections or managing multiple VPN tunnels with variable latency."
-  },
-  {
-    q: "Two VPCs in the same AWS account and region need to communicate. Approximately 500 GB/month will transfer between them. What is the MOST cost-effective solution?",
-    a: ["AWS Transit Gateway with updated route tables", "AWS Site-to-Site VPN tunnel between the VPCs", "VPC peering connection with updated route tables in each VPC", "1 GB AWS Direct Connect connection between the VPCs"],
-    c: 2,
-    exp: "VPC peering is the most cost-effective option for same-account, same-region VPC connectivity. Data transfer over VPC peering within the same region is charged at standard intra-region rates, which are lower than Transit Gateway per-GB fees. Transit Gateway adds per-attachment and per-GB processing charges that make it more expensive for simple two-VPC connectivity."
-  },
-  {
-    q: "A VPC's IP address space is running out as EC2 instances increase. What resolves this with the LEAST operational overhead?",
-    a: ["Add an additional IPv4 CIDR block to the existing VPC and create new subnets", "Create a second VPC and connect it via VPC peering", "Use Transit Gateway to add a second VPC", "Create a second VPC with a Site-to-Site VPN connection to the first"],
-    c: 0,
-    exp: "AWS allows you to add secondary CIDR blocks to an existing VPC. This expands the IP space without creating a second VPC, configuring peering, updating complex route tables, or managing a Transit Gateway. It's the lowest-overhead option because resources stay in the same VPC and existing security groups, NACLs, and route tables mostly continue to work."
-  },
-  {
-    q: "A new VPC needs to peer with a development VPC (CIDR: 192.168.0.0/24). What is the SMALLEST valid CIDR block for the new VPC?",
-    a: ["10.0.1.0/32", "192.168.0.0/24", "192.168.1.0/32", "10.0.1.0/24"],
-    c: 3,
-    exp: "VPC peering requires non-overlapping CIDR blocks. 192.168.0.0/24 is the same as the dev VPC — invalid. 192.168.1.0/32 is only 1 IP — too small to be a valid VPC CIDR (/28 is the minimum). 10.0.1.0/32 is also a single IP. 10.0.1.0/24 is the smallest standard valid CIDR (/24 = 256 addresses, meets AWS VPC minimum of /28) that doesn't overlap with 192.168.0.0/24."
-  },
-  {
-    q: "A web server EC2 instance has an Elastic IP and sits in a public subnet. The default SG is assigned. The default NACL was modified to block ALL traffic. Port 443 must be accessible from everywhere. Which TWO steps are needed? (Select the correct pair)",
-    a: ["Create SG allowing TCP 443 inbound from 0.0.0.0/0 + Update NACL to allow inbound 443 from 0.0.0.0/0 only", "Create SG allowing TCP 443 outbound to 0.0.0.0/0 + Update NACL inbound/outbound TCP 443", "Create SG allowing TCP 443 inbound from 0.0.0.0/0 + Update NACL to allow inbound TCP 443 from 0.0.0.0/0 AND outbound TCP 32768-65535 to 0.0.0.0/0", "Update NACL inbound TCP 443 + Update NACL outbound TCP 443"],
-    c: 2,
-    exp: "Two things are needed: (1) A security group rule allowing inbound TCP 443 from 0.0.0.0/0 — security groups are stateful, so the return traffic is automatically allowed. (2) The NACL must allow inbound TCP 443 AND outbound TCP 32768-65535 (ephemeral ports) — NACLs are stateless, so return traffic must be explicitly allowed. The ephemeral port range is the standard for TCP response traffic."
-  },
-  {
-    q: "A solutions architect needs to connect EC2 instances in private subnets to Amazon SQS without traffic leaving the AWS network. SQS is not S3 or DynamoDB. What type of VPC endpoint is required?",
-    a: ["Gateway endpoint — free, uses route tables", "Interface endpoint — uses an ENI with a private IP in the subnet", "Transit Gateway endpoint — routes through the transit gateway", "Direct Connect endpoint — requires a private VIF"],
-    c: 1,
-    exp: "SQS uses an interface VPC endpoint (powered by AWS PrivateLink), not a gateway endpoint. Gateway endpoints only support S3 and DynamoDB. An interface endpoint creates an Elastic Network Interface (ENI) with a private IP address in your subnet, allowing private communication to SQS. It's configured with a security group to control access, not a route table entry."
-  },
-  {
-    q: "A company wants public NAT gateways so private subnet EC2 instances can reach the internet. Where must the NAT gateways be placed?",
-    a: ["In the same private subnets as the EC2 instances", "In private subnets in the same VPC", "In public subnets in the same VPC as the EC2 instances", "In public subnets in a separate VPC, connected via peering"],
-    c: 2,
-    exp: "NAT gateways must be placed in public subnets because they need a route to an internet gateway to forward traffic to the internet. Private subnet EC2 instances then have a route pointing 0.0.0.0/0 to the NAT gateway. Placing a NAT gateway in a private subnet defeats its purpose — it would have no path to the internet."
-  }
+var awsQuestions = [
+  // AWS SPRINT 1
+  {q:"A company's VPC has no internet gateway, Direct Connect, or Site-to-Site VPN. It needs to access a vendor's RDS MySQL database in another AWS account. What should the solutions architect do?",a:["Use VPC peering to connect both VPCs directly","Configure a client VPN connection, then use VPC peering","Have the vendor put an NLB in front of RDS, then use AWS PrivateLink to connect the VPCs","Use AWS Transit Gateway to integrate both VPCs"],c:2,exp:"PrivateLink allows private access to services in another VPC/account without needing an internet gateway, VPN, or Direct Connect. The vendor exposes RDS via an NLB, and PrivateLink creates a private endpoint in the company's VPC. VPC peering alone doesn't resolve the connectivity gap."},
+  {q:"EC2 instances in private subnets need to securely communicate with an Amazon SQS queue. What is the correct implementation?",a:["Interface VPC endpoint for SQS in public subnets with a VPC endpoint policy","Interface VPC endpoint for SQS in public subnets with an SQS access policy","Interface VPC endpoint for SQS in private subnets, with a security group allowing inbound traffic from the EC2 instances","Gateway endpoint for SQS plus a NAT gateway in private subnets"],c:2,exp:"SQS uses an interface VPC endpoint (not a gateway — those only support S3 and DynamoDB). Place it in the private subnets with a security group restricting inbound to only the EC2 instances. Putting the endpoint in public subnets routes traffic unnecessarily."},
+  {q:"A VPC has public subnets for a load balancer and private subnets for web servers and MySQL. Least-privilege is required. The LB SG already allows 443 from 0.0.0.0/0. What should be created for the other tiers?",a:["SG for web servers allowing 443 from 0.0.0.0/0; SG for MySQL allowing 3306 from web server SG","Network ACL for web servers allowing 443 from 0.0.0.0/0; NACL for MySQL allowing 3306 from web SG","SG for web servers allowing 443 from the load balancer SG; SG for MySQL allowing 3306 from the web server SG","NACL for web servers allowing 443 from the load balancer; NACL for MySQL allowing 3306 from web SG"],c:2,exp:"Security groups are ideal here because you can reference another SG as the source — only traffic from the LB SG reaches web servers, and only web server SG traffic reaches MySQL. Using 0.0.0.0/0 for web servers violates least privilege. NACLs are stateless and less precise for inter-tier rules."},
+  {q:"Containers in a VPC access 1 TB/day from Amazon S3. The company wants to minimize cost and avoid internet traversal. What should the solutions architect do?",a:["Enable S3 Intelligent-Tiering","Enable S3 Transfer Acceleration","Create a gateway VPC endpoint for S3 and associate it with all route tables in the VPC","Create an interface endpoint for S3 and associate it with all route tables"],c:2,exp:"A gateway VPC endpoint for S3 is free and routes S3 traffic privately within the AWS network. Interface endpoints for S3 cost money per hour and per GB. For high-volume S3 access from within a VPC, the gateway endpoint is always the preferred cost-saving option."},
+  {q:"EC2 instances in private subnets access S3 through a single NAT gateway. The company is concerned about data transfer charges. What is the most cost-effective fix?",a:["Launch a NAT gateway in each Availability Zone","Replace the NAT gateway with a NAT instance","Deploy a gateway VPC endpoint for Amazon S3","Provision EC2 Dedicated Hosts"],c:2,exp:"Traffic through a NAT gateway to S3 incurs NAT data processing charges plus regional transfer charges. A gateway VPC endpoint routes directly to S3 over the AWS private network at no additional cost, eliminating both charges."},
+  {q:"A solutions architect needs to apply least-privilege security group rules between application tiers. What should be used as the source or destination in the rules?",a:["The EC2 instance ID","The security group ID of the other tier","The VPC CIDR block","The subnet CIDR block of the other tier"],c:1,exp:"Referencing a security group ID as the source/destination is the most precise approach — only resources in that security group can communicate, regardless of IP address. CIDR blocks are less precise and could allow unintended resources in the same range."},
+  {q:"A company needs to be notified when RDP or SSH access to EC2 instances is established. Which solution meets this requirement?",a:["Use CloudWatch Application Insights to create Systems Manager OpsItems","Attach IAM instance profiles with AmazonSSMManagedInstanceCore to EC2","Publish VPC flow logs to CloudWatch Logs, create metric filters, and configure a CloudWatch alarm with SNS notification","Create an EventBridge rule for EC2 Instance State-change Notification with SNS target"],c:2,exp:"VPC Flow Logs capture network traffic metadata including ports. Metric filters on CloudWatch Logs detect traffic on port 22 (SSH) or 3389 (RDP), then trigger an alarm that sends an SNS notification. EventBridge state-change events only capture instance start/stop — not network connections."},
+  {q:"An application on EC2 in private subnets needs to access DynamoDB. What is the MOST secure way to ensure traffic doesn't leave the AWS network?",a:["Use a NAT gateway in a public subnet","Use a NAT instance in a private subnet","Use a VPC endpoint for DynamoDB","Use the internet gateway attached to the VPC"],c:2,exp:"A VPC endpoint for DynamoDB (gateway type) routes traffic directly to DynamoDB over the AWS private network — no internet gateway, NAT, or public IP needed. It's the most secure option and is also free."},
+  {q:"An EC2 instance in a private subnet needs to download monthly updates from an outside vendor. The subnet has no internet access. What should the solutions architect do?",a:["Create an internet gateway and attach it to the VPC; update the private subnet route table to use it","Create a NAT gateway in a public subnet; update the private subnet route table to use it as the default route","Create a NAT instance in the same private subnet; update the route table to use it","Create an internet gateway and NAT instance in the private subnet; use the internet gateway as default route"],c:1,exp:"A NAT gateway in a public subnet allows outbound internet access for private instances without exposing them to inbound connections. The private route table points 0.0.0.0/0 to the NAT gateway, which sits in the public subnet with a path to the internet gateway."},
+  {q:"EC2 instances with IPv6 addresses must initiate outbound internet connections, but external services cannot initiate inbound connections. What should the solutions architect recommend?",a:["Create a NAT gateway and make it the route table destination","Create an internet gateway and make it the route table destination","Create a virtual private gateway and make it the route table destination","Create an egress-only internet gateway and make it the route table destination"],c:3,exp:"An egress-only internet gateway is specifically for IPv6 — it allows outbound connections while preventing unsolicited inbound connections. A regular internet gateway allows both directions for IPv6. NAT gateways handle IPv4 only. Virtual private gateways are for VPN/Direct Connect."},
+  // AWS SPRINT 2
+  {q:"A company uses Direct Connect (no internet access) and an application needs to use an S3 bucket. What is the MOST cost-effective solution?",a:["Create a public virtual interface (VIF) and route AWS traffic over it","Create a VPC and NAT gateway; route on-premises traffic to it","Create a VPC and S3 interface endpoint; route on-premises traffic to it","Create a VPC peering connection between on-premises and Direct Connect"],c:0,exp:"A public VIF on Direct Connect provides access to all AWS public endpoints (including S3) without the internet. S3 interface endpoints cost per hour and per GB. NAT gateways add unnecessary complexity. Public VIF is the standard solution for accessing AWS public services over Direct Connect."},
+  {q:"A company needs single-digit latency hybrid connectivity and uses Transit Gateway. What combination MOST cost-effectively meets requirements?",a:["Site-to-Site VPN to each VPC + Direct Connect gateway associated with transit gateway","Direct Connect gateway associated with transit gateway + Direct Connect with a transit VIF to that gateway","Site-to-Site VPN to a Direct Connect gateway + VPN connections to transit gateway","Direct Connect with a transit VIF to the gateway + Site-to-Site VPN to transit gateway"],c:1,exp:"The correct pair: (1) Direct Connect with a transit VIF to a Direct Connect gateway — provides low-latency dedicated connectivity; (2) Associate the Direct Connect gateway with the Transit Gateway — enables all attached VPCs to be reachable through one gateway. Site-to-Site VPN has variable internet-based latency and fails the single-digit requirement."},
+  {q:"A company has Direct Connect to us-east-1 and acquired a corporation with Direct Connect to eu-west-2. CIDRs don't overlap. The company needs cross-region and cross-DC connectivity with minimal overhead. What should the solutions architect do?",a:["Set up inter-Region VPC peering between us-east-1 and eu-west-2","Create private VIFs from the us-east-1 Direct Connect to the eu-west-2 VPCs","Establish a fully meshed EC2-hosted VPN network using VPN CloudHub","Connect both Direct Connect connections to a Direct Connect gateway; route traffic from virtual private gateways in each Region to that gateway"],c:3,exp:"A Direct Connect gateway is globally available and can connect Direct Connect connections from multiple Regions to VPCs across Regions through a single gateway. This eliminates the need for individual connections, VPC peering meshes, or VPN appliances between all sites."},
+  {q:"A company needs to connect three VPCs in us-east-1 to an on-premises data center requiring latency-sensitive transfer of hundreds of GB/day. What is the MOST cost-effective solution?",a:["Three Site-to-Site VPN connections, one per VPC","A third-party IPsec VPN appliance in each VPC","Three Direct Connect connections, one per VPC","One Direct Connect connection + a Transit Gateway with all three VPCs attached"],c:3,exp:"One Direct Connect with a Transit Gateway is most cost-effective and scalable. The Transit Gateway acts as a hub for all three VPCs, and a single transit VIF on Direct Connect reaches all of them. Three separate Direct Connect connections or multiple VPN tunnels are unnecessarily expensive."},
+  {q:"Two VPCs in the same AWS account and region need to communicate. About 500 GB/month will transfer between them. What is the MOST cost-effective solution?",a:["AWS Transit Gateway with updated route tables","AWS Site-to-Site VPN tunnel between the VPCs","VPC peering connection with updated route tables in each VPC","1 GB AWS Direct Connect connection between the VPCs"],c:2,exp:"VPC peering is the most cost-effective option for same-account, same-region connectivity. Intra-region peering transfer is cheaper than Transit Gateway's per-attachment and per-GB processing fees. For simple two-VPC connectivity, peering is always preferred over Transit Gateway on cost."},
+  {q:"A VPC's IP address space is running out as EC2 instances increase. What resolves this with the LEAST operational overhead?",a:["Add an additional IPv4 CIDR block to the existing VPC and create new subnets","Create a second VPC and connect it via VPC peering","Use Transit Gateway to connect a second VPC","Create a second VPC with a Site-to-Site VPN to the first"],c:0,exp:"AWS allows adding secondary CIDR blocks to an existing VPC, expanding IP space without a second VPC, peering configuration, route table overhauls, or Transit Gateway setup. Existing security groups, NACLs, and most routing continue to work — lowest overhead option."},
+  {q:"A new VPC needs to peer with a development VPC (CIDR: 192.168.0.0/24). What is the SMALLEST valid CIDR block for the new VPC?",a:["10.0.1.0/32","192.168.0.0/24","192.168.1.0/32","10.0.1.0/24"],c:3,exp:"VPC peering requires non-overlapping CIDRs. 192.168.0.0/24 overlaps with dev VPC — invalid. /32 is a single IP — too small (AWS minimum is /28). 10.0.1.0/24 is the smallest standard valid CIDR that doesn't overlap with 192.168.0.0/24."},
+  {q:"A web server EC2 instance has an Elastic IP in a public subnet. The default NACL was modified to block ALL traffic. Port 443 must be accessible from everywhere. Which TWO steps are needed?",a:["Create SG allowing TCP 443 inbound from 0.0.0.0/0 + Update NACL to allow inbound 443 only","Create SG allowing TCP 443 outbound + Update NACL inbound/outbound TCP 443","Create SG allowing TCP 443 inbound from 0.0.0.0/0 + Update NACL to allow inbound TCP 443 AND outbound TCP 32768-65535","Update NACL inbound TCP 443 + Update NACL outbound TCP 443"],c:2,exp:"(1) SG rule allowing inbound TCP 443 — security groups are stateful so return traffic is automatic. (2) NACL must allow inbound TCP 443 AND outbound TCP 32768-65535 (ephemeral ports) — NACLs are stateless so return traffic must be explicitly allowed."},
+  {q:"EC2 instances in private subnets need to access Amazon SQS without traffic leaving the AWS network. What type of VPC endpoint is required for SQS?",a:["Gateway endpoint — free, uses route tables","Interface endpoint — uses an ENI with a private IP in the subnet","Transit Gateway endpoint — routes through the transit gateway","Direct Connect endpoint — requires a private VIF"],c:1,exp:"SQS uses an interface VPC endpoint (PrivateLink), not a gateway endpoint. Gateway endpoints only support S3 and DynamoDB. An interface endpoint creates an ENI with a private IP in your subnet. It's configured with a security group to control access, not a route table entry."},
+  {q:"A company wants public NAT gateways so private subnet EC2 instances can reach the internet. Where must the NAT gateways be placed?",a:["In the same private subnets as the EC2 instances","In private subnets in the same VPC","In public subnets in the same VPC as the EC2 instances","In public subnets in a separate VPC connected via peering"],c:2,exp:"NAT gateways must be in public subnets because they need a route to an internet gateway to forward traffic. Private subnet EC2 instances route 0.0.0.0/0 to the NAT gateway. Placing a NAT gateway in a private subnet defeats its purpose — it would have no internet path."}
 ];
 
-// ── State ──────────────────────────────────────────────────────────────────
-let queue = [], originalBatch = [], qIdx = 0, score = 0;
-let answered = false, missedQuestions = [], requeue = [], totalAnswered = 0;
-let lastSprintScreen = 'sprints';
-let answered = false, missedQuestions = [], requeue = [], totalAnswered = 0;
-let lastSprintScreen = 'sprints';
+// ── State ─────────────────────────────────────────────────────────────────
+var queue=[], qIdx=0, score=0, answered=false;
+var missedQuestions=[], requeue=[], totalAnswered=0;
+var lastSprintScreen='sprints';
 
-// ── Helpers ────────────────────────────────────────────────────────────────
-function showScreen(id) {
-  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-  document.getElementById(id).classList.add('active');
-  window.scrollTo(0, 0);
+// ── Core functions ────────────────────────────────────────────────────────
+function showScreen(id){
+  document.querySelectorAll('.screen').forEach(function(s){s.classList.remove('active');});
+  var el=document.getElementById(id);
+  if(el) el.classList.add('active');
+  try{window.scrollTo(0,0);}catch(e){}
 }
 
-function startSprint(idx, bank) {
-  const start = idx * 10;
-  originalBatch = bank.slice(start, start + 10);
-  queue = [...originalBatch];
-  qIdx = 0; score = 0; totalAnswered = 0;
-  missedQuestions = []; requeue = []; answered = false;
+function startSprint(idx, bank){
+  queue = bank.slice(idx*10, idx*10+10);
+  qIdx=0; score=0; totalAnswered=0;
+  missedQuestions=[]; requeue=[]; answered=false;
   showScreen('quiz');
   renderQuestion();
 }
 
-function retryMissed() {
-  queue = missedQuestions.map(q => Object.assign({}, q, { _retried: true }));
-  qIdx = 0; score = 0; totalAnswered = 0;
-  missedQuestions = []; requeue = []; answered = false;
+function retryMissed(){
+  queue = missedQuestions.map(function(q){return Object.assign({},q,{_retried:true});});
+  qIdx=0; score=0; totalAnswered=0;
+  missedQuestions=[]; requeue=[]; answered=false;
   showScreen('quiz');
   renderQuestion();
 }
 
-// ── Render ─────────────────────────────────────────────────────────────────
-function renderQuestion() {
-  answered = false;
-  const q = queue[qIdx];
-  const isRetry = q._retried || false;
-  const total = queue.length;
-  const pct = (qIdx / total) * 100;
-
-  document.getElementById('progress').style.width = pct + '%';
-  document.getElementById('progress-text').textContent = (qIdx + 1) + ' / ' + total;
-  document.getElementById('score-live').textContent = 'Score: ' + score;
-
-  const requeueCount = requeue.length;
-  document.getElementById('queue-status-wrap').innerHTML = requeueCount > 0
-    ? '<div class="queue-status"><div class="queue-dot"></div><span>' + requeueCount + ' missed question' + (requeueCount > 1 ? 's' : '') + ' will be re-queued.</span></div>'
-    : '';
-
-  const letters = ['A', 'B', 'C', 'D'];
-  const sprintNum = (() => {
-    for (let i = 0; i < questions.length; i++) {
-      if (questions[i].q === q.q) return Math.floor(i / 10) + 1;
-    }
-    return '?';
-  })();
-
-  let html = '<div class="quiz-card"><div class="q-meta">'
-    + '<span class="q-number">Q' + (qIdx + 1) + '</span>'
-    + (isRetry ? '<span class="retry-badge">↺ Retry</span>' : '')
-    + '<span class="sprint-tag" style="margin-bottom:0">Sprint ' + sprintNum + '</span>'
-    + '</div><div class="q-text">' + q.q + '</div>'
-    + '<div class="options-grid" id="options">';
-
-  q.a.forEach(function(opt, i) {
-    html += '<button class="opt-btn" data-idx="' + i + '"><span class="opt-letter">' + letters[i] + '</span><span>' + opt + '</span></button>';
+function renderQuestion(){
+  answered=false;
+  var q=queue[qIdx];
+  var total=queue.length;
+  document.getElementById('progress').style.width=(qIdx/total*100)+'%';
+  document.getElementById('progress-text').textContent=(qIdx+1)+' / '+total;
+  document.getElementById('score-live').textContent='Score: '+score;
+  var rc=requeue.length;
+  document.getElementById('queue-status-wrap').innerHTML=rc>0
+    ?'<div class="queue-status"><div class="queue-dot"></div><span>'+rc+' missed question'+(rc>1?'s':'')+' will be re-queued.</span></div>':'' ;
+  var letters=['A','B','C','D'];
+  var sprintNum=1;
+  var bank = (q._bank==='aws')?awsQuestions:ch5Questions;
+  for(var i=0;i<bank.length;i++){if(bank[i].q===q.q){sprintNum=Math.floor(i/10)+1;break;}}
+  var tagClass = q._bank==='aws' ? 'sprint-tag aws' : 'sprint-tag';
+  var html='<div class="quiz-card"><div class="q-meta">'
+    +'<span class="q-number">Q'+(qIdx+1)+'</span>'
+    +(q._retried?'<span class="retry-badge">↺ Retry</span>':'')
+    +'<span class="'+tagClass+'" style="margin-bottom:0">Sprint '+sprintNum+'</span>'
+    +'</div><div class="q-text">'+q.q+'</div>'
+    +'<div class="options-grid" id="options">';
+  q.a.forEach(function(opt,i){
+    html+='<button class="opt-btn" data-idx="'+i+'"><span class="opt-letter">'+letters[i]+'</span><span>'+opt+'</span></button>';
   });
-
-  html += '</div><div id="explanation-area"></div></div>';
-  document.getElementById('quiz-content').innerHTML = html;
-
-  // Attach listeners via delegation
-  document.getElementById('options').addEventListener('click', function(e) {
-    const btn = e.target.closest('.opt-btn');
-    if (btn && !answered) checkAnswer(parseInt(btn.dataset.idx, 10));
+  html+='</div><div id="explanation-area"></div></div>';
+  document.getElementById('quiz-content').innerHTML=html;
+  document.getElementById('options').addEventListener('click',function(e){
+    var btn=e.target.closest('.opt-btn');
+    if(btn&&!answered) checkAnswer(parseInt(btn.dataset.idx,10));
   });
-
-  const nextBtn = document.getElementById('next-btn');
-  nextBtn.classList.remove('visible');
-  nextBtn.textContent = 'Next question →';
+  var nb=document.getElementById('next-btn');
+  nb.classList.remove('visible');
+  nb.textContent='Next question →';
 }
 
-function checkAnswer(idx) {
-  if (answered) return;
-  answered = true;
-
-  const q = queue[qIdx];
-  const correct = q.c;
-  const isCorrect = idx === correct;
-
-  document.querySelectorAll('.opt-btn').forEach(function(b) { b.disabled = true; });
-
-  document.getElementById('opt-' + idx) && (function(){
-    // find by data-idx
-    document.querySelectorAll('.opt-btn').forEach(function(b) {
-      if (parseInt(b.dataset.idx) === idx) b.classList.add(isCorrect ? 'correct' : 'wrong');
-      if (parseInt(b.dataset.idx) === correct && !isCorrect) b.classList.add('reveal');
-    });
-  })();
-
-  if (!isCorrect) {
-    requeue.push(Object.assign({}, q, { _retried: true }));
-    if (!missedQuestions.find(function(m){ return m.q === q.q; })) {
-      missedQuestions.push(q);
-    }
-  } else {
-    score++;
-  }
-
+function checkAnswer(idx){
+  if(answered)return;
+  answered=true;
+  var q=queue[qIdx];
+  var correct=q.c;
+  var isCorrect=idx===correct;
+  document.querySelectorAll('.opt-btn').forEach(function(b){b.disabled=true;});
+  document.querySelectorAll('.opt-btn').forEach(function(b){
+    var bi=parseInt(b.dataset.idx,10);
+    if(bi===idx) b.classList.add(isCorrect?'correct':'wrong');
+    if(bi===correct&&!isCorrect) b.classList.add('reveal');
+  });
+  if(!isCorrect){
+    requeue.push(Object.assign({},q,{_retried:true}));
+    if(!missedQuestions.find(function(m){return m.q===q.q;})) missedQuestions.push(q);
+  } else { score++; }
   totalAnswered++;
-  document.getElementById('score-live').textContent = 'Score: ' + score;
-
-  document.getElementById('explanation-area').innerHTML =
-    '<div class="explanation-box"><div class="exp-label">'
-    + (isCorrect ? '✓ Correct' : '✗ Incorrect') + ' — Explanation</div><p>' + q.exp + '</p></div>';
-
-  const nextBtn = document.getElementById('next-btn');
-  const isLast = qIdx >= queue.length - 1;
-  nextBtn.textContent = (isLast && requeue.length === 0) ? 'See results →' : 'Next question →';
-  nextBtn.classList.add('visible');
+  document.getElementById('score-live').textContent='Score: '+score;
+  document.getElementById('explanation-area').innerHTML=
+    '<div class="explanation-box"><div class="exp-label">'+(isCorrect?'✓ Correct':'✗ Incorrect')+' — Explanation</div><p>'+q.exp+'</p></div>';
+  var nb=document.getElementById('next-btn');
+  nb.textContent=(qIdx>=queue.length-1&&requeue.length===0)?'See results →':'Next question →';
+  nb.classList.add('visible');
 }
 
-function nextQuestion() {
+function nextQuestion(){
   qIdx++;
-  if (qIdx < queue.length) {
-    renderQuestion();
-  } else if (requeue.length > 0) {
-    queue = queue.concat(requeue);
-    requeue = [];
-    renderQuestion();
-  } else {
-    finishSprint();
-  }
+  if(qIdx<queue.length){ renderQuestion(); }
+  else if(requeue.length>0){ queue=queue.concat(requeue); requeue=[]; renderQuestion(); }
+  else { finishSprint(); }
 }
 
-function finishSprint() {
+function finishSprint(){
   showScreen('results');
-  const pct = Math.round((score / totalAnswered) * 100);
-
-  setTimeout(function() {
-    const offset = 326.7 - (pct / 100) * 326.7;
-    const ring = document.getElementById('ring-fill');
-    ring.style.strokeDashoffset = offset;
-    ring.style.stroke = pct >= 80 ? '#3ecf72' : pct >= 60 ? '#c9a84c' : '#f06a6a';
-  }, 100);
-
-  document.getElementById('score-number').textContent = pct + '%';
-
-  let label, sub;
-  if (pct === 100) { label = 'Perfect Score! 🎯'; sub = score + '/' + totalAnswered + ' correct. Flawless.'; }
-  else if (pct >= 80) { label = 'Great Work!'; sub = score + '/' + totalAnswered + ' correct. Solid grasp of the material.'; }
-  else if (pct >= 60) { label = 'Good Effort'; sub = score + '/' + totalAnswered + ' correct. Review the explanations for missed ones.'; }
-  else { label = 'Keep Practicing'; sub = score + '/' + totalAnswered + ' correct. Re-read the chapter and retry.'; }
-
-  document.getElementById('result-label').textContent = label;
-  document.getElementById('result-sub').textContent = sub;
-
-  let missedHtml = '';
-  if (missedQuestions.length > 0) {
-    missedHtml = '<hr class="divider"><p style="font-size:13px;color:var(--text2);margin-bottom:12px;text-align:left"><strong style="color:var(--text)">Questions you missed:</strong></p><div class="missed-list">';
-    missedQuestions.forEach(function(q) {
-      missedHtml += '<div class="missed-item"><strong>Correct: "' + q.a[q.c] + '"</strong>' + q.q + '</div>';
+  var pct=Math.round(score/totalAnswered*100);
+  setTimeout(function(){
+    var ring=document.getElementById('ring-fill');
+    ring.style.strokeDashoffset=326.7-(pct/100)*326.7;
+    ring.style.stroke=pct>=80?'#3ecf72':pct>=60?'#c9a84c':'#f06a6a';
+  },100);
+  document.getElementById('score-number').textContent=pct+'%';
+  var label,sub;
+  if(pct===100){label='Perfect Score! 🎯';sub=score+'/'+totalAnswered+' correct. Flawless.';}
+  else if(pct>=80){label='Great Work!';sub=score+'/'+totalAnswered+' correct. Solid grasp of the material.';}
+  else if(pct>=60){label='Good Effort';sub=score+'/'+totalAnswered+' correct. Review the explanations for missed ones.';}
+  else{label='Keep Practicing';sub=score+'/'+totalAnswered+' correct. Re-read the material and retry.';}
+  document.getElementById('result-label').textContent=label;
+  document.getElementById('result-sub').textContent=sub;
+  var html='';
+  if(missedQuestions.length>0){
+    html='<hr class="divider"><p style="font-size:13px;color:var(--text2);margin-bottom:12px;text-align:left"><strong style="color:var(--text)">Questions you missed:</strong></p><div class="missed-list">';
+    missedQuestions.forEach(function(q){
+      html+='<div class="missed-item"><strong>Correct: "'+q.a[q.c]+'"</strong>'+q.q+'</div>';
     });
-    missedHtml += '</div><hr class="divider">';
+    html+='</div><hr class="divider">';
   }
-  document.getElementById('missed-section').innerHTML = missedHtml;
-
-  const retryBtn = document.getElementById('btn-retry');
-  if (missedQuestions.length > 0) {
-    retryBtn.style.display = 'inline-block';
-    retryBtn.textContent = 'Retry ' + missedQuestions.length + ' missed question' + (missedQuestions.length > 1 ? 's' : '');
-  } else {
-    retryBtn.style.display = 'none';
-  }
+  document.getElementById('missed-section').innerHTML=html;
+  var rb=document.getElementById('btn-retry');
+  if(missedQuestions.length>0){
+    rb.style.display='inline-block';
+    rb.textContent='Retry '+missedQuestions.length+' missed question'+(missedQuestions.length>1?'s':'');
+  } else { rb.style.display='none'; }
 }
 
-// ── Wire up all static buttons via addEventListener ────────────────────────
-document.addEventListener('DOMContentLoaded', function() {
-  document.getElementById('btn-home-nav').addEventListener('click', function() { showScreen('home'); });
-  document.getElementById('go-sprints').addEventListener('click', function() { showScreen('sprints'); });
-  document.getElementById('go-aws-sprints').addEventListener('click', function() { showScreen('aws-sprints'); });
-  document.getElementById('btn-back-home').addEventListener('click', function() { showScreen('home'); });
-  document.getElementById('btn-back-home-aws').addEventListener('click', function() { showScreen('home'); });
-  document.getElementById('next-btn').addEventListener('click', nextQuestion);
-  document.getElementById('btn-retry').addEventListener('click', retryMissed);
-  document.getElementById('btn-back-sprints').addEventListener('click', function() {
-    showScreen(lastSprintScreen);
-  });
+// ── Wire up buttons ────────────────────────────────────────────────────────
+window.addEventListener('load', function(){
+  function wire(id, fn){ var el=document.getElementById(id); if(el) el.addEventListener('click',fn); }
+  wire('btn-home-nav', function(){ showScreen('home'); });
+  wire('btn-back-home-ch5', function(){ showScreen('home'); });
+  wire('btn-back-home-aws', function(){ showScreen('home'); });
+  wire('go-sprints', function(){ showScreen('sprints'); });
+  wire('go-aws-sprints', function(){ showScreen('aws-sprints'); });
+  wire('next-btn', nextQuestion);
+  wire('btn-retry', retryMissed);
+  wire('btn-back-sprints', function(){ showScreen(lastSprintScreen); });
 
-  document.querySelectorAll('.sprint-card').forEach(function(card) {
-    card.addEventListener('click', function() {
-      lastSprintScreen = 'sprints';
-      startSprint(parseInt(card.dataset.sprint, 10), questions);
-    });
-  });
-
-  document.querySelectorAll('.aws-sprint-card').forEach(function(card) {
-    card.addEventListener('click', function() {
-      lastSprintScreen = 'aws-sprints';
-      startSprint(parseInt(card.dataset.awsSprint, 10), awsQuestions);
+  document.querySelectorAll('.sprint-card').forEach(function(card){
+    card.addEventListener('click', function(){
+      var bank = card.dataset.bank==='aws' ? awsQuestions : ch5Questions;
+      lastSprintScreen = card.dataset.bank==='aws' ? 'aws-sprints' : 'sprints';
+      // tag questions with their bank
+      var idx=parseInt(card.dataset.sprint,10);
+      var slice=bank.slice(idx*10,idx*10+10);
+      slice.forEach(function(q){ q._bank=card.dataset.bank; });
+      startSprint(idx, bank);
     });
   });
 });
