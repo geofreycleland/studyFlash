@@ -103,6 +103,11 @@ hr.divider{border:none;border-top:1px solid var(--line);margin:24px 0}
         <h3>Chapter 5: Predictive Analytics</h3>
         <p>7 sprints · 70 questions · Wrong answers re-queued until correct</p>
       </div>
+      <div class="chapter-card" id="go-aws-sprints">
+        <span class="sprint-tag" style="background:rgba(96,165,250,0.1);color:var(--blue)">Available</span>
+        <h3 style="color:var(--blue)">AWS VPC &amp; Networking</h3>
+        <p>2 sprints · 20 exam-style questions · VPC endpoints, Direct Connect, NAT, peering &amp; more</p>
+      </div>
       <div class="chapter-card locked">
         <h3>Chapter 6: Machine Learning</h3>
         <p>Coming soon</p>
@@ -122,8 +127,23 @@ hr.divider{border:none;border-top:1px solid var(--line);margin:24px 0}
       <div class="chapter-card sprint-card" data-sprint="6"><span class="sprint-tag">Sprint 7</span><h3>CRISP-DM Deep Dive</h3><p>Every step in detail — what happens, why, how long it takes, and what can go wrong. The kind of questions professors love.</p></div>
     </div>
 
-    <div id="quiz" class="screen">
-      <div class="progress-wrap">
+    <div id="aws-sprints" class="screen">
+      <button class="back-btn" id="btn-back-home-aws">← Chapters</button>
+      <h1 style="color:var(--blue)">AWS VPC &amp; Networking</h1>
+      <p class="subtitle">Exam-style scenario questions. Each sprint has 10 questions with full explanations.</p>
+      <div class="chapter-card aws-sprint-card" data-aws-sprint="0" style="border-color:rgba(96,165,250,0.2)">
+        <span class="sprint-tag" style="background:rgba(96,165,250,0.1);color:var(--blue)">Sprint 1</span>
+        <h3 style="color:var(--blue)">VPC Connectivity &amp; Endpoints</h3>
+        <p>PrivateLink, gateway vs. interface endpoints, VPC peering, NAT gateways, and security groups.</p>
+      </div>
+      <div class="chapter-card aws-sprint-card" data-aws-sprint="1" style="border-color:rgba(96,165,250,0.2)">
+        <span class="sprint-tag" style="background:rgba(96,165,250,0.1);color:var(--blue)">Sprint 2</span>
+        <h3 style="color:var(--blue)">Hybrid Networks &amp; Advanced Routing</h3>
+        <p>Direct Connect, Transit Gateway, VPN, egress-only gateways, NACLs, and IP addressing.</p>
+      </div>
+    </div>
+
+    <div id="quiz" class="screen">      <div class="progress-wrap">
         <span class="progress-label" id="progress-text">1 / 10</span>
         <span class="progress-label" id="score-live">Score: 0</span>
       </div>
@@ -242,9 +262,138 @@ const questions = [
   { q: "Why must models be maintained after Step 6 (Deployment)?", a: ["Because software licenses expire and models need to be re-purchased", "Because models are only valid for one year by regulation", "Because business data constantly changes — models built on old data can become obsolete, irrelevant, or misleading over time", "Because end users frequently request new features"], c: 2, exp: "'Because everything about the business is constantly changing, the data that reflect the business activities also are changing. Over time, the models built on the old data may become obsolete, irrelevant, or misleading.' A maintenance strategy and monitoring plan are essential." }
 ];
 
+const awsQuestions = [
+  // AWS SPRINT 1 — VPC Connectivity & Endpoints
+  {
+    q: "A company's VPC has no internet gateway, Direct Connect, or Site-to-Site VPN. The company needs to access a vendor's Amazon RDS for MySQL database in another AWS account. What should the solutions architect do?",
+    a: ["Use VPC peering to connect both VPCs directly", "Configure a client VPN connection between the VPCs, then use VPC peering", "Have the vendor create a Network Load Balancer in front of RDS, then use AWS PrivateLink to connect the VPCs", "Use AWS Transit Gateway to integrate both VPCs"],
+    c: 2,
+    exp: "PrivateLink is the right fit here because it allows private access to services in another VPC or account without requiring an internet gateway, VPN, or Direct Connect. The vendor exposes their RDS via an NLB, and PrivateLink creates a private endpoint in the company's VPC. VPC peering alone doesn't work without routing infrastructure."
+  },
+  {
+    q: "EC2 instances in private subnets need to communicate with an Amazon SQS queue securely. What is the correct implementation?",
+    a: ["Interface VPC endpoint for SQS in public subnets, with a VPC endpoint policy allowing private subnet access", "Interface VPC endpoint for SQS in public subnets, with an SQS access policy allowing requests from a specified endpoint", "Interface VPC endpoint for SQS in private subnets, with a security group allowing inbound traffic from the EC2 instances", "Gateway endpoint for SQS, plus a NAT gateway in the private subnets"],
+    c: 2,
+    exp: "SQS uses an interface VPC endpoint (not a gateway endpoint — SQS is not S3 or DynamoDB). The endpoint should be placed in the private subnets where the EC2 instances live. A security group on the endpoint restricts inbound access to only those EC2 instances. Putting the endpoint in public subnets would route traffic unnecessarily."
+  },
+  {
+    q: "A VPC has public subnets for a load balancer and private subnets for web servers and MySQL. Company policy requires least-privilege access. The load balancer SG already allows port 443 from 0.0.0.0/0. What should be created for the web servers and MySQL servers?",
+    a: ["SG for web servers allowing 443 from 0.0.0.0/0; SG for MySQL allowing 3306 from web server SG", "Network ACL for web servers allowing 443 from 0.0.0.0/0; NACL for MySQL allowing 3306 from web server SG", "SG for web servers allowing 443 from the load balancer SG; SG for MySQL allowing 3306 from the web server SG", "Network ACL for web servers allowing 443 from the load balancer; NACL for MySQL allowing 3306 from web server SG"],
+    c: 2,
+    exp: "Security groups are the right tool for least-privilege between tiers because you can reference another security group as the source — meaning only traffic from the load balancer SG reaches web servers, and only traffic from the web server SG reaches MySQL. Using 0.0.0.0/0 for web servers violates least privilege. NACLs are stateless and subnet-level, making them less precise for this use case."
+  },
+  {
+    q: "Containers in a VPC store and access 1 TB/day in Amazon S3. The company wants to minimize costs and avoid internet traversal. What should the solutions architect do?",
+    a: ["Enable S3 Intelligent-Tiering", "Enable S3 Transfer Acceleration", "Create a gateway VPC endpoint for S3 and associate it with all route tables in the VPC", "Create an interface endpoint for S3 in the VPC and associate it with all route tables"],
+    c: 2,
+    exp: "A gateway VPC endpoint for S3 is free and routes S3 traffic privately within the AWS network without going through the internet, NAT gateway, or incurring data transfer charges. Interface endpoints for S3 exist but cost money per hour and per GB. For high-volume S3 access from within a VPC, the gateway endpoint is always preferred for cost."
+  },
+  {
+    q: "EC2 instances in private subnets access S3 through a single NAT gateway. The company is concerned about data transfer charges. What is the most cost-effective fix?",
+    a: ["Launch a NAT gateway in each Availability Zone", "Replace the NAT gateway with a NAT instance", "Deploy a gateway VPC endpoint for Amazon S3", "Provision EC2 Dedicated Hosts"],
+    c: 2,
+    exp: "Traffic from private subnets to S3 via a NAT gateway incurs NAT gateway data processing charges plus regional data transfer charges. A gateway VPC endpoint for S3 routes traffic directly to S3 over the AWS private network at no additional cost, eliminating both charges. It's the canonical solution for this scenario."
+  },
+  {
+    q: "A solutions architect needs to apply least-privilege security group rules between application tiers in a three-tier VPC. What should be used as the source or destination in the security group rules?",
+    a: ["The EC2 instance ID", "The security group ID of the other tier", "The VPC CIDR block", "The subnet CIDR block of the other tier"],
+    c: 1,
+    exp: "Referencing a security group ID as the source/destination is the most precise way to apply least privilege between tiers. It means only resources that belong to the referenced security group can communicate — regardless of IP address or CIDR. Using CIDR blocks is less precise and could allow unintended resources in the same subnet range."
+  },
+  {
+    q: "A company needs to be notified when RDP or SSH access to EC2 demonstration environments (each in its own VPC) is established. Which solution meets this requirement?",
+    a: ["Use CloudWatch Application Insights to create Systems Manager OpsItems for RDP/SSH", "Attach IAM instance profiles with AmazonSSMManagedInstanceCore to the EC2 instances", "Publish VPC flow logs to CloudWatch Logs, create metric filters, and configure a CloudWatch alarm with SNS notification", "Create an EventBridge rule for EC2 Instance State-change Notification with an SNS target"],
+    c: 2,
+    exp: "VPC Flow Logs capture network traffic metadata including source/destination ports. Publishing them to CloudWatch Logs lets you create metric filters that detect traffic on port 22 (SSH) or port 3389 (RDP), then trigger a CloudWatch alarm that sends an SNS notification. EventBridge state-change events only capture instance start/stop — not network connections."
+  },
+  {
+    q: "An application on EC2 in private subnets needs to access a DynamoDB table. What is the MOST secure way to ensure traffic does not leave the AWS network?",
+    a: ["Use a NAT gateway in a public subnet", "Use a NAT instance in a private subnet", "Use a VPC endpoint for DynamoDB", "Use the internet gateway attached to the VPC"],
+    c: 2,
+    exp: "A VPC endpoint for DynamoDB (gateway type) routes traffic directly from the VPC to DynamoDB over the AWS private network — no internet gateway, NAT, or public IP needed. This is the most secure option because traffic never leaves the AWS network, and it's also free. NAT gateway routes traffic through AWS's network but adds cost and complexity."
+  },
+  {
+    q: "An EC2 instance in a private subnet needs to download monthly security updates from an outside vendor. The subnet has no internet access. What should the solutions architect do?",
+    a: ["Create an internet gateway and attach it to the VPC; update the private subnet route table to use it", "Create a NAT gateway in a public subnet; update the private subnet route table to use the NAT gateway as default route", "Create a NAT instance in the same private subnet; update the route table to use it", "Create an internet gateway and a NAT instance in the private subnet; use the internet gateway as default route"],
+    c: 1,
+    exp: "A NAT gateway in a public subnet allows outbound internet access for private subnet instances without exposing them to inbound connections. The private subnet's route table sends 0.0.0.0/0 traffic to the NAT gateway, which sits in a public subnet with a route to the internet gateway. The NAT instance in the same private subnet option is wrong because it can't route to the internet without an internet gateway path."
+  },
+  {
+    q: "A company's EC2 instances with IPv6 addresses must initiate outbound internet connections, but security policy forbids any external service from initiating inbound connections to the instances. What should the solutions architect recommend?",
+    a: ["Create a NAT gateway and make it the destination in the route table", "Create an internet gateway and make it the destination in the route table", "Create a virtual private gateway and make it the destination in the route table", "Create an egress-only internet gateway and make it the destination in the route table"],
+    c: 3,
+    exp: "An egress-only internet gateway is specifically designed for IPv6 traffic — it allows outbound connections from instances to the internet but prevents unsolicited inbound connections. A regular internet gateway would allow both inbound and outbound for IPv6. NAT gateways handle IPv4 private addresses, not public IPv6. Virtual private gateways are for VPN/Direct Connect, not internet access."
+  },
+
+  // AWS SPRINT 2 — Hybrid Networks & Advanced Routing
+  {
+    q: "A company uses Direct Connect to connect its on-premises network (no internet access) to AWS. An application needs to use an S3 bucket. What is the MOST cost-effective solution?",
+    a: ["Create a public virtual interface (VIF) and route AWS traffic over it", "Create a VPC and NAT gateway; route on-premises traffic to the NAT gateway", "Create a VPC and S3 interface endpoint; route on-premises traffic to the interface endpoint", "Create a VPC peering connection between on-premises and Direct Connect"],
+    c: 0,
+    exp: "A public VIF on a Direct Connect connection provides access to all AWS public endpoints (including S3) without going over the internet. It's the most cost-effective option because S3 interface endpoints cost per hour and per GB, and NAT gateways add unnecessary hops. VPC peering doesn't apply to on-premises networks. Public VIF is the standard solution for accessing AWS public services via Direct Connect."
+  },
+  {
+    q: "A company needs hybrid connectivity with single-digit latency between on-premises and AWS. They use Transit Gateway to connect multiple VPCs. What combination MOST cost-effectively meets requirements? (Choose two — select the correct pair)",
+    a: ["Site-to-Site VPN to each VPC + Direct Connect gateway associated with the transit gateway", "Direct Connect gateway associated with the transit gateway + Direct Connect connection with a transit VIF to that gateway", "Site-to-Site VPN to a Direct Connect gateway + Site-to-Site VPN connections associated with the transit gateway", "Direct Connect with a transit VIF to the gateway + Site-to-Site VPN connections associated with the transit gateway"],
+    c: 1,
+    exp: "The correct pair: (1) Establish a Direct Connect connection and create a transit VIF to a Direct Connect gateway — this provides the low-latency, high-bandwidth dedicated connection required. (2) Associate that Direct Connect gateway with the Transit Gateway — this enables all attached VPCs to be reachable from on-premises through one gateway. Site-to-Site VPN has higher latency and variable performance over the internet, failing the single-digit latency requirement."
+  },
+  {
+    q: "A company acquired a corporation with VPCs in eu-west-2 and a Direct Connect to eu-west-2. The original company has a Direct Connect to us-east-1. CIDRs don't overlap. The company needs connectivity between both regions and both data centers with minimal overhead. What should the solutions architect do?",
+    a: ["Set up inter-Region VPC peering between us-east-1 and eu-west-2 VPCs", "Create private VIFs from the us-east-1 Direct Connect to the eu-west-2 VPCs", "Establish VPN appliances in a fully meshed EC2-hosted VPN network using VPN CloudHub", "Connect both Direct Connect connections to a Direct Connect gateway; route traffic from virtual private gateways in each Region to that gateway"],
+    c: 3,
+    exp: "A Direct Connect gateway is a globally available resource that can connect Direct Connect connections from multiple Regions to VPCs across Regions, using a single gateway. This eliminates the need to create individual connections, peering relationships, or VPN meshes between all the VPCs and data centers. It's the scalable, low-overhead solution for multi-region, multi-DC connectivity."
+  },
+  {
+    q: "A company needs to connect three VPCs in us-east-1 to an on-premises data center that requires latency-sensitive communication of hundreds of GB/day. What is the MOST cost-effective solution?",
+    a: ["Three Site-to-Site VPN connections, one per VPC", "A third-party IPsec VPN appliance in each VPC", "Three Direct Connect connections, one per VPC", "One Direct Connect connection + a Transit Gateway with all three VPCs attached"],
+    c: 3,
+    exp: "One Direct Connect connection paired with a Transit Gateway is the most cost-effective and scalable approach. The Transit Gateway acts as a hub connecting all three VPCs, and a single transit VIF on the Direct Connect connection reaches all of them. This avoids paying for three separate Direct Connect connections or managing multiple VPN tunnels with variable latency."
+  },
+  {
+    q: "Two VPCs in the same AWS account and region need to communicate. Approximately 500 GB/month will transfer between them. What is the MOST cost-effective solution?",
+    a: ["AWS Transit Gateway with updated route tables", "AWS Site-to-Site VPN tunnel between the VPCs", "VPC peering connection with updated route tables in each VPC", "1 GB AWS Direct Connect connection between the VPCs"],
+    c: 2,
+    exp: "VPC peering is the most cost-effective option for same-account, same-region VPC connectivity. Data transfer over VPC peering within the same region is charged at standard intra-region rates, which are lower than Transit Gateway per-GB fees. Transit Gateway adds per-attachment and per-GB processing charges that make it more expensive for simple two-VPC connectivity."
+  },
+  {
+    q: "A VPC's IP address space is running out as EC2 instances increase. What resolves this with the LEAST operational overhead?",
+    a: ["Add an additional IPv4 CIDR block to the existing VPC and create new subnets", "Create a second VPC and connect it via VPC peering", "Use Transit Gateway to add a second VPC", "Create a second VPC with a Site-to-Site VPN connection to the first"],
+    c: 0,
+    exp: "AWS allows you to add secondary CIDR blocks to an existing VPC. This expands the IP space without creating a second VPC, configuring peering, updating complex route tables, or managing a Transit Gateway. It's the lowest-overhead option because resources stay in the same VPC and existing security groups, NACLs, and route tables mostly continue to work."
+  },
+  {
+    q: "A new VPC needs to peer with a development VPC (CIDR: 192.168.0.0/24). What is the SMALLEST valid CIDR block for the new VPC?",
+    a: ["10.0.1.0/32", "192.168.0.0/24", "192.168.1.0/32", "10.0.1.0/24"],
+    c: 3,
+    exp: "VPC peering requires non-overlapping CIDR blocks. 192.168.0.0/24 is the same as the dev VPC — invalid. 192.168.1.0/32 is only 1 IP — too small to be a valid VPC CIDR (/28 is the minimum). 10.0.1.0/32 is also a single IP. 10.0.1.0/24 is the smallest standard valid CIDR (/24 = 256 addresses, meets AWS VPC minimum of /28) that doesn't overlap with 192.168.0.0/24."
+  },
+  {
+    q: "A web server EC2 instance has an Elastic IP and sits in a public subnet. The default SG is assigned. The default NACL was modified to block ALL traffic. Port 443 must be accessible from everywhere. Which TWO steps are needed? (Select the correct pair)",
+    a: ["Create SG allowing TCP 443 inbound from 0.0.0.0/0 + Update NACL to allow inbound 443 from 0.0.0.0/0 only", "Create SG allowing TCP 443 outbound to 0.0.0.0/0 + Update NACL inbound/outbound TCP 443", "Create SG allowing TCP 443 inbound from 0.0.0.0/0 + Update NACL to allow inbound TCP 443 from 0.0.0.0/0 AND outbound TCP 32768-65535 to 0.0.0.0/0", "Update NACL inbound TCP 443 + Update NACL outbound TCP 443"],
+    c: 2,
+    exp: "Two things are needed: (1) A security group rule allowing inbound TCP 443 from 0.0.0.0/0 — security groups are stateful, so the return traffic is automatically allowed. (2) The NACL must allow inbound TCP 443 AND outbound TCP 32768-65535 (ephemeral ports) — NACLs are stateless, so return traffic must be explicitly allowed. The ephemeral port range is the standard for TCP response traffic."
+  },
+  {
+    q: "A solutions architect needs to connect EC2 instances in private subnets to Amazon SQS without traffic leaving the AWS network. SQS is not S3 or DynamoDB. What type of VPC endpoint is required?",
+    a: ["Gateway endpoint — free, uses route tables", "Interface endpoint — uses an ENI with a private IP in the subnet", "Transit Gateway endpoint — routes through the transit gateway", "Direct Connect endpoint — requires a private VIF"],
+    c: 1,
+    exp: "SQS uses an interface VPC endpoint (powered by AWS PrivateLink), not a gateway endpoint. Gateway endpoints only support S3 and DynamoDB. An interface endpoint creates an Elastic Network Interface (ENI) with a private IP address in your subnet, allowing private communication to SQS. It's configured with a security group to control access, not a route table entry."
+  },
+  {
+    q: "A company wants public NAT gateways so private subnet EC2 instances can reach the internet. Where must the NAT gateways be placed?",
+    a: ["In the same private subnets as the EC2 instances", "In private subnets in the same VPC", "In public subnets in the same VPC as the EC2 instances", "In public subnets in a separate VPC, connected via peering"],
+    c: 2,
+    exp: "NAT gateways must be placed in public subnets because they need a route to an internet gateway to forward traffic to the internet. Private subnet EC2 instances then have a route pointing 0.0.0.0/0 to the NAT gateway. Placing a NAT gateway in a private subnet defeats its purpose — it would have no path to the internet."
+  }
+];
+
 // ── State ──────────────────────────────────────────────────────────────────
 let queue = [], originalBatch = [], qIdx = 0, score = 0;
 let answered = false, missedQuestions = [], requeue = [], totalAnswered = 0;
+let lastSprintScreen = 'sprints';
+let answered = false, missedQuestions = [], requeue = [], totalAnswered = 0;
+let lastSprintScreen = 'sprints';
 
 // ── Helpers ────────────────────────────────────────────────────────────────
 function showScreen(id) {
@@ -253,9 +402,9 @@ function showScreen(id) {
   window.scrollTo(0, 0);
 }
 
-function startSprint(idx) {
+function startSprint(idx, bank) {
   const start = idx * 10;
-  originalBatch = questions.slice(start, start + 10);
+  originalBatch = bank.slice(start, start + 10);
   queue = [...originalBatch];
   qIdx = 0; score = 0; totalAnswered = 0;
   missedQuestions = []; requeue = []; answered = false;
@@ -419,14 +568,26 @@ function finishSprint() {
 document.addEventListener('DOMContentLoaded', function() {
   document.getElementById('btn-home-nav').addEventListener('click', function() { showScreen('home'); });
   document.getElementById('go-sprints').addEventListener('click', function() { showScreen('sprints'); });
+  document.getElementById('go-aws-sprints').addEventListener('click', function() { showScreen('aws-sprints'); });
   document.getElementById('btn-back-home').addEventListener('click', function() { showScreen('home'); });
+  document.getElementById('btn-back-home-aws').addEventListener('click', function() { showScreen('home'); });
   document.getElementById('next-btn').addEventListener('click', nextQuestion);
   document.getElementById('btn-retry').addEventListener('click', retryMissed);
-  document.getElementById('btn-back-sprints').addEventListener('click', function() { showScreen('sprints'); });
+  document.getElementById('btn-back-sprints').addEventListener('click', function() {
+    showScreen(lastSprintScreen);
+  });
 
   document.querySelectorAll('.sprint-card').forEach(function(card) {
     card.addEventListener('click', function() {
-      startSprint(parseInt(card.dataset.sprint, 10));
+      lastSprintScreen = 'sprints';
+      startSprint(parseInt(card.dataset.sprint, 10), questions);
+    });
+  });
+
+  document.querySelectorAll('.aws-sprint-card').forEach(function(card) {
+    card.addEventListener('click', function() {
+      lastSprintScreen = 'aws-sprints';
+      startSprint(parseInt(card.dataset.awsSprint, 10), awsQuestions);
     });
   });
 });
