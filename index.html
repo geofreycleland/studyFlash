@@ -16,6 +16,7 @@
   --green:#3ecf72;--green-bg:rgba(62,207,114,0.12);
   --red:#f06a6a;--red-bg:rgba(240,106,106,0.12);
   --blue:#60a5fa;--blue-bg:rgba(96,165,250,0.08);
+  --purple:#a78bfa;--purple-bg:rgba(167,139,250,0.08);
   --r:12px;--r2:16px
 }
 body{background:var(--bg);color:var(--text);font-family:'Geist',sans-serif;font-size:14px;line-height:1.6;overflow-x:hidden}
@@ -47,6 +48,7 @@ h1{font-family:'Instrument Serif',serif;font-size:34px;margin-bottom:8px;color:v
 .q-meta{display:flex;gap:8px;align-items:center;margin-bottom:18px;flex-wrap:wrap}
 .q-number{font-family:'Geist Mono',monospace;font-size:11px;color:var(--text3);background:var(--bg3);padding:3px 8px;border-radius:4px}
 .retry-badge{font-size:10px;color:var(--gold);background:rgba(201,168,76,0.12);border:1px solid rgba(201,168,76,0.2);padding:2px 8px;border-radius:4px}
+.recall-badge{font-size:10px;color:var(--purple);background:var(--purple-bg);border:1px solid rgba(167,139,250,0.2);padding:2px 8px;border-radius:4px;letter-spacing:0.5px}
 .q-text{font-size:17px;font-weight:500;color:var(--text);line-height:1.55}
 .options-grid{display:grid;gap:10px;margin-top:20px}
 .opt-btn{background:var(--bg2);border:1px solid var(--line2);padding:14px 18px;border-radius:var(--r);color:var(--text);text-align:left;cursor:pointer;transition:0.15s;width:100%;font-family:'Geist',sans-serif;font-size:14px;line-height:1.4;display:flex;align-items:flex-start;gap:12px}
@@ -84,6 +86,54 @@ h1{font-family:'Instrument Serif',serif;font-size:34px;margin-bottom:8px;color:v
 .back-btn{background:var(--bg3);color:var(--text2);border:1px solid var(--line2);padding:8px 16px;border-radius:8px;font-size:13px;cursor:pointer;margin-bottom:22px;display:inline-flex;align-items:center;gap:6px;font-family:'Geist',sans-serif}
 hr.divider{border:none;border-top:1px solid var(--line);margin:24px 0}
 .section-label{font-size:11px;text-transform:uppercase;letter-spacing:1.5px;color:var(--text3);margin-bottom:12px;margin-top:4px;font-family:'Geist Mono',monospace}
+
+/* ── Mode Toggle ── */
+.mode-toggle-wrap{display:flex;align-items:center;gap:10px;margin-bottom:20px;background:var(--bg2);border:1px solid var(--line);border-radius:10px;padding:4px}
+.mode-btn{flex:1;padding:8px 14px;border-radius:8px;border:none;background:transparent;color:var(--text3);font-family:'Geist',sans-serif;font-size:13px;font-weight:500;cursor:pointer;transition:0.2s;display:flex;align-items:center;justify-content:center;gap:6px}
+.mode-btn.active{background:var(--bg3);color:var(--text);border:1px solid var(--line2)}
+.mode-btn .mode-icon{font-size:14px}
+
+/* ── Recall Mode ── */
+.recall-area{margin-top:20px}
+.recall-input{width:100%;background:var(--bg2);border:1px solid var(--line2);border-radius:var(--r);padding:14px 16px;color:var(--text);font-family:'Geist',sans-serif;font-size:15px;resize:none;min-height:90px;outline:none;transition:0.2s;line-height:1.5}
+.recall-input:focus{border-color:var(--purple);box-shadow:0 0 0 3px rgba(167,139,250,0.08)}
+.recall-input::placeholder{color:var(--text3)}
+.recall-submit-btn{background:var(--purple);color:#fff;border:none;padding:11px 22px;border-radius:var(--r);font-weight:600;margin-top:12px;cursor:pointer;font-family:'Geist',sans-serif;font-size:14px;transition:0.15s}
+.recall-submit-btn:hover{background:#b09ffd}
+.recall-submit-btn:disabled{opacity:0.4;cursor:default}
+
+/* Recall result display */
+.recall-result{margin-top:16px;animation:fadeIn 0.3s ease}
+.recall-answer-list{margin:12px 0 0;display:flex;flex-direction:column;gap:8px}
+.recall-answer-item{display:flex;align-items:flex-start;gap:10px;padding:10px 14px;border-radius:10px;font-size:13px;border:1px solid transparent}
+.recall-answer-item.hit{background:var(--green-bg);border-color:rgba(62,207,114,0.2);color:var(--text)}
+.recall-answer-item.miss{background:var(--red-bg);border-color:rgba(240,106,106,0.2);color:var(--text)}
+.recall-answer-item.partial{background:rgba(201,168,76,0.1);border-color:rgba(201,168,76,0.2);color:var(--text)}
+.recall-status-icon{font-size:15px;flex-shrink:0;margin-top:1px}
+.recall-answer-label{font-size:10px;text-transform:uppercase;letter-spacing:1px;margin-bottom:3px;font-family:'Geist Mono',monospace}
+.recall-answer-label.hit{color:var(--green)}
+.recall-answer-label.miss{color:var(--red)}
+.recall-answer-label.partial{color:var(--gold)}
+.recall-your-answer{color:var(--text2);font-size:12px;margin-top:2px}
+
+.recall-score-line{font-size:13px;color:var(--text2);margin-bottom:4px}
+.recall-score-line strong{color:var(--text)}
+
+.recall-hint{font-size:12px;color:var(--text3);margin-top:8px;font-style:italic}
+.recall-self-grade{margin-top:16px;padding:14px 16px;background:var(--bg2);border:1px solid var(--line2);border-radius:var(--r);display:flex;flex-direction:column;gap:10px}
+.recall-self-grade p{font-size:13px;color:var(--text2)}
+.recall-grade-btns{display:flex;gap:8px;flex-wrap:wrap}
+.grade-btn{padding:8px 16px;border-radius:8px;border:1px solid;font-size:12px;font-weight:600;cursor:pointer;font-family:'Geist',sans-serif;transition:0.15s}
+.grade-btn.got-it{background:var(--green-bg);border-color:rgba(62,207,114,0.3);color:var(--green)}
+.grade-btn.got-it:hover{background:rgba(62,207,114,0.2)}
+.grade-btn.almost{background:rgba(201,168,76,0.1);border-color:rgba(201,168,76,0.3);color:var(--gold)}
+.grade-btn.almost:hover{background:rgba(201,168,76,0.2)}
+.grade-btn.missed-it{background:var(--red-bg);border-color:rgba(240,106,106,0.3);color:var(--red)}
+.grade-btn.missed-it:hover{background:rgba(240,106,106,0.2)}
+
+.correct-answer-reveal{margin-top:14px;background:rgba(62,207,114,0.06);border:1px solid rgba(62,207,114,0.15);border-radius:var(--r);padding:14px 16px}
+.correct-answer-reveal .exp-label{color:var(--green)}
+.correct-answer-reveal p{font-size:13px;color:var(--text2);line-height:1.6}
 </style>
 </head>
 <body>
@@ -144,6 +194,11 @@ hr.divider{border:none;border-top:1px solid var(--line);margin:24px 0}
 
     <!-- QUIZ -->
     <div id="quiz" class="screen">
+      <!-- Mode toggle -->
+      <div class="mode-toggle-wrap">
+        <button class="mode-btn active" id="mode-mcq"><span class="mode-icon">🔵</span> Multiple Choice</button>
+        <button class="mode-btn" id="mode-recall"><span class="mode-icon">✏️</span> Free Recall</button>
+      </div>
       <div class="progress-wrap">
         <span class="progress-label" id="progress-text">1 / 10</span>
         <span class="progress-label" id="score-live">Score: 0</span>
@@ -179,7 +234,6 @@ hr.divider{border:none;border-top:1px solid var(--line);margin:24px 0}
 <script>
 // ── Question Banks ─────────────────────────────────────────────────────────
 var ch5Questions = [
-  // SPRINT 1
   {q:"Why is 'Data Mining' technically a misnomer?",a:["It doesn't actually use data","Mining gold from rock is called 'gold mining', so this should be called 'knowledge mining'","It only works on structured databases","It was named before computers existed"],c:1,exp:"Mining gold from rock is called 'gold mining' not 'rock mining' — so by the same logic, mining knowledge from data should be 'knowledge mining'. The term stuck despite being misleading."},
   {q:"Which pattern type describes the famous 'beer and diapers' finding?",a:["Sequential relationships","Clusters","Predictions","Associations"],c:3,exp:"Associations find commonly co-occurring groupings of things, like beer and diapers in market-basket analysis. Sequential relationships differ — they involve time-ordered events."},
   {q:"In the formal definition, what does 'Nontrivial' mean in data mining?",a:["The results are unimportant","Some experimentation-type search or inference is involved — not a straightforward computation","The dataset must be very large","Only experts can perform it"],c:1,exp:"Nontrivial means 'some experimentation-type search or inference is involved; it is not as straightforward as a computation of predefined quantities.' This distinguishes data mining from basic SQL queries."},
@@ -190,7 +244,6 @@ var ch5Questions = [
   {q:"What did Dr. Arno Penzias say would happen to companies that don't do data mining?",a:["They grow more slowly","They face higher IT costs","They will be out of business","They must rely on manual analysis"],c:2,exp:"Penzias (Nobel laureate, former Bell Labs chief scientist) said: 'Data mining will become much more important... If you're not doing this, you're out of business.'"},
   {q:"What is the key difference between Prediction and Forecasting?",a:["They are exactly the same thing","Prediction is experience/opinion-based; forecasting is data/model-based","Forecasting is only for financial data","Prediction always uses neural networks"],c:1,exp:"Prediction is 'largely experience and opinion based' while forecasting is 'data and model based.' In order of reliability: guessing → predicting → forecasting."},
   {q:"Which of the following is NOT a core discipline in data mining?",a:["Statistics","Machine Learning","Human Resources Management","Artificial Intelligence"],c:2,exp:"Figure 5.1 shows the core disciplines: Statistics, AI, Machine Learning & Pattern Recognition, Information Visualization, Database Management, and Management Science & IS. HR is not among them."},
-  // SPRINT 2
   {q:"Which standardized data mining process is 'arguably the most popular'?",a:["SEMMA","KDD","DMAIC","CRISP-DM"],c:3,exp:"CRISP-DM (Cross-Industry Standard Process for Data Mining) was proposed in the mid-1990s by a European consortium. Poll data from KDnuggets confirmed it as the most widely used methodology."},
   {q:"What is the very first step of CRISP-DM?",a:["Data Preparation","Model Building","Data Understanding","Business Understanding"],c:3,exp:"Step 1 is Business Understanding — establishing specific goals like 'What are typical profiles of our customers?' and developing a project plan. This comes before any data work."},
   {q:"SEMMA stands for:",a:["Structure, Explore, Mine, Model, Assess","Sample, Explore, Modify, Model, Assess","Select, Extract, Merge, Map, Analyze","Sort, Examine, Modify, Measure, Apply"],c:1,exp:"SEMMA was developed by SAS Institute: Sample, Explore, Modify, Model, Assess. It starts with a representative sample and proceeds through exploration, variable selection, modeling, and assessment."},
@@ -201,7 +254,6 @@ var ch5Questions = [
   {q:"Why is KDD criticized by analytics professionals?",a:["It has too many steps","It is too expensive","It portrays data mining as a single step rather than the complete process","It was invented too recently"],c:2,exp:"'KDD process is often criticized because it portrays data mining as a single-step in the overall process, as opposed to the complete process itself.'"},
   {q:"In the KDD process, what does the final output 'Knowledge' represent?",a:["A raw data export","A summary statistics report","Actionable Insight","A trained model file"],c:2,exp:"In Figure 5.6, the KDD process ends with 'Knowledge = Actionable Insight.' Flow: Data Selection → Cleaning → Transformation → Data Mining → Internalization → Knowledge."},
   {q:"Why does CRISP-DM involve significant backtracking between steps?",a:["The software tools are buggy","Business goals change every day","Data mining is driven by experience and experimentation, making it highly iterative","Analysts rarely have enough data"],c:2,exp:"'Because the data mining is driven by experience and experimentation... the whole process can be very iterative (one should expect to go back and forth quite a few times).'"},
-  // SPRINT 3
   {q:"What are the four main steps of data preprocessing?",a:["Input, Process, Output, Store","Data Consolidation, Data Cleaning, Data Transformation, Data Reduction","Design, Code, Test, Deploy","Collect, Filter, Analyze, Visualize"],c:1,exp:"From the Chapter Highlights: 'Data preprocessing includes four main steps: data consolidation, data cleaning, data transformation, and data reduction.'"},
   {q:"Which preprocessing step removes outliers and fixes errors?",a:["Data Reduction","Data Consolidation","Data Transformation","Data Cleaning"],c:3,exp:"Data Cleaning addresses that real-world data is 'noisy (containing errors or outliers), and inconsistent (containing discrepancies).' Data reduction reduces size while preserving integrity."},
   {q:"What does Data Transformation accomplish in preprocessing?",a:["Moving data to a new server","Deleting irrelevant columns","Normalizing or discretizing data into a more useful form for analysis","Encrypting sensitive fields"],c:2,exp:"Data Transformation includes normalization (scaling values) and discretization (converting continuous variables into ranges/categories). This is required for algorithms like decision trees."},
@@ -212,7 +264,6 @@ var ch5Questions = [
   {q:"Regression is used when the predicted output is:",a:["A class label like 'approve' or 'deny'","A category from a predefined set","A yes/no binary answer","A real number, such as tomorrow's temperature in degrees"],c:3,exp:"'If it is a numeric value (e.g., temperature, such as 65°F), the prediction problem is called regression.' Predicting stock prices or house values are regression problems."},
   {q:"Why does data preprocessing matter so much to outcomes?",a:["More preprocessing makes the model run faster","'Good data leads to good information; good information leads to good decisions'","Preprocessing is only needed for large datasets","Clean data eliminates the need for model evaluation"],c:1,exp:"The Chapter Highlights state: 'Data preprocessing is essential to any successful data mining study. Good data leads to good information; good information leads to good decisions.'"},
   {q:"Identifying the most relevant variables for a retail project belongs to which CRISP-DM step?",a:["Step 1: Business Understanding","Step 2: Data Understanding","Step 3: Data Preparation","Step 4: Model Building"],c:1,exp:"Step 2 (Data Understanding) involves identifying and selecting the most relevant data and variables. The textbook gives the retail demographics/credit card example for exactly this step."},
-  // SPRINT 4
   {q:"In a decision tree, what is a 'Leaf Node'?",a:["The root where the tree starts","A test on an attribute that splits data","A branch connecting two nodes","The final class choice at the end of a chain of branches"],c:3,exp:"'A leaf node at the end represents the final class choice for a pattern (a chain of branches from the root node to the leaf node, which can be represented as a complex if-then statement).'"},
   {q:"What are the two most popular splitting indices in decision trees?",a:["Mean and Standard Deviation","Precision and Recall","Gini Index and Information Gain (Entropy)","Support and Confidence"],c:2,exp:"'Two of the most common ones are the Gini index and information gain.' Gini is used in CART/SPRINT; Information Gain (entropy) is used in ID3, C4.5, and C5 algorithms."},
   {q:"What does the Gini index measure in a decision tree?",a:["The speed of the algorithm","The dataset size","The purity of the class representation at a node","The number of attributes used"],c:2,exp:"'The Gini index measures the purity of a sample. If everything in a sample belongs to one class, the Gini index value is zero.' Lower Gini = purer split."},
@@ -223,7 +274,6 @@ var ch5Questions = [
   {q:"What does an AUC value of 1.0 mean?",a:["The model is very expensive to run","All attributes changed equally","A perfect classifier","Full automation was achieved"],c:2,exp:"'The area under the ROC curve (AUC) determines the predictive power of a classifier: A value of 1 indicates a perfect classifier, whereas 0.5 indicates no better than random chance.'"},
   {q:"In the Simple Split method, what proportion is conventionally used for training?",a:["50%","25%","Two-thirds (~67%)","90%"],c:2,exp:"'It is common to designate two-thirds of the data as the training set and the remaining one-third as the test set (also called the holdout set).'"},
   {q:"Decision trees are structurally equivalent to a hierarchy of:",a:["Mathematical integrals","If-then statements","Bayesian probability equations","Recursive neural layers"],c:1,exp:"'Decision trees are essentially a hierarchy of if-then statements and are thus significantly faster than neural networks.' Each path from root to leaf can be written as a chain of if-then rules."},
-  // SPRINT 5
   {q:"Which clustering algorithm is 'arguably the most referenced'?",a:["Apriori","Self-organizing map","DBSCAN","k-means"],c:3,exp:"'The k-means algorithm (where k stands for the predetermined number of clusters) is arguably the most referenced clustering algorithm. It has its roots in traditional statistical analysis.'"},
   {q:"In k-means, what is the 'centroid'?",a:["The outermost point in a cluster","The center of a cluster, calculated as the arithmetic mean of all its points","The first randomly assigned point","The point with the most neighbors"],c:1,exp:"'The algorithm assigns each data point to the cluster whose center (also called the centroid) is the nearest. The center is calculated as the arithmetic mean for each dimension over all points in the cluster.'"},
   {q:"Association Rule Mining in retail is also called:",a:["Customer segmentation analysis","Regression analysis","Market-Basket Analysis","Discriminant analysis"],c:2,exp:"'In the context of the retail industry, association rule mining is often called market-basket analysis.' The classic example: beer and diapers commonly bought together."},
@@ -234,7 +284,6 @@ var ch5Questions = [
   {q:"Clustering algorithms are used when data records:",a:["Have clearly labeled class identifiers","Are very small in size","Do not have predefined class identifiers — membership is unknown in advance","Are all identical in attributes"],c:2,exp:"'Cluster algorithms are used when the data records do not have predefined class identifiers.' This is the fundamental difference from classification — clustering discovers the classes itself."},
   {q:"Which statement about data mining is listed as a myth in the textbook?",a:["Data mining is a multi-step process","Data mining uses statistical techniques","Data mining provides instant, crystal-ball-like predictions","Data mining requires preprocessing"],c:2,exp:"Table 5.6 lists this myth: 'Data mining provides instant, crystal-ball-like predictions.' Reality: 'Data mining is a multistep process that requires deliberate, proactive design and use.'"},
   {q:"The Apriori algorithm uses which approach to identify frequent itemsets?",a:["Top-down: starts with all itemsets and prunes","Random sampling until convergence","Bottom-up: starts with single items and extends one item at a time","Recursive divide-and-conquer"],c:2,exp:"'Apriori uses a bottom-up approach, where frequent subsets are extended one item at a time (candidate generation), and groups of candidates at each level are tested against the data for minimum support.'"},
-  // SPRINT 6
   {q:"What are the four types of patterns data mining seeks to identify?",a:["Regression, Classification, Clustering, Forecasting","Associations, Predictions, Clusters, Sequential Relationships","Supervised, Unsupervised, Semi-supervised, Reinforced","Input, Process, Output, Feedback"],c:1,exp:"The four major pattern types: (1) Associations — co-occurring items; (2) Predictions — foretelling future events; (3) Clusters — natural groupings by characteristics; (4) Sequential Relationships — time-ordered events like banking account progression."},
   {q:"What are the three broad categories of data mining tasks?",a:["Input, Processing, Output","Training, Testing, Deployment","Prediction, Association, Clustering","Classification, Regression, Visualization"],c:2,exp:"'Data mining tasks can be classified into three main categories: prediction, association, and clustering.' Prediction includes both classification and regression as sub-types."},
   {q:"What are the two types of learning algorithms used in data mining?",a:["Active and passive learning","Supervised and unsupervised learning","Online and offline learning","Inductive and deductive learning"],c:1,exp:"Learning algorithms are classified as: supervised (training data includes input attributes AND the class label) or unsupervised (training data includes only input attributes — no class label)."},
@@ -245,7 +294,6 @@ var ch5Questions = [
   {q:"What are the four main methods for estimating classification model accuracy?",a:["Gini, Entropy, AUC, Lift","CRISP-DM, SEMMA, KDD, Agile","Simple Split, k-fold Cross-Validation, Bootstrapping, Leave-one-out / Jackknifing","Training, Validation, Testing, Deployment"],c:2,exp:"(1) Simple Split — two-thirds train / one-third test; (2) k-fold Cross-Validation — k subsets rotated for testing; (3) Bootstrapping — sampling with replacement; (4) Leave-one-out/Jackknifing — one sample left out per iteration."},
   {q:"What are the two categories of ensemble models, and what is each based on?",a:["Bagging and Boosting — based on data size vs. speed","Supervised and Unsupervised — based on label availability","Homogeneous and Heterogeneous — same model type vs. different model types combined","Static and Dynamic — based on retraining frequency"],c:2,exp:"Homogeneous: combine the same model type (e.g., multiple decision trees) — examples: Bagging (Random Forest) and Boosting (AdaBoosting). Heterogeneous: combine different model types (e.g., decision trees + neural networks + SVM) — also called information fusion models."},
   {q:"What are the four general methods used for cluster analysis?",a:["Classification, Regression, Association, Prediction","CRISP-DM, SEMMA, KDD, Agile","Statistical methods, Neural networks, Fuzzy logic, Genetic algorithms","Apriori, k-means, ID3, CART"],c:2,exp:"The four cluster analysis method categories: (1) Statistical methods — k-means, k-modes; (2) Neural networks — self-organizing map (SOM); (3) Fuzzy logic — fuzzy c-means; (4) Genetic algorithms. Each can be divisive (top-down) or agglomerative (bottom-up)."},
-  // SPRINT 7
   {q:"How many steps does CRISP-DM have, and what is the correct order?",a:["4 steps: Understand, Prepare, Model, Deploy","5 steps: Sample, Explore, Modify, Model, Assess","6 steps: Business Understanding → Data Understanding → Data Preparation → Model Building → Testing & Evaluation → Deployment","7 steps: Plan, Collect, Clean, Explore, Model, Evaluate, Deploy"],c:2,exp:"CRISP-DM has exactly 6 steps in this order: (1) Business Understanding, (2) Data Understanding, (3) Data Preparation, (4) Model Building, (5) Testing and Evaluation, (6) Deployment. The process is highly iterative with significant backtracking."},
   {q:"What is the specific goal of Step 1 (Business Understanding) in CRISP-DM?",a:["Select the best algorithm for the data","Identify and clean the relevant data sources","Establish a thorough understanding of the managerial need and explicitly specify the business objective","Deploy the model into production"],c:2,exp:"Step 1 requires defining specific goals like 'What are the common characteristics of customers we lost to competitors?' A project plan, responsible parties, and high-level budget are also established here."},
   {q:"What is the primary activity in Step 2 (Data Understanding) of CRISP-DM?",a:["Removing outliers and filling missing values","Training and comparing multiple model types","Identifying relevant data sources, understanding variables, and using statistical/graphical techniques to explore the data","Deploying the model to end users"],c:2,exp:"Step 2 involves identifying relevant data, understanding sources (where stored, how collected), and exploring variables using statistics (mean, median, std dev) and visuals (histograms, scatterplots, box plots)."},
@@ -259,7 +307,6 @@ var ch5Questions = [
 ];
 
 var awsQuestions = [
-  // AWS SPRINT 1
   {q:"A company's VPC has no internet gateway, Direct Connect, or Site-to-Site VPN. It needs to access a vendor's RDS MySQL database in another AWS account. What should the solutions architect do?",a:["Use VPC peering to connect both VPCs directly","Configure a client VPN connection, then use VPC peering","Have the vendor put an NLB in front of RDS, then use AWS PrivateLink to connect the VPCs","Use AWS Transit Gateway to integrate both VPCs"],c:2,exp:"PrivateLink allows private access to services in another VPC/account without needing an internet gateway, VPN, or Direct Connect. The vendor exposes RDS via an NLB, and PrivateLink creates a private endpoint in the company's VPC. VPC peering alone doesn't resolve the connectivity gap."},
   {q:"EC2 instances in private subnets need to securely communicate with an Amazon SQS queue. What is the correct implementation?",a:["Interface VPC endpoint for SQS in public subnets with a VPC endpoint policy","Interface VPC endpoint for SQS in public subnets with an SQS access policy","Interface VPC endpoint for SQS in private subnets, with a security group allowing inbound traffic from the EC2 instances","Gateway endpoint for SQS plus a NAT gateway in private subnets"],c:2,exp:"SQS uses an interface VPC endpoint (not a gateway — those only support S3 and DynamoDB). Place it in the private subnets with a security group restricting inbound to only the EC2 instances. Putting the endpoint in public subnets routes traffic unnecessarily."},
   {q:"A VPC has public subnets for a load balancer and private subnets for web servers and MySQL. Least-privilege is required. The LB SG already allows 443 from 0.0.0.0/0. What should be created for the other tiers?",a:["SG for web servers allowing 443 from 0.0.0.0/0; SG for MySQL allowing 3306 from web server SG","Network ACL for web servers allowing 443 from 0.0.0.0/0; NACL for MySQL allowing 3306 from web SG","SG for web servers allowing 443 from the load balancer SG; SG for MySQL allowing 3306 from the web server SG","NACL for web servers allowing 443 from the load balancer; NACL for MySQL allowing 3306 from web SG"],c:2,exp:"Security groups are ideal here because you can reference another SG as the source — only traffic from the LB SG reaches web servers, and only web server SG traffic reaches MySQL. Using 0.0.0.0/0 for web servers violates least privilege. NACLs are stateless and less precise for inter-tier rules."},
@@ -270,7 +317,6 @@ var awsQuestions = [
   {q:"An application on EC2 in private subnets needs to access DynamoDB. What is the MOST secure way to ensure traffic doesn't leave the AWS network?",a:["Use a NAT gateway in a public subnet","Use a NAT instance in a private subnet","Use a VPC endpoint for DynamoDB","Use the internet gateway attached to the VPC"],c:2,exp:"A VPC endpoint for DynamoDB (gateway type) routes traffic directly to DynamoDB over the AWS private network — no internet gateway, NAT, or public IP needed. It's the most secure option and is also free."},
   {q:"An EC2 instance in a private subnet needs to download monthly updates from an outside vendor. The subnet has no internet access. What should the solutions architect do?",a:["Create an internet gateway and attach it to the VPC; update the private subnet route table to use it","Create a NAT gateway in a public subnet; update the private subnet route table to use it as the default route","Create a NAT instance in the same private subnet; update the route table to use it","Create an internet gateway and NAT instance in the private subnet; use the internet gateway as default route"],c:1,exp:"A NAT gateway in a public subnet allows outbound internet access for private instances without exposing them to inbound connections. The private route table points 0.0.0.0/0 to the NAT gateway, which sits in the public subnet with a path to the internet gateway."},
   {q:"EC2 instances with IPv6 addresses must initiate outbound internet connections, but external services cannot initiate inbound connections. What should the solutions architect recommend?",a:["Create a NAT gateway and make it the route table destination","Create an internet gateway and make it the route table destination","Create a virtual private gateway and make it the route table destination","Create an egress-only internet gateway and make it the route table destination"],c:3,exp:"An egress-only internet gateway is specifically for IPv6 — it allows outbound connections while preventing unsolicited inbound connections. A regular internet gateway allows both directions for IPv6. NAT gateways handle IPv4 only. Virtual private gateways are for VPN/Direct Connect."},
-  // AWS SPRINT 2
   {q:"A company uses Direct Connect (no internet access) and an application needs to use an S3 bucket. What is the MOST cost-effective solution?",a:["Create a public virtual interface (VIF) and route AWS traffic over it","Create a VPC and NAT gateway; route on-premises traffic to it","Create a VPC and S3 interface endpoint; route on-premises traffic to it","Create a VPC peering connection between on-premises and Direct Connect"],c:0,exp:"A public VIF on Direct Connect provides access to all AWS public endpoints (including S3) without the internet. S3 interface endpoints cost per hour and per GB. NAT gateways add unnecessary complexity. Public VIF is the standard solution for accessing AWS public services over Direct Connect."},
   {q:"A company needs single-digit latency hybrid connectivity and uses Transit Gateway. What combination MOST cost-effectively meets requirements?",a:["Site-to-Site VPN to each VPC + Direct Connect gateway associated with transit gateway","Direct Connect gateway associated with transit gateway + Direct Connect with a transit VIF to that gateway","Site-to-Site VPN to a Direct Connect gateway + VPN connections to transit gateway","Direct Connect with a transit VIF to the gateway + Site-to-Site VPN to transit gateway"],c:1,exp:"The correct pair: (1) Direct Connect with a transit VIF to a Direct Connect gateway — provides low-latency dedicated connectivity; (2) Associate the Direct Connect gateway with the Transit Gateway — enables all attached VPCs to be reachable through one gateway. Site-to-Site VPN has variable internet-based latency and fails the single-digit requirement."},
   {q:"A company has Direct Connect to us-east-1 and acquired a corporation with Direct Connect to eu-west-2. CIDRs don't overlap. The company needs cross-region and cross-DC connectivity with minimal overhead. What should the solutions architect do?",a:["Set up inter-Region VPC peering between us-east-1 and eu-west-2","Create private VIFs from the us-east-1 Direct Connect to the eu-west-2 VPCs","Establish a fully meshed EC2-hosted VPN network using VPN CloudHub","Connect both Direct Connect connections to a Direct Connect gateway; route traffic from virtual private gateways in each Region to that gateway"],c:3,exp:"A Direct Connect gateway is globally available and can connect Direct Connect connections from multiple Regions to VPCs across Regions through a single gateway. This eliminates the need for individual connections, VPC peering meshes, or VPN appliances between all sites."},
@@ -287,6 +333,8 @@ var awsQuestions = [
 var queue=[], qIdx=0, score=0, answered=false;
 var missedQuestions=[], requeue=[], totalAnswered=0;
 var lastSprintScreen='sprints';
+var recallMode = false;
+var recallGraded = false;
 
 // ── Core functions ────────────────────────────────────────────────────────
 function showScreen(id){
@@ -301,6 +349,7 @@ function startSprint(idx, bank){
   qIdx=0; score=0; totalAnswered=0;
   missedQuestions=[]; requeue=[]; answered=false;
   showScreen('quiz');
+  updateModeToggleUI();
   renderQuestion();
 }
 
@@ -312,8 +361,13 @@ function retryMissed(){
   renderQuestion();
 }
 
+function updateModeToggleUI(){
+  document.getElementById('mode-mcq').classList.toggle('active', !recallMode);
+  document.getElementById('mode-recall').classList.toggle('active', recallMode);
+}
+
 function renderQuestion(){
-  answered=false;
+  answered=false; recallGraded=false;
   var q=queue[qIdx];
   var total=queue.length;
   document.getElementById('progress').style.width=(qIdx/total*100)+'%';
@@ -321,12 +375,26 @@ function renderQuestion(){
   document.getElementById('score-live').textContent='Score: '+score;
   var rc=requeue.length;
   document.getElementById('queue-status-wrap').innerHTML=rc>0
-    ?'<div class="queue-status"><div class="queue-dot"></div><span>'+rc+' missed question'+(rc>1?'s':'')+' will be re-queued.</span></div>':'' ;
-  var letters=['A','B','C','D'];
-  var sprintNum=1;
+    ?'<div class="queue-status"><div class="queue-dot"></div><span>'+rc+' missed question'+(rc>1?'s':'')+' will be re-queued.</span></div>':'';
+
   var bank = (q._bank==='aws')?awsQuestions:ch5Questions;
+  var sprintNum=1;
   for(var i=0;i<bank.length;i++){if(bank[i].q===q.q){sprintNum=Math.floor(i/10)+1;break;}}
   var tagClass = q._bank==='aws' ? 'sprint-tag aws' : 'sprint-tag';
+
+  if(recallMode){
+    renderRecallQuestion(q, sprintNum, tagClass);
+  } else {
+    renderMCQQuestion(q, sprintNum, tagClass);
+  }
+
+  var nb=document.getElementById('next-btn');
+  nb.classList.remove('visible');
+  nb.textContent='Next question →';
+}
+
+function renderMCQQuestion(q, sprintNum, tagClass){
+  var letters=['A','B','C','D'];
   var html='<div class="quiz-card"><div class="q-meta">'
     +'<span class="q-number">Q'+(qIdx+1)+'</span>'
     +(q._retried?'<span class="retry-badge">↺ Retry</span>':'')
@@ -340,14 +408,47 @@ function renderQuestion(){
   document.getElementById('quiz-content').innerHTML=html;
   document.getElementById('options').addEventListener('click',function(e){
     var btn=e.target.closest('.opt-btn');
-    if(btn&&!answered) checkAnswer(parseInt(btn.dataset.idx,10));
+    if(btn&&!answered) checkAnswerMCQ(parseInt(btn.dataset.idx,10));
   });
-  var nb=document.getElementById('next-btn');
-  nb.classList.remove('visible');
-  nb.textContent='Next question →';
 }
 
-function checkAnswer(idx){
+function renderRecallQuestion(q, sprintNum, tagClass){
+  var html='<div class="quiz-card">'
+    +'<div class="q-meta">'
+    +'<span class="q-number">Q'+(qIdx+1)+'</span>'
+    +(q._retried?'<span class="retry-badge">↺ Retry</span>':'')
+    +'<span class="'+tagClass+'" style="margin-bottom:0">Sprint '+sprintNum+'</span>'
+    +'<span class="recall-badge">✏️ Recall</span>'
+    +'</div>'
+    +'<div class="q-text">'+q.q+'</div>'
+    +'<div class="recall-area">'
+    +'<textarea class="recall-input" id="recall-input" placeholder="Type your answer from memory… don\'t peek!" rows="3"></textarea>'
+    +'<div><button class="recall-submit-btn" id="recall-submit-btn">Check my answer →</button></div>'
+    +'<div id="recall-result-area"></div>'
+    +'</div>'
+    +'</div>';
+  document.getElementById('quiz-content').innerHTML=html;
+
+  var submitBtn = document.getElementById('recall-submit-btn');
+  var inputEl = document.getElementById('recall-input');
+
+  // Allow Ctrl+Enter to submit
+  inputEl.addEventListener('keydown', function(e){
+    if((e.ctrlKey||e.metaKey) && e.key==='Enter') submitBtn.click();
+  });
+
+  submitBtn.addEventListener('click', function(){
+    if(answered) return;
+    var userText = inputEl.value.trim();
+    if(!userText){ inputEl.focus(); return; }
+    submitBtn.disabled = true;
+    inputEl.readOnly = true;
+    answered = true;
+    checkAnswerRecall(userText);
+  });
+}
+
+function checkAnswerMCQ(idx){
   if(answered)return;
   answered=true;
   var q=queue[qIdx];
@@ -360,19 +461,143 @@ function checkAnswer(idx){
     if(bi===correct&&!isCorrect) b.classList.add('reveal');
   });
   if(!isCorrect){
-    requeue.push(Object.assign({},q,{_retried:true}));
-    if(!missedQuestions.find(function(m){return m.q===q.q;})) missedQuestions.push(q);
+    requeue.push(Object.assign({},queue[qIdx],{_retried:true}));
+    if(!missedQuestions.find(function(m){return m.q===queue[qIdx].q;})) missedQuestions.push(queue[qIdx]);
   } else { score++; }
   totalAnswered++;
   document.getElementById('score-live').textContent='Score: '+score;
   document.getElementById('explanation-area').innerHTML=
-    '<div class="explanation-box"><div class="exp-label">'+(isCorrect?'✓ Correct':'✗ Incorrect')+' — Explanation</div><p>'+q.exp+'</p></div>';
+    '<div class="explanation-box"><div class="exp-label">'+(isCorrect?'✓ Correct':'✗ Incorrect')+' — Explanation</div><p>'+queue[qIdx].exp+'</p></div>';
   var nb=document.getElementById('next-btn');
   nb.textContent=(qIdx>=queue.length-1&&requeue.length===0)?'See results →':'Next question →';
   nb.classList.add('visible');
 }
 
+// ── Fuzzy matching for recall ─────────────────────────────────────────────
+function normalize(str){
+  return str.toLowerCase()
+    .replace(/[^a-z0-9\s]/g,'')
+    .replace(/\s+/g,' ')
+    .trim();
+}
+
+function wordsOf(str){
+  return normalize(str).split(' ').filter(function(w){ return w.length > 2; });
+}
+
+function scoreMatch(userText, correctText){
+  var uWords = wordsOf(userText);
+  var cWords = wordsOf(correctText);
+  if(cWords.length===0) return 1;
+  var hits = 0;
+  cWords.forEach(function(cw){
+    // Check if any user word contains the correct word or vice versa (handles partial matches)
+    var matched = uWords.some(function(uw){
+      return uw===cw || uw.indexOf(cw)!==-1 || cw.indexOf(uw)!==-1;
+    });
+    if(matched) hits++;
+  });
+  return hits / cWords.length;
+}
+
+function checkAnswerRecall(userText){
+  var q = queue[qIdx];
+  var correctAnswer = q.a[q.c];
+
+  // Score the match
+  var matchScore = scoreMatch(userText, correctAnswer);
+  var isGood = matchScore >= 0.55;
+  var isPartial = matchScore >= 0.25 && matchScore < 0.55;
+
+  // Build per-keyword breakdown for the correct answer
+  var cWords = wordsOf(correctAnswer);
+  var uWords = wordsOf(userText);
+  var keywordResults = [];
+  // Show key phrases from the correct answer (deduplicated, max 6 keywords)
+  var shownWords = {};
+  cWords.forEach(function(cw){
+    if(shownWords[cw]) return;
+    shownWords[cw] = true;
+    var matched = uWords.some(function(uw){
+      return uw===cw || uw.indexOf(cw)!==-1 || cw.indexOf(uw)!==-1;
+    });
+    keywordResults.push({word: cw, hit: matched});
+  });
+  // Limit to 8 keywords for readability
+  if(keywordResults.length > 8) keywordResults = keywordResults.slice(0, 8);
+
+  var statusLabel, statusClass;
+  if(isGood){ statusLabel='Looks good!'; statusClass='hit'; }
+  else if(isPartial){ statusLabel='Partially there'; statusClass='partial'; }
+  else { statusLabel='Keep working on this one'; statusClass='miss'; }
+
+  var kwHtml = keywordResults.map(function(kw){
+    var cls = kw.hit ? 'hit' : 'miss';
+    var icon = kw.hit ? '✓' : '✗';
+    return '<span style="display:inline-flex;align-items:center;gap:4px;padding:3px 8px;border-radius:6px;font-size:12px;font-family:\'Geist Mono\',monospace;margin:2px;background:'+(kw.hit?'rgba(62,207,114,0.12)':'rgba(240,106,106,0.12)')+';color:'+(kw.hit?'var(--green)':'var(--red)')+';">'+icon+' '+kw.word+'</span>';
+  }).join('');
+
+  var html = '<div class="recall-result">'
+    + '<div style="font-size:13px;font-weight:600;color:var(--text);margin-bottom:8px;">Keyword check:</div>'
+    + '<div style="margin-bottom:12px;">'+kwHtml+'</div>'
+    + '<div class="correct-answer-reveal">'
+    + '<div class="exp-label">Correct Answer</div>'
+    + '<p>'+correctAnswer+'</p>'
+    + '</div>'
+    + '<div class="explanation-box" style="margin-top:10px;">'
+    + '<div class="exp-label">Explanation</div>'
+    + '<p>'+q.exp+'</p>'
+    + '</div>'
+    + '<div class="recall-self-grade">'
+    + '<p>Did you get it? <span style="color:var(--text3);font-size:12px;">(you decide — this is for your learning)</span></p>'
+    + '<div class="recall-grade-btns">'
+    + '<button class="grade-btn got-it" data-grade="got-it">✓ Got it</button>'
+    + '<button class="grade-btn almost" data-grade="almost">~ Almost</button>'
+    + '<button class="grade-btn missed-it" data-grade="missed-it">✗ Missed it</button>'
+    + '</div>'
+    + '</div>'
+    + '</div>';
+
+  document.getElementById('recall-result-area').innerHTML = html;
+
+  // Wire grade buttons
+  document.querySelectorAll('.grade-btn').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      if(recallGraded) return;
+      recallGraded = true;
+      var grade = btn.dataset.grade;
+      var isCorrect = (grade==='got-it');
+      var isAlmost = (grade==='almost');
+
+      if(isCorrect){ score++; }
+      else {
+        requeue.push(Object.assign({},queue[qIdx],{_retried:true}));
+        if(!missedQuestions.find(function(m){return m.q===queue[qIdx].q;})) missedQuestions.push(queue[qIdx]);
+      }
+      totalAnswered++;
+      document.getElementById('score-live').textContent='Score: '+score;
+
+      // Highlight selected grade btn
+      document.querySelectorAll('.grade-btn').forEach(function(b){ b.style.opacity='0.4'; });
+      btn.style.opacity='1';
+      btn.style.transform='scale(1.05)';
+
+      var nb=document.getElementById('next-btn');
+      nb.textContent=(qIdx>=queue.length-1&&requeue.length===0)?'See results →':'Next question →';
+      nb.classList.add('visible');
+    });
+  });
+}
+
 function nextQuestion(){
+  // In recall mode, if user hasn't graded yet, skip gracefully
+  if(recallMode && answered && !recallGraded){
+    // auto-mark as missed
+    requeue.push(Object.assign({},queue[qIdx],{_retried:true}));
+    if(!missedQuestions.find(function(m){return m.q===queue[qIdx].q;})) missedQuestions.push(queue[qIdx]);
+    totalAnswered++;
+  }
+
   qIdx++;
   if(qIdx<queue.length){ renderQuestion(); }
   else if(requeue.length>0){ queue=queue.concat(requeue); requeue=[]; renderQuestion(); }
@@ -381,7 +606,7 @@ function nextQuestion(){
 
 function finishSprint(){
   showScreen('results');
-  var pct=Math.round(score/totalAnswered*100);
+  var pct = totalAnswered>0 ? Math.round(score/totalAnswered*100) : 0;
   setTimeout(function(){
     var ring=document.getElementById('ring-fill');
     ring.style.strokeDashoffset=326.7-(pct/100)*326.7;
@@ -423,11 +648,25 @@ window.addEventListener('load', function(){
   wire('btn-retry', retryMissed);
   wire('btn-back-sprints', function(){ showScreen(lastSprintScreen); });
 
+  wire('mode-mcq', function(){
+    if(recallMode){
+      recallMode=false;
+      updateModeToggleUI();
+      renderQuestion();
+    }
+  });
+  wire('mode-recall', function(){
+    if(!recallMode){
+      recallMode=true;
+      updateModeToggleUI();
+      renderQuestion();
+    }
+  });
+
   document.querySelectorAll('.sprint-card').forEach(function(card){
     card.addEventListener('click', function(){
       var bank = card.dataset.bank==='aws' ? awsQuestions : ch5Questions;
       lastSprintScreen = card.dataset.bank==='aws' ? 'aws-sprints' : 'sprints';
-      // tag questions with their bank
       var idx=parseInt(card.dataset.sprint,10);
       var slice=bank.slice(idx*10,idx*10+10);
       slice.forEach(function(q){ q._bank=card.dataset.bank; });
