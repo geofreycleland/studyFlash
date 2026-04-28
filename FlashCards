@@ -1,0 +1,818 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>AWS SAA-C03 Flashcards</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=VT323&family=Press+Start+2P&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #050a05;
+    --surface: #091209;
+    --surface2: #0d1a0d;
+    --border: #1a3a1a;
+    --accent: #00ff41;
+    --accent-dim: #001a07;
+    --accent-glow: rgba(0,255,65,0.15);
+    --green: #00ff41;
+    --green-dim: #002a0d;
+    --amber: #ffb800;
+    --amber-dim: #2a1f00;
+    --red: #ff3b3b;
+    --red-dim: #2a0505;
+    --text: #c8ffb0;
+    --text2: #5a9a5a;
+    --text3: #2d5a2d;
+    --mono: 'Share Tech Mono', monospace;
+    --pixel: 'Press Start 2P', monospace;
+    --vt: 'VT323', monospace;
+    --radius: 4px;
+    --radius-sm: 2px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+
+  html, body {
+    height: 100%;
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--mono);
+  }
+
+  /* CRT scanlines overlay */
+  body::before {
+    content: '';
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 2px,
+      rgba(0,0,0,0.18) 2px,
+      rgba(0,0,0,0.18) 4px
+    );
+    pointer-events: none;
+    z-index: 9999;
+  }
+
+  /* CRT vignette */
+  body::after {
+    content: '';
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: radial-gradient(ellipse at center, transparent 60%, rgba(0,0,0,0.75) 100%);
+    pointer-events: none;
+    z-index: 9998;
+  }
+
+  body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100dvh;
+    overflow-x: hidden;
+  }
+
+  /* Phosphor flicker animation */
+  @keyframes flicker {
+    0%, 95%, 100% { opacity: 1; }
+    96% { opacity: 0.92; }
+    97% { opacity: 1; }
+    98% { opacity: 0.95; }
+  }
+
+  @keyframes blink {
+    0%, 49% { opacity: 1; }
+    50%, 100% { opacity: 0; }
+  }
+
+  @keyframes glow-pulse {
+    0%, 100% { text-shadow: 0 0 4px var(--accent), 0 0 10px var(--accent), 0 0 20px rgba(0,255,65,0.4); }
+    50% { text-shadow: 0 0 2px var(--accent), 0 0 6px var(--accent), 0 0 12px rgba(0,255,65,0.2); }
+  }
+
+  @keyframes scanline-move {
+    0% { transform: translateY(-100%); }
+    100% { transform: translateY(100vh); }
+  }
+
+  /* Moving scanline */
+  .scanline {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    height: 40px;
+    background: linear-gradient(transparent, rgba(0,255,65,0.03), transparent);
+    animation: scanline-move 6s linear infinite;
+    pointer-events: none;
+    z-index: 9997;
+  }
+
+  /* Top bar */
+  .topbar {
+    padding: 14px 16px 12px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid var(--border);
+    flex-shrink: 0;
+    position: relative;
+    animation: flicker 8s infinite;
+  }
+
+  .topbar::before {
+    content: '> AWS_SAA-C03.EXE';
+    position: absolute;
+    top: -1px;
+    left: 16px;
+    font-family: var(--pixel);
+    font-size: 6px;
+    color: var(--text3);
+    letter-spacing: 0.05em;
+  }
+
+  .topbar-left { display: flex; flex-direction: column; gap: 4px; padding-top: 8px; }
+
+  .topbar-title {
+    font-family: var(--pixel);
+    font-size: 9px;
+    color: var(--accent);
+    letter-spacing: 0.08em;
+    text-shadow: 0 0 6px var(--accent), 0 0 14px rgba(0,255,65,0.5);
+    animation: glow-pulse 3s ease-in-out infinite;
+  }
+
+  .topbar-sub {
+    font-family: var(--vt);
+    font-size: 16px;
+    color: var(--text2);
+    letter-spacing: 0.1em;
+  }
+
+  .topbar-sub::before { content: '[ '; }
+  .topbar-sub::after { content: ' ]'; }
+
+  .card-counter {
+    font-family: var(--vt);
+    font-size: 20px;
+    color: var(--accent);
+    text-shadow: 0 0 8px var(--accent);
+    letter-spacing: 0.05em;
+  }
+
+  /* Progress */
+  .progress-wrap { padding: 10px 16px; flex-shrink: 0; }
+
+  .progress-bar-bg {
+    height: 6px;
+    background: var(--border);
+    border: 1px solid var(--text3);
+    overflow: hidden;
+    position: relative;
+  }
+
+  .progress-bar-fill {
+    height: 100%;
+    background: var(--accent);
+    box-shadow: 0 0 8px var(--accent), 0 0 16px rgba(0,255,65,0.4);
+    transition: width 0.5s steps(20, end);
+  }
+
+  .progress-meta { display: flex; justify-content: space-between; margin-top: 5px; }
+
+  .progress-meta span {
+    font-family: var(--vt);
+    font-size: 16px;
+    color: var(--text2);
+    letter-spacing: 0.08em;
+  }
+
+  /* Domain tabs */
+  .domain-tabs {
+    display: flex;
+    gap: 4px;
+    padding: 0 16px 12px;
+    overflow-x: auto;
+    scrollbar-width: none;
+    flex-shrink: 0;
+  }
+  .domain-tabs::-webkit-scrollbar { display: none; }
+
+  .tab {
+    flex-shrink: 0;
+    padding: 4px 10px;
+    border-radius: 0;
+    border: 1px solid var(--text3);
+    font-family: var(--vt);
+    font-size: 15px;
+    letter-spacing: 0.05em;
+    color: var(--text3);
+    background: transparent;
+    cursor: pointer;
+    transition: all 0.1s;
+    white-space: nowrap;
+    text-transform: uppercase;
+  }
+
+  .tab:hover:not(.coming-soon) {
+    color: var(--accent);
+    border-color: var(--accent);
+    background: var(--accent-dim);
+    box-shadow: 0 0 6px rgba(0,255,65,0.2), inset 0 0 6px rgba(0,255,65,0.05);
+  }
+
+  .tab.active {
+    background: var(--accent-dim);
+    border-color: var(--accent);
+    color: var(--accent);
+    box-shadow: 0 0 8px rgba(0,255,65,0.3), inset 0 0 8px rgba(0,255,65,0.08);
+    text-shadow: 0 0 6px var(--accent);
+  }
+
+  .tab.coming-soon { opacity: 0.3; cursor: not-allowed; }
+
+  /* Main card area */
+  .card-area {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 0 16px;
+    justify-content: center;
+    min-height: 0;
+  }
+
+  .card-scene {
+    perspective: 1200px;
+    margin-bottom: 16px;
+  }
+
+  .flashcard {
+    width: 100%;
+    min-height: 260px;
+    position: relative;
+    transform-style: preserve-3d;
+    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    cursor: pointer;
+  }
+  .flashcard.flipped { transform: rotateY(180deg); }
+
+  .card-face {
+    position: absolute;
+    width: 100%;
+    min-height: 260px;
+    border-radius: var(--radius);
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid var(--border);
+    position: absolute;
+  }
+
+  .card-front {
+    background: var(--surface);
+    border-color: var(--text3);
+    box-shadow: 0 0 16px rgba(0,255,65,0.08), inset 0 0 30px rgba(0,0,0,0.5);
+  }
+
+  .card-front::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--accent), transparent);
+    opacity: 0.6;
+  }
+
+  .card-back {
+    background: var(--surface2);
+    transform: rotateY(180deg);
+    border-color: var(--accent);
+    box-shadow: 0 0 20px rgba(0,255,65,0.15), inset 0 0 30px rgba(0,0,0,0.4);
+  }
+
+  .card-back::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--accent), transparent);
+  }
+
+  .card-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-family: var(--vt);
+    font-size: 16px;
+    color: var(--text3);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 14px;
+  }
+
+  .chip-dot {
+    width: 8px;
+    height: 8px;
+    background: var(--text3);
+    animation: blink 1.2s step-end infinite;
+  }
+
+  .card-back .chip-dot { background: var(--accent); box-shadow: 0 0 6px var(--accent); }
+  .card-back .card-chip { color: var(--accent); text-shadow: 0 0 6px rgba(0,255,65,0.5); }
+
+  .card-def {
+    font-family: var(--mono);
+    font-size: 13.5px;
+    line-height: 1.75;
+    color: var(--text);
+    flex: 1;
+    text-shadow: 0 0 2px rgba(0,255,65,0.3);
+  }
+
+  .card-hint {
+    margin-top: 14px;
+    font-family: var(--vt);
+    font-size: 15px;
+    color: var(--text3);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    letter-spacing: 0.08em;
+    animation: blink 1.5s step-end infinite;
+  }
+
+  .card-hint::before { content: '_'; }
+
+  .card-answer {
+    font-family: var(--vt);
+    font-size: 26px;
+    color: var(--accent);
+    line-height: 1.3;
+    margin-bottom: 8px;
+    flex: 1;
+    display: flex;
+    align-items: center;
+    text-shadow: 0 0 8px var(--accent), 0 0 20px rgba(0,255,65,0.4);
+    letter-spacing: 0.05em;
+  }
+
+  .card-category-tag {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 0;
+    background: transparent;
+    border: 1px solid var(--text3);
+    color: var(--text2);
+    font-family: var(--vt);
+    font-size: 14px;
+    letter-spacing: 0.08em;
+    margin-bottom: 14px;
+  }
+
+  /* Action buttons */
+  .actions {
+    display: flex;
+    gap: 8px;
+    flex-shrink: 0;
+    padding-bottom: 20px;
+  }
+  .actions.hidden { visibility: hidden; pointer-events: none; }
+
+  .btn {
+    flex: 1;
+    padding: 12px 8px;
+    border-radius: 0;
+    border: 1px solid var(--text3);
+    font-family: var(--vt);
+    font-size: 16px;
+    font-weight: normal;
+    letter-spacing: 0.05em;
+    cursor: pointer;
+    transition: all 0.1s;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3px;
+    background: var(--surface);
+    color: var(--text2);
+    text-transform: uppercase;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .btn::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: currentColor;
+    opacity: 0;
+    transition: opacity 0.1s;
+  }
+
+  .btn:active::after { opacity: 0.1; }
+  .btn:active { transform: translateY(1px); }
+  .btn-icon { font-size: 20px; line-height: 1; }
+
+  .btn-know {
+    background: var(--green-dim);
+    border-color: var(--green);
+    color: var(--green);
+    box-shadow: 0 0 8px rgba(0,255,65,0.15);
+    text-shadow: 0 0 6px var(--green);
+  }
+
+  .btn-retry {
+    background: var(--red-dim);
+    border-color: var(--red);
+    color: var(--red);
+    box-shadow: 0 0 8px rgba(255,59,59,0.15);
+    text-shadow: 0 0 6px var(--red);
+  }
+
+  .btn-flip {
+    background: var(--surface);
+    border-color: var(--text3);
+    color: var(--text2);
+  }
+
+  .btn-flip:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+    box-shadow: 0 0 8px rgba(0,255,65,0.2);
+  }
+
+  /* Done screen */
+  .done-screen {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 20px;
+    text-align: center;
+    flex: 1;
+  }
+  .done-screen.visible { display: flex; }
+
+  .done-icon {
+    font-size: 48px;
+    margin-bottom: 20px;
+    filter: drop-shadow(0 0 12px rgba(0,255,65,0.5));
+  }
+
+  .done-title {
+    font-family: var(--pixel);
+    font-size: 11px;
+    color: var(--accent);
+    margin-bottom: 12px;
+    text-shadow: 0 0 8px var(--accent), 0 0 20px rgba(0,255,65,0.4);
+    animation: glow-pulse 2s ease-in-out infinite;
+    letter-spacing: 0.05em;
+  }
+
+  .done-sub {
+    font-family: var(--vt);
+    font-size: 18px;
+    color: var(--text2);
+    line-height: 1.5;
+    max-width: 300px;
+    margin: 0 auto 28px;
+    letter-spacing: 0.05em;
+  }
+
+  .stats-row { display: flex; gap: 10px; margin-bottom: 28px; }
+
+  .stat {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-top: 1px solid var(--accent);
+    padding: 12px 18px;
+    min-width: 80px;
+  }
+
+  .stat-num {
+    font-family: var(--vt);
+    font-size: 36px;
+    color: var(--accent);
+    text-shadow: 0 0 10px var(--accent);
+    line-height: 1;
+  }
+
+  .stat-lbl {
+    font-family: var(--vt);
+    font-size: 14px;
+    color: var(--text3);
+    margin-top: 4px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .btn-restart {
+    padding: 12px 32px;
+    border-radius: 0;
+    border: 1px solid var(--accent);
+    background: var(--accent-dim);
+    color: var(--accent);
+    font-family: var(--pixel);
+    font-size: 9px;
+    letter-spacing: 0.08em;
+    cursor: pointer;
+    text-shadow: 0 0 6px var(--accent);
+    box-shadow: 0 0 12px rgba(0,255,65,0.2);
+    transition: all 0.1s;
+    text-transform: uppercase;
+  }
+
+  .btn-restart:hover {
+    background: rgba(0,255,65,0.1);
+    box-shadow: 0 0 20px rgba(0,255,65,0.35);
+  }
+
+  .btn-restart:active { transform: translateY(1px); }
+
+  /* Retry pile badge */
+  .retry-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-family: var(--vt);
+    font-size: 16px;
+    color: var(--amber);
+    margin-left: auto;
+    text-shadow: 0 0 6px var(--amber);
+    letter-spacing: 0.05em;
+  }
+
+  .retry-dot {
+    width: 6px; height: 6px;
+    background: var(--amber);
+    box-shadow: 0 0 6px var(--amber);
+    animation: blink 0.8s step-end infinite;
+  }
+</style>
+</head>
+<body>
+<div class="scanline"></div>
+
+<div class="topbar">
+  <div class="topbar-left">
+    <span class="topbar-title">AWS SAA-C03</span>
+    <span class="topbar-sub">FLASHCARD DECK</span>
+  </div>
+  <span class="card-counter" id="cardCounter">— / —</span>
+</div>
+
+<div class="progress-wrap">
+  <div class="progress-bar-bg">
+    <div class="progress-bar-fill" id="progressFill" style="width:0%"></div>
+  </div>
+  <div class="progress-meta">
+    <span id="progressKnown">0 known</span>
+    <span id="retryBadge" style="display:none">
+      <span class="retry-dot"></span> <span id="retryCount">0</span> to retry
+    </span>
+  </div>
+</div>
+
+<div class="domain-tabs">
+  <button class="tab active" onclick="selectDomain(0)">Domain 1 — Secure</button>
+  <button class="tab coming-soon" title="Coming soon">Domain 2 — Resilient</button>
+  <button class="tab coming-soon" title="Coming soon">Domain 3 — High Perf</button>
+  <button class="tab coming-soon" title="Coming soon">Domain 4 — Cost Opt</button>
+</div>
+
+<div class="card-area" id="quizArea">
+  <div class="card-scene">
+    <div class="flashcard" id="flashcard" onclick="flipCard()">
+      <div class="card-face card-front">
+        <div class="card-chip"><span class="chip-dot"></span>Definition</div>
+        <div class="card-def" id="defText"></div>
+        <div class="card-hint">TAP TO REVEAL ANSWER</div>
+      </div>
+      <div class="card-face card-back">
+        <div class="card-chip"><span class="chip-dot"></span>Answer</div>
+        <div class="card-category-tag" id="categoryText"></div>
+        <div class="card-answer" id="answerText"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="actions hidden" id="actions">
+    <button class="btn btn-retry" onclick="dontKnow()">
+      <span class="btn-icon">↩</span>
+      <span>RETRY</span>
+    </button>
+    <button class="btn btn-flip" onclick="flipCard()">
+      <span class="btn-icon">⟳</span>
+      <span>FLIP</span>
+    </button>
+    <button class="btn btn-know" onclick="gotIt()">
+      <span class="btn-icon">✓</span>
+      <span>GOT IT</span>
+    </button>
+  </div>
+
+  <div class="actions" id="preFlipActions" style="visibility:visible">
+    <button class="btn btn-flip" style="flex:1" onclick="flipCard()">
+      <span class="btn-icon">⟳</span>
+      <span>TAP CARD OR FLIP TO REVEAL</span>
+    </button>
+  </div>
+</div>
+
+<div class="done-screen" id="doneScreen">
+  <div class="done-icon">🎉</div>
+  <div class="done-title" id="doneTitle">Deck complete!</div>
+  <div class="done-sub" id="doneSub"></div>
+  <div class="stats-row">
+    <div class="stat"><div class="stat-num" id="statKnown">0</div><div class="stat-lbl">Known</div></div>
+    <div class="stat"><div class="stat-num" id="statTotal">0</div><div class="stat-lbl">Total</div></div>
+    <div class="stat"><div class="stat-num" id="statPasses">0</div><div class="stat-lbl">Passes</div></div>
+  </div>
+  <button class="btn-restart" onclick="restart()">[ START OVER ]</button>
+</div>
+
+<script>
+const allDecks = [
+  // Domain 1 — Design Secure Architectures
+  [
+    { answer: "AWS Site-to-Site VPN", category: "Networking & Access Control", def: "Creates an encrypted IPsec tunnel between your on-premises network and your Amazon VPC over the public internet, enabling secure hybrid connectivity that is fast to deploy." },
+    { answer: "Application Load Balancer (ALB)", category: "Networking & Access Control", def: "A load balancer that operates at the request level (Layer 7), routing HTTP and HTTPS traffic to targets such as EC2 instances, containers, and Lambda functions based on request content." },
+    { answer: "NAT Gateway", category: "Networking & Access Control", def: "A managed, highly available Network Address Translation service that enables instances in a private subnet to initiate outbound traffic to the internet while preventing inbound connections from the internet." },
+    { answer: "Internet Gateway", category: "Networking & Access Control", def: "A horizontally scaled, redundant, highly available VPC component that allows communication between your VPC and the internet. It serves as a target in route tables for internet-routable traffic." },
+    { answer: "Amazon VPC", category: "Networking & Access Control", def: "A logically isolated section of the AWS Cloud where you can launch AWS resources in a virtual network that you define, with full control over IP address ranges, subnets, route tables, and network gateways." },
+    { answer: "VPC Gateway Endpoint", category: "Networking & Access Control", def: "A gateway you specify in your route table to allow private communication between your VPC and supported AWS services (S3 and DynamoDB) without requiring an internet gateway or NAT device." },
+    { answer: "VPC Interface Endpoint", category: "Networking & Access Control", def: "An elastic network interface with a private IP address that serves as an entry point for traffic destined to a supported AWS service, powered by AWS PrivateLink — keeping traffic off the public internet." },
+    { answer: "AWS WAF", category: "Networking & Access Control", def: "A web application firewall that helps protect your web applications or APIs against common web exploits and bots that may affect availability, compromise security, or consume excessive resources." },
+    { answer: "AWS Global Accelerator", category: "Networking & Access Control", def: "A networking service that uses the AWS global network to route traffic to optimal regional endpoints, providing two static anycast IP addresses and improving availability and performance for global users." },
+    { answer: "Network Load Balancer (NLB)", category: "Networking & Access Control", def: "A load balancer that operates at the connection level (Layer 4), routing TCP, UDP, and TLS traffic to targets with ultra-low latency — capable of handling millions of requests per second." },
+    { answer: "AWS VPC Lattice", category: "Networking & Access Control", def: "A fully managed application networking service that simplifies service-to-service connectivity, security, and monitoring across VPCs and accounts, with built-in support for HTTPS listeners and service discovery." },
+    { answer: "AWS PrivateLink", category: "Networking & Access Control", def: "A technology that provides private connectivity between VPCs and AWS services or your own services, keeping all traffic on the Amazon network without exposing it to the public internet." },
+    { answer: "Network ACL (NACL)", category: "Networking & Access Control", def: "An optional, stateless layer of security for your VPC that acts as a firewall for controlling traffic in and out of one or more subnets. Rules are evaluated in number order and allow or deny traffic explicitly." },
+    { answer: "Security Groups", category: "Networking & Access Control", def: "A stateful virtual firewall that controls inbound and outbound traffic at the instance level. All rules are evaluated before deciding whether to allow traffic, and return traffic is automatically allowed." },
+    { answer: "AWS Transit Gateway", category: "Networking & Access Control", def: "A network transit hub that interconnects VPCs and on-premises networks through a central gateway, simplifying your network architecture and reducing the number of connections you need to manage." },
+    { answer: "AWS IAM", category: "Identity & Access Management", def: "A service that enables you to manage access to AWS services and resources securely, controlling who is authenticated (signed in) and authorized (has permissions) to use AWS resources — available at no additional charge." },
+    { answer: "AWS IAM Identity Center", category: "Identity & Access Management", def: "A service that makes it easy to centrally manage single sign-on (SSO) access to multiple AWS accounts and business applications, integrating with your existing workforce identity source." },
+    { answer: "AWS Organizations / SCPs", category: "Identity & Access Management", def: "An account management service for consolidating multiple AWS accounts into an organization. Service Control Policies (SCPs) set maximum permission guardrails for all accounts within the organization." },
+    { answer: "AWS Control Tower", category: "Identity & Access Management", def: "A service that offers the easiest way to set up and govern a secure, multi-account AWS environment (landing zone) based on AWS best practices, with preventive and detective guardrails for ongoing governance." },
+    { answer: "Amazon Cognito", category: "Identity & Access Management", def: "A service that provides user sign-up, sign-in, and access control to your web and mobile applications. It supports millions of users and federated identity from social and enterprise identity providers." },
+    { answer: "Lambda@Edge", category: "Identity & Access Management", def: "A feature of Amazon CloudFront that lets you run Lambda functions at AWS edge locations in response to CloudFront events — enabling low-latency authentication and authorization at the edge globally." },
+    { answer: "AWS Directory Service / AD Connector", category: "Identity & Access Management", def: "AWS Directory Service provides managed Microsoft Active Directory in the AWS Cloud. AD Connector is a directory gateway that redirects directory requests to your existing on-premises Microsoft Active Directory without caching data in the cloud." },
+    { answer: "AWS KMS", category: "Data Protection & Encryption", def: "A managed service that makes it easy to create and control cryptographic keys used to encrypt your data, with built-in integration across AWS services and centralized key management with optional automatic rotation." },
+    { answer: "AWS Certificate Manager (ACM)", category: "Data Protection & Encryption", def: "A service that provisions, manages, and deploys public and private SSL/TLS certificates for use with AWS services and your internal connected resources, handling certificate renewal automatically for ACM-issued certs." },
+    { answer: "AWS Secrets Manager", category: "Data Protection & Encryption", def: "A service that helps you protect access to your applications by enabling you to rotate, manage, and retrieve secrets such as database credentials and API keys throughout their lifecycle — with built-in automatic rotation." },
+    { answer: "AWS Systems Manager Parameter Store", category: "Data Protection & Encryption", def: "A capability of AWS Systems Manager that provides secure, hierarchical storage for configuration data and secrets, supporting plain text strings or encrypted SecureString values using AWS KMS." },
+    { answer: "S3 Object Lock", category: "Data Protection & Encryption", def: "A feature that allows you to store objects in Amazon S3 using a write-once-read-many (WORM) model, preventing objects from being deleted or overwritten for a fixed retention period or indefinitely." },
+    { answer: "SSE-S3 / SSE-KMS / SSE-C", category: "Data Protection & Encryption", def: "Three server-side encryption options for S3: SSE-S3 uses S3-managed keys; SSE-KMS uses AWS KMS customer managed keys with full audit logging; SSE-C uses encryption keys you supply with each request." },
+    { answer: "Amazon Macie", category: "Detection & Compliance", def: "A fully managed data security and privacy service that uses machine learning to automatically discover, classify, and protect sensitive data — such as personally identifiable information (PII) — stored in Amazon S3." },
+    { answer: "Amazon GuardDuty", category: "Detection & Compliance", def: "A threat detection service that continuously monitors your AWS accounts, workloads, and data for malicious activity and unauthorized behavior using machine learning, anomaly detection, and integrated threat intelligence feeds." },
+    { answer: "Amazon Inspector", category: "Detection & Compliance", def: "An automated vulnerability management service that continually scans EC2 instances, Lambda functions, and container images in ECR for software vulnerabilities (CVEs) and unintended network exposure." },
+    { answer: "AWS Config", category: "Detection & Compliance", def: "A service that enables you to assess, audit, and evaluate the configurations of your AWS resources continuously, recording configuration history and evaluating resources against desired configuration rules." },
+    { answer: "AWS CloudTrail", category: "Detection & Compliance", def: "A service that enables governance, compliance, and operational auditing of your AWS account by recording all API calls and account activity across your AWS infrastructure — creating a full audit trail." },
+    { answer: "AWS Security Hub", category: "Detection & Compliance", def: "A cloud security posture management (CSPM) service that aggregates and prioritizes security findings from multiple AWS services and third-party tools, giving you a unified view of your security state across accounts." },
+    { answer: "Amazon EventBridge", category: "Detection & Compliance", def: "A serverless event bus that makes it easy to connect applications using data from your own apps, integrated SaaS applications, and AWS services — enabling event-driven architectures and automated responses to findings." },
+    { answer: "Amazon CloudWatch", category: "Detection & Compliance", def: "A monitoring and observability service that collects logs, metrics, and events from your AWS resources and applications, enabling you to set alarms, visualize data, and automatically react to operational changes." },
+    { answer: "Amazon S3", category: "Storage", def: "An object storage service offering industry-leading scalability, data availability, security, and performance. It stores any amount of data with features including versioning, lifecycle policies, and fine-grained access control." },
+    { answer: "S3 Inventory & S3 Batch Operations", category: "Storage", def: "S3 Inventory generates scheduled CSV reports of your objects and their metadata. S3 Batch Operations performs large-scale batch tasks on S3 objects — such as copying, encrypting, or tagging millions of objects at once." },
+    { answer: "S3 Block Public Access", category: "Storage", def: "Account-level and bucket-level settings that centrally block all public access to Amazon S3 resources, overriding any existing or future bucket policies and ACLs that would allow public access." },
+    { answer: "Amazon EBS", category: "Storage", def: "A high-performance block storage service for use with Amazon EC2. It provides persistent storage volumes that can be encrypted with AWS KMS and are designed for both throughput- and transaction-intensive workloads." },
+    { answer: "Amazon EFS", category: "Storage", def: "A fully managed, serverless, elastic NFS file system for use with AWS services and on-premises resources, automatically scaling up and down as you add and remove files — accessible from multiple instances simultaneously." },
+    { answer: "Amazon EC2", category: "Compute", def: "A web service providing secure, resizable compute capacity in the cloud. You have full control over the underlying OS, with a broad choice of instance types, and you pay only for what you use." },
+    { answer: "AWS Lambda", category: "Compute", def: "A serverless compute service that runs your code in response to events and automatically manages the underlying infrastructure. You are charged only for the compute time your code actually consumes." },
+    { answer: "AWS Systems Manager Session Manager", category: "Compute", def: "A fully managed capability for secure instance access via an interactive browser-based shell or CLI — without opening inbound ports, maintaining bastion hosts, or managing SSH keys." },
+    { answer: "Amazon SNS", category: "Messaging & Notification", def: "A fully managed pub/sub messaging service for application-to-application and application-to-person communication, enabling high-throughput, push-based, many-to-many messaging with support for encryption at rest and in transit." },
+    { answer: "Amazon SQS", category: "Messaging & Notification", def: "A fully managed message queuing service that enables you to decouple and scale microservices, distributed systems, and serverless applications by reliably storing messages between components." },
+    { answer: "AWS Transfer Family", category: "Transfer & Migration", def: "A fully managed service that enables secure file transfers into and out of Amazon S3 or EFS using SFTP, FTPS, FTP, and AS2 protocols — supporting multiple identity providers including Active Directory." },
+    { answer: "AWS CloudFormation", category: "Other", def: "A service that lets you model, provision, and manage AWS and third-party resources by treating infrastructure as code, allowing you to create repeatable, consistent stacks from a single template." },
+    { answer: "Amazon CloudFront", category: "Other", def: "A fast content delivery network (CDN) service that securely delivers data, videos, applications, and APIs to customers globally with low latency, using a worldwide network of edge locations." },
+    { answer: "Amazon API Gateway", category: "Other", def: "A fully managed service for creating, publishing, maintaining, monitoring, and securing APIs at any scale. It acts as the front door for applications to access backend services, with support for REST and WebSocket APIs." },
+    { answer: "Amazon RDS", category: "Other", def: "A managed relational database service that automates time-consuming administration tasks such as hardware provisioning, database setup, patching, and backups — supporting MySQL, PostgreSQL, Oracle, SQL Server, and Aurora." },
+    { answer: "Amazon Aurora", category: "Other", def: "A MySQL- and PostgreSQL-compatible relational database built for the cloud that delivers up to 5x the throughput of MySQL, with the simplicity and cost-effectiveness of open-source databases." },
+    { answer: "Amazon DynamoDB", category: "Other", def: "A fully managed, serverless, key-value and document NoSQL database delivering single-digit millisecond performance at any scale, with built-in security, backups, and in-memory caching." },
+    { answer: "Amazon ECR", category: "Other", def: "A fully managed container registry for storing, managing, sharing, and deploying container images and artifacts. It integrates with ECS, EKS, and Lambda, and includes built-in vulnerability scanning via Amazon Inspector." },
+    { answer: "Amazon ECS", category: "Other", def: "A fully managed container orchestration service that helps you deploy, manage, and scale containerized applications. It supports both EC2 launch type and serverless AWS Fargate." },
+    { answer: "Amazon EKS", category: "Other", def: "A managed Kubernetes service that makes it easy to run Kubernetes on AWS and on-premises. AWS automatically manages the availability and scalability of the Kubernetes control plane." },
+  ]
+];
+
+let activeDeck = 0;
+let deck = [];
+let retryPile = [];
+let knownCount = 0;
+let passCount = 1;
+let current = null;
+let flipped = false;
+let revealed = false;
+let totalCards = 0;
+
+function shuffle(arr) {
+  const a = [...arr];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+function selectDomain(idx) {
+  if (idx !== 0) return;
+  activeDeck = idx;
+  document.querySelectorAll('.tab').forEach((t, i) => {
+    if (!t.classList.contains('coming-soon')) t.classList.toggle('active', i === idx);
+  });
+  restart();
+}
+
+function init() {
+  totalCards = allDecks[activeDeck].length;
+  deck = shuffle(allDecks[activeDeck]);
+  retryPile = [];
+  knownCount = 0;
+  passCount = 1;
+  document.getElementById('quizArea').style.display = 'flex';
+  document.getElementById('doneScreen').classList.remove('visible');
+  showCard();
+  updateProgress();
+}
+
+function showCard() {
+  if (deck.length === 0 && retryPile.length === 0) { showDone(); return; }
+  if (deck.length === 0) {
+    passCount++;
+    deck = shuffle([...retryPile]);
+    retryPile = [];
+  }
+  current = deck[0];
+  flipped = false;
+  revealed = false;
+  document.getElementById('flashcard').classList.remove('flipped');
+  document.getElementById('defText').textContent = current.def;
+  document.getElementById('answerText').textContent = current.answer;
+  document.getElementById('categoryText').textContent = current.category;
+  document.getElementById('actions').classList.add('hidden');
+  document.getElementById('preFlipActions').style.visibility = 'visible';
+  updateProgress();
+}
+
+function flipCard() {
+  flipped = !flipped;
+  document.getElementById('flashcard').classList.toggle('flipped', flipped);
+  if (flipped && !revealed) {
+    revealed = true;
+    document.getElementById('actions').classList.remove('hidden');
+    document.getElementById('preFlipActions').style.visibility = 'hidden';
+  }
+  if (!flipped && revealed) {
+    document.getElementById('preFlipActions').style.visibility = 'hidden';
+  }
+}
+
+function gotIt() {
+  deck.shift();
+  knownCount++;
+  showCard();
+}
+
+function dontKnow() {
+  retryPile.push(deck.shift());
+  showCard();
+}
+
+function updateProgress() {
+  const pct = totalCards > 0 ? Math.round((knownCount / totalCards) * 100) : 0;
+  document.getElementById('progressFill').style.width = pct + '%';
+  document.getElementById('progressKnown').textContent = knownCount + ' of ' + totalCards + ' known';
+
+  const retryCount = retryPile.length;
+  const retryEl = document.getElementById('retryBadge');
+  if (retryCount > 0) {
+    retryEl.style.display = 'flex';
+    document.getElementById('retryCount').textContent = retryCount;
+  } else {
+    retryEl.style.display = 'none';
+  }
+
+  const remaining = deck.length + retryPile.length;
+  const cardNum = totalCards - remaining + 1;
+  document.getElementById('cardCounter').textContent = 'Card ' + Math.min(cardNum, totalCards) + ' / ' + totalCards;
+}
+
+function showDone() {
+  document.getElementById('quizArea').style.display = 'none';
+  document.getElementById('doneScreen').classList.add('visible');
+  document.getElementById('statKnown').textContent = knownCount;
+  document.getElementById('statTotal').textContent = totalCards;
+  document.getElementById('statPasses').textContent = passCount;
+  const perfect = knownCount === totalCards;
+  document.getElementById('doneTitle').textContent = perfect ? 'Perfect score!' : 'Deck complete!';
+  document.getElementById('doneSub').textContent = perfect
+    ? 'You knew every card on this domain. Add Domain 2 when ready!'
+    : 'Keep going — you can restart and the cards you missed will come back around.';
+}
+
+function restart() { init(); }
+
+init();
+</script>
+</body>
+</html>
