@@ -171,6 +171,7 @@
   }
 
   .card-scene {
+    -webkit-perspective: 1200px;
     perspective: 1200px;
     margin-bottom: 14px;
   }
@@ -179,12 +180,21 @@
     width: 100%;
     min-height: 256px;
     position: relative;
+    -webkit-transform-style: preserve-3d;
     transform-style: preserve-3d;
+    -webkit-transition: transform 0.45s cubic-bezier(0.4, 0, 0.2, 1);
     transition: transform 0.45s cubic-bezier(0.4, 0, 0.2, 1);
     cursor: pointer;
   }
 
-  .flashcard.flipped { transform: rotateY(180deg); }
+  .flashcard.flipped {
+    -webkit-transform: rotateY(180deg);
+    transform: rotateY(180deg);
+  }
+
+  /* iOS Safari fallback: explicitly hide the face that's rotated away */
+  .flashcard.flipped .card-front { visibility: hidden; }
+  .flashcard:not(.flipped) .card-back { visibility: hidden; }
 
   .card-face {
     position: absolute;
@@ -196,6 +206,7 @@
     padding: 22px;
     display: flex;
     flex-direction: column;
+    -webkit-transform: translateZ(0);
   }
 
   /* Front — clean warm paper */
@@ -226,6 +237,7 @@
   .card-back {
     background: linear-gradient(145deg, #f7ede0, #f0e2cc);
     border: 1px solid var(--border2);
+    -webkit-transform: rotateY(180deg);
     transform: rotateY(180deg);
     box-shadow: 0 2px 12px rgba(44,36,24,0.1), 0 1px 3px rgba(44,36,24,0.06);
     position: absolute;
