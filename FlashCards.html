@@ -20,6 +20,18 @@
     --sage-light: #d8e8d8;
     --amber:      #d4900a;
     --amber-light:#faecd0;
+    --indigo:     #4a5fa8;
+    --indigo-light: #dde3f7;
+
+    --tier1-color:  #c0572a;
+    --tier1-bg:     #f0ddd4;
+    --tier1-border: #c0572a;
+    --tier2-color:  #d4900a;
+    --tier2-bg:     #faecd0;
+    --tier2-border: #d4900a;
+    --tier3-color:  #5a7a5e;
+    --tier3-bg:     #d8e8d8;
+    --tier3-border: #5a7a5e;
 
     --ink:        #2c2418;
     --ink2:       #6b5d48;
@@ -52,7 +64,7 @@
 
   /* ── Top bar ── */
   .topbar {
-    padding: 16px 20px 14px;
+    padding: 14px 20px 12px;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -60,112 +72,72 @@
     flex-shrink: 0;
     background: var(--surface);
   }
-
   .topbar-left { display: flex; flex-direction: column; gap: 2px; }
-
   .topbar-title {
-    font-family: var(--mono);
-    font-size: 11px;
-    font-weight: 500;
-    color: var(--rust);
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
+    font-family: var(--mono); font-size: 11px; font-weight: 500;
+    color: var(--rust); letter-spacing: 0.12em; text-transform: uppercase;
   }
-
-  .topbar-sub {
-    font-family: var(--serif);
-    font-style: italic;
-    font-size: 15px;
-    color: var(--ink2);
-  }
-
+  .topbar-sub { font-family: var(--serif); font-style: italic; font-size: 15px; color: var(--ink2); }
   .card-counter {
-    font-family: var(--mono);
-    font-size: 12px;
-    color: var(--ink3);
-    background: var(--surface2);
-    border: 1px solid var(--border);
-    border-radius: 20px;
-    padding: 3px 10px;
+    font-family: var(--mono); font-size: 12px; color: var(--ink3);
+    background: var(--surface2); border: 1px solid var(--border);
+    border-radius: 20px; padding: 3px 10px;
   }
 
   /* ── Progress ── */
   .progress-wrap {
-    padding: 12px 20px;
+    padding: 10px 20px;
     flex-shrink: 0;
     background: var(--surface);
     border-bottom: 1px solid var(--border);
   }
-
   .progress-bar-bg {
-    height: 5px;
-    background: var(--surface2);
-    border-radius: 99px;
-    overflow: hidden;
-    border: 1px solid var(--border);
+    height: 5px; background: var(--surface2); border-radius: 99px;
+    overflow: hidden; border: 1px solid var(--border);
   }
-
   .progress-bar-fill {
     height: 100%;
     background: linear-gradient(90deg, var(--rust), var(--amber));
-    border-radius: 99px;
-    transition: width 0.5s ease;
+    border-radius: 99px; transition: width 0.5s ease;
   }
+  .progress-meta { display: flex; justify-content: space-between; margin-top: 5px; }
+  .progress-meta span { font-family: var(--mono); font-size: 11px; color: var(--ink3); }
 
-  .progress-meta {
+  /* ── Tier tabs ── */
+  .tier-tabs {
     display: flex;
-    justify-content: space-between;
-    margin-top: 6px;
-  }
-
-  .progress-meta span {
-    font-family: var(--mono);
-    font-size: 11px;
-    color: var(--ink3);
-  }
-
-  /* ── Domain tabs ── */
-  .domain-tabs {
-    display: flex;
-    gap: 4px;
-    padding: 10px 20px;
-    overflow-x: auto;
-    scrollbar-width: none;
+    gap: 6px;
+    padding: 10px 16px;
     flex-shrink: 0;
     background: var(--bg);
     border-bottom: 1px solid var(--border);
   }
-
-  .domain-tabs::-webkit-scrollbar { display: none; }
-
-  .tab {
-    flex-shrink: 0;
-    padding: 5px 14px;
-    border-radius: 20px;
-    border: 1px solid var(--border2);
+  .tier-tab {
+    flex: 1;
+    padding: 7px 4px;
+    border-radius: var(--radius-sm);
+    border: 1.5px solid var(--border2);
     font-family: var(--mono);
-    font-size: 11px;
+    font-size: 10px;
     color: var(--ink3);
     background: var(--surface);
     cursor: pointer;
-    white-space: nowrap;
+    text-align: center;
+    line-height: 1.4;
     transition: all 0.15s;
+    letter-spacing: 0.05em;
   }
-
-  .tab.active {
-    background: var(--rust);
-    border-color: var(--rust);
-    color: #fff;
-  }
-
-  .tab.coming-soon { opacity: 0.4; cursor: not-allowed; }
+  .tier-tab .tier-label { display: block; font-size: 9px; opacity: 0.75; margin-top: 2px; }
+  .tier-tab.active-tier1 { background: var(--tier1-bg); border-color: var(--tier1-border); color: var(--tier1-color); }
+  .tier-tab.active-tier2 { background: var(--tier2-bg); border-color: var(--tier2-border); color: var(--tier2-color); }
+  .tier-tab.active-tier3 { background: var(--tier3-bg); border-color: var(--tier3-border); color: var(--tier3-color); }
 
   /* ── Card area ── */
   .card-area {
     flex: 1;
     display: flex;
     flex-direction: column;
-    padding: 20px 20px 0;
+    padding: 18px 20px 0;
     justify-content: center;
     min-height: 0;
   }
@@ -178,7 +150,7 @@
 
   .flashcard {
     width: 100%;
-    min-height: 256px;
+    min-height: 270px;
     position: relative;
     -webkit-transform-style: preserve-3d;
     transform-style: preserve-3d;
@@ -186,54 +158,30 @@
     transition: transform 0.45s cubic-bezier(0.4, 0, 0.2, 1);
     cursor: pointer;
   }
-
-  .flashcard.flipped {
-    -webkit-transform: rotateY(180deg);
-    transform: rotateY(180deg);
-  }
-
-  /* iOS Safari fallback: explicitly hide the face that's rotated away */
+  .flashcard.flipped { -webkit-transform: rotateY(180deg); transform: rotateY(180deg); }
   .flashcard.flipped .card-front { visibility: hidden; }
   .flashcard:not(.flipped) .card-back { visibility: hidden; }
 
   .card-face {
     position: absolute;
     width: 100%;
-    min-height: 256px;
+    min-height: 270px;
     border-radius: var(--radius);
     backface-visibility: hidden;
     -webkit-backface-visibility: hidden;
-    padding: 22px;
+    padding: 20px 22px;
     display: flex;
     flex-direction: column;
     -webkit-transform: translateZ(0);
   }
 
-  /* Front — clean warm paper */
   .card-front {
     background: var(--surface);
     border: 1px solid var(--border);
     box-shadow: 0 2px 12px rgba(44,36,24,0.08), 0 1px 3px rgba(44,36,24,0.06);
   }
 
-  /* Ruled lines effect */
-  .card-front::before {
-    content: '';
-    position: absolute;
-    inset: 22px 22px 22px 22px;
-    background: repeating-linear-gradient(
-      to bottom,
-      transparent,
-      transparent 27px,
-      var(--border) 27px,
-      var(--border) 28px
-    );
-    pointer-events: none;
-    opacity: 0.35;
-    border-radius: 2px;
-  }
 
-  /* Back — warm terracotta tint */
   .card-back {
     background: linear-gradient(145deg, #f7ede0, #f0e2cc);
     border: 1px solid var(--border2);
@@ -242,231 +190,107 @@
     box-shadow: 0 2px 12px rgba(44,36,24,0.1), 0 1px 3px rgba(44,36,24,0.06);
     position: absolute;
   }
-
   .card-back::after {
-    content: '';
-    position: absolute;
-    left: 22px;
-    top: 0; bottom: 0;
-    width: 1px;
-    background: rgba(192,87,42,0.2);
+    content: ''; position: absolute; left: 22px;
+    top: 0; bottom: 0; width: 1px; background: rgba(192,87,42,0.2);
   }
 
   .card-chip {
-    display: inline-flex;
-    align-items: center;
-    gap: 7px;
-    font-family: var(--mono);
-    font-size: 10px;
-    color: var(--ink3);
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    margin-bottom: 14px;
-    position: relative;
-    z-index: 1;
+    display: inline-flex; align-items: center; gap: 7px;
+    font-family: var(--mono); font-size: 10px; color: var(--ink3);
+    letter-spacing: 0.1em; text-transform: uppercase;
+    margin-bottom: 12px; position: relative; z-index: 1;
   }
-
-  .chip-dot {
-    width: 6px; height: 6px;
-    border-radius: 50%;
-    background: var(--border2);
-    flex-shrink: 0;
-  }
-
-  .card-back .chip-dot { background: var(--rust); }
+  .chip-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--border2); flex-shrink: 0; }
   .card-back .card-chip { color: var(--rust); }
+  .card-back .chip-dot { background: var(--rust); }
 
   .card-def {
-    font-family: var(--serif);
-    font-size: 14.5px;
-    line-height: 1.75;
-    color: var(--ink);
-    flex: 1;
-    position: relative;
-    z-index: 1;
+    font-family: var(--serif); font-size: 14px; line-height: 1.75;
+    color: var(--ink); flex: 1; position: relative; z-index: 1;
   }
-
   .card-hint {
-    margin-top: 14px;
-    font-family: var(--serif);
-    font-style: italic;
-    font-size: 12px;
-    color: var(--ink3);
-    position: relative;
-    z-index: 1;
+    margin-top: 12px; font-family: var(--serif); font-style: italic;
+    font-size: 12px; color: var(--ink3); position: relative; z-index: 1;
   }
 
+  /* Tier badge on front */
+  .tier-badge {
+    display: inline-flex; align-items: center; gap: 5px;
+    padding: 3px 9px; border-radius: 20px;
+    font-family: var(--mono); font-size: 9px;
+    letter-spacing: 0.08em; text-transform: uppercase;
+    margin-bottom: 10px; position: relative; z-index: 1;
+    align-self: flex-start;
+  }
+  .tier-badge.t1 { background: var(--tier1-bg); color: var(--tier1-color); border: 1px solid var(--tier1-border); }
+  .tier-badge.t2 { background: var(--tier2-bg); color: var(--tier2-color); border: 1px solid var(--tier2-border); }
+  .tier-badge.t3 { background: var(--tier3-bg); color: var(--tier3-color); border: 1px solid var(--tier3-border); }
+
+  /* Back answer */
   .card-answer {
-    font-family: var(--serif);
-    font-size: 24px;
-    font-weight: 600;
-    color: var(--ink);
-    line-height: 1.3;
-    margin-bottom: 8px;
-    flex: 1;
-    display: flex;
-    align-items: center;
-    position: relative;
-    z-index: 1;
-    padding-left: 18px;
+    font-family: var(--serif); font-size: 22px; font-weight: 600;
+    color: var(--ink); line-height: 1.3; margin-bottom: 6px;
+    position: relative; z-index: 1; padding-left: 18px;
   }
-
   .card-category-tag {
-    display: inline-block;
-    padding: 3px 10px;
-    border-radius: var(--radius-sm);
-    background: var(--rust-light);
-    color: var(--rust);
-    font-family: var(--mono);
-    font-size: 10px;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    margin-bottom: 14px;
-    position: relative;
-    z-index: 1;
-    margin-left: 18px;
+    display: inline-block; padding: 2px 9px; border-radius: var(--radius-sm);
+    background: var(--rust-light); color: var(--rust);
+    font-family: var(--mono); font-size: 9px; letter-spacing: 0.08em;
+    text-transform: uppercase; margin-bottom: 10px;
+    position: relative; z-index: 1; margin-left: 18px;
+  }
+  .card-memory {
+    margin-left: 18px; margin-top: 8px;
+    padding: 8px 12px; border-radius: var(--radius-sm);
+    background: rgba(192,87,42,0.08); border-left: 2px solid var(--rust);
+    font-family: var(--mono); font-size: 11px; color: var(--ink2);
+    line-height: 1.55; position: relative; z-index: 1;
+  }
+  .card-memory-label {
+    font-size: 9px; text-transform: uppercase; letter-spacing: 0.1em;
+    color: var(--rust); margin-bottom: 3px; display: block;
   }
 
-  /* ── Action buttons ── */
-  .actions {
-    display: flex;
-    gap: 8px;
-    flex-shrink: 0;
-    padding-bottom: 24px;
-  }
-
+  /* ── Actions ── */
+  .actions { display: flex; gap: 8px; flex-shrink: 0; padding-bottom: 20px; }
   .actions.hidden { visibility: hidden; pointer-events: none; }
-
   .btn {
-    flex: 1;
-    padding: 13px 8px;
-    border-radius: var(--radius-sm);
-    border: 1px solid var(--border2);
-    font-family: var(--serif);
-    font-size: 13px;
-    cursor: pointer;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 4px;
-    background: var(--surface);
-    color: var(--ink2);
-    transition: all 0.15s;
+    flex: 1; padding: 12px 8px; border-radius: var(--radius-sm);
+    border: 1px solid var(--border2); font-family: var(--serif);
+    font-size: 13px; cursor: pointer; display: flex;
+    flex-direction: column; align-items: center; gap: 4px;
+    background: var(--surface); color: var(--ink2); transition: all 0.15s;
   }
-
   .btn:active { transform: translateY(1px); }
-  .btn-icon { font-size: 17px; line-height: 1; }
-
-  .btn-know {
-    background: var(--sage-light);
-    border-color: var(--sage);
-    color: var(--sage);
-  }
-
-  .btn-retry {
-    background: var(--rust-light);
-    border-color: var(--rust);
-    color: var(--rust);
-  }
-
-  .btn-flip {
-    background: var(--surface2);
-    border-color: var(--border2);
-    color: var(--ink2);
-  }
+  .btn-icon { font-size: 16px; line-height: 1; }
+  .btn-know { background: var(--sage-light); border-color: var(--sage); color: var(--sage); }
+  .btn-retry { background: var(--rust-light); border-color: var(--rust); color: var(--rust); }
+  .btn-flip { background: var(--surface2); border-color: var(--border2); color: var(--ink2); }
 
   /* ── Done screen ── */
   .done-screen {
-    display: none;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 40px 24px;
-    text-align: center;
-    flex: 1;
+    display: none; flex-direction: column; align-items: center;
+    justify-content: center; padding: 40px 24px; text-align: center; flex: 1;
   }
-
   .done-screen.visible { display: flex; }
-
   .done-icon { font-size: 44px; margin-bottom: 16px; }
-
-  .done-title {
-    font-family: var(--serif);
-    font-size: 24px;
-    font-weight: 600;
-    color: var(--ink);
-    margin-bottom: 8px;
-  }
-
-  .done-sub {
-    font-family: var(--serif);
-    font-style: italic;
-    font-size: 14px;
-    color: var(--ink2);
-    line-height: 1.65;
-    max-width: 280px;
-    margin: 0 auto 28px;
-  }
-
-  .stats-row { display: flex; gap: 10px; margin-bottom: 28px; }
-
-  .stat {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: var(--radius-sm);
-    padding: 14px 20px;
-    min-width: 80px;
-    border-top: 3px solid var(--rust);
-  }
-
-  .stat-num {
-    font-family: var(--mono);
-    font-size: 28px;
-    color: var(--ink);
-    line-height: 1;
-  }
-
-  .stat-lbl {
-    font-family: var(--mono);
-    font-size: 10px;
-    color: var(--ink3);
-    margin-top: 4px;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-  }
-
+  .done-title { font-family: var(--serif); font-size: 24px; font-weight: 600; color: var(--ink); margin-bottom: 8px; }
+  .done-sub { font-family: var(--serif); font-style: italic; font-size: 14px; color: var(--ink2); line-height: 1.65; max-width: 280px; margin: 0 auto 24px; }
+  .stats-row { display: flex; gap: 10px; margin-bottom: 24px; }
+  .stat { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 12px 18px; min-width: 72px; border-top: 3px solid var(--rust); }
+  .stat-num { font-family: var(--mono); font-size: 26px; color: var(--ink); line-height: 1; }
+  .stat-lbl { font-family: var(--mono); font-size: 10px; color: var(--ink3); margin-top: 4px; text-transform: uppercase; letter-spacing: 0.08em; }
   .btn-restart {
-    padding: 13px 32px;
-    border-radius: var(--radius-sm);
-    border: 1px solid var(--rust);
-    background: var(--rust);
-    color: #fff;
-    font-family: var(--serif);
-    font-size: 15px;
-    cursor: pointer;
-    transition: all 0.15s;
-    letter-spacing: 0.02em;
+    padding: 12px 28px; border-radius: var(--radius-sm);
+    border: 1px solid var(--rust); background: var(--rust);
+    color: #fff; font-family: var(--serif); font-size: 15px;
+    cursor: pointer; transition: all 0.15s; letter-spacing: 0.02em;
   }
-
-  .btn-restart:hover { background: #a84820; border-color: #a84820; }
+  .btn-restart:hover { background: #a84820; }
   .btn-restart:active { transform: translateY(1px); }
 
-  /* Retry badge */
-  .retry-badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 5px;
-    font-family: var(--mono);
-    font-size: 11px;
-    color: var(--amber);
-    margin-left: auto;
-  }
-
-  .retry-dot {
-    width: 5px; height: 5px;
-    border-radius: 50%;
-    background: var(--amber);
-  }
+  .retry-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--amber); display: inline-block; margin-right: 4px; }
 </style>
 </head>
 <body>
@@ -486,22 +310,35 @@
   <div class="progress-meta">
     <span id="progressKnown">0 known</span>
     <span id="retryBadge" style="display:none">
-      <span class="retry-dot"></span> <span id="retryCount">0</span> to retry
+      <span class="retry-dot"></span><span id="retryCount">0</span> to retry
     </span>
   </div>
 </div>
 
-<div class="domain-tabs">
-  <button class="tab active" onclick="selectDomain(0)">Domain 1 — Secure</button>
-  <button class="tab coming-soon" title="Coming soon">Domain 2 — Resilient</button>
-  <button class="tab coming-soon" title="Coming soon">Domain 3 — High Perf</button>
-  <button class="tab coming-soon" title="Coming soon">Domain 4 — Cost Opt</button>
+<div class="tier-tabs">
+  <button class="tier-tab active-tier1" id="tab0" onclick="selectTier(0)">
+    🔥 Must Know
+    <span class="tier-label">Cold</span>
+  </button>
+  <button class="tier-tab" id="tab1" onclick="selectTier(1)">
+    ⚡ Know Well
+    <span class="tier-label">Medium</span>
+  </button>
+  <button class="tier-tab" id="tab2" onclick="selectTier(2)">
+    🌿 Nice to Know
+    <span class="tier-label">Lower freq</span>
+  </button>
+  <button class="tier-tab" id="tab3" onclick="selectTier(3)">
+    🃏 All Cards
+    <span class="tier-label">Full deck</span>
+  </button>
 </div>
 
 <div class="card-area" id="quizArea">
   <div class="card-scene">
     <div class="flashcard" id="flashcard" onclick="flipCard()">
       <div class="card-face card-front">
+        <div class="tier-badge t1" id="tierBadgeEl">🔥 Must Know</div>
         <div class="card-chip"><span class="chip-dot"></span>Definition</div>
         <div class="card-def" id="defText"></div>
         <div class="card-hint">Tap to reveal the answer →</div>
@@ -510,29 +347,29 @@
         <div class="card-chip"><span class="chip-dot"></span>Answer</div>
         <div class="card-category-tag" id="categoryText"></div>
         <div class="card-answer" id="answerText"></div>
+        <div class="card-memory">
+          <span class="card-memory-label">💡 Remember it</span>
+          <span id="memoryText"></span>
+        </div>
       </div>
     </div>
   </div>
 
   <div class="actions hidden" id="actions">
     <button class="btn btn-retry" onclick="dontKnow()">
-      <span class="btn-icon">↩</span>
-      <span>Try again</span>
+      <span class="btn-icon">↩</span><span>Try again</span>
     </button>
     <button class="btn btn-flip" onclick="flipCard()">
-      <span class="btn-icon">⟳</span>
-      <span>Flip</span>
+      <span class="btn-icon">⟳</span><span>Flip</span>
     </button>
     <button class="btn btn-know" onclick="gotIt()">
-      <span class="btn-icon">✓</span>
-      <span>Got it</span>
+      <span class="btn-icon">✓</span><span>Got it</span>
     </button>
   </div>
 
   <div class="actions" id="preFlipActions" style="visibility:visible">
     <button class="btn btn-flip" style="flex:1" onclick="flipCard()">
-      <span class="btn-icon">⟳</span>
-      <span>Tap card or click to reveal</span>
+      <span class="btn-icon">⟳</span><span>Tap card or click to reveal</span>
     </button>
   </div>
 </div>
@@ -550,69 +387,337 @@
 </div>
 
 <script>
-const allDecks = [
-  // Domain 1 — Design Secure Architectures
-  [
-    { answer: "AWS Site-to-Site VPN", category: "Networking & Access Control", def: "Creates an encrypted IPsec tunnel between your on-premises network and your Amazon VPC over the public internet, enabling secure hybrid connectivity that is fast to deploy." },
-    { answer: "Application Load Balancer (ALB)", category: "Networking & Access Control", def: "A load balancer that operates at the request level (Layer 7), routing HTTP and HTTPS traffic to targets such as EC2 instances, containers, and Lambda functions based on request content." },
-    { answer: "NAT Gateway", category: "Networking & Access Control", def: "A managed, highly available Network Address Translation service that enables instances in a private subnet to initiate outbound traffic to the internet while preventing inbound connections from the internet." },
-    { answer: "Internet Gateway", category: "Networking & Access Control", def: "A horizontally scaled, redundant, highly available VPC component that allows communication between your VPC and the internet. It serves as a target in route tables for internet-routable traffic." },
-    { answer: "Amazon VPC", category: "Networking & Access Control", def: "A logically isolated section of the AWS Cloud where you can launch AWS resources in a virtual network that you define, with full control over IP address ranges, subnets, route tables, and network gateways." },
-    { answer: "VPC Gateway Endpoint", category: "Networking & Access Control", def: "A gateway you specify in your route table to allow private communication between your VPC and supported AWS services (S3 and DynamoDB) without requiring an internet gateway or NAT device." },
-    { answer: "VPC Interface Endpoint", category: "Networking & Access Control", def: "An elastic network interface with a private IP address that serves as an entry point for traffic destined to a supported AWS service, powered by AWS PrivateLink — keeping traffic off the public internet." },
-    { answer: "AWS WAF", category: "Networking & Access Control", def: "A web application firewall that helps protect your web applications or APIs against common web exploits and bots that may affect availability, compromise security, or consume excessive resources." },
-    { answer: "AWS Global Accelerator", category: "Networking & Access Control", def: "A networking service that uses the AWS global network to route traffic to optimal regional endpoints, providing two static anycast IP addresses and improving availability and performance for global users." },
-    { answer: "Network Load Balancer (NLB)", category: "Networking & Access Control", def: "A load balancer that operates at the connection level (Layer 4), routing TCP, UDP, and TLS traffic to targets with ultra-low latency — capable of handling millions of requests per second." },
-    { answer: "AWS VPC Lattice", category: "Networking & Access Control", def: "A fully managed application networking service that simplifies service-to-service connectivity, security, and monitoring across VPCs and accounts, with built-in support for HTTPS listeners and service discovery." },
-    { answer: "AWS PrivateLink", category: "Networking & Access Control", def: "A technology that provides private connectivity between VPCs and AWS services or your own services, keeping all traffic on the Amazon network without exposing it to the public internet." },
-    { answer: "Network ACL (NACL)", category: "Networking & Access Control", def: "An optional, stateless layer of security for your VPC that acts as a firewall for controlling traffic in and out of one or more subnets. Rules are evaluated in number order and allow or deny traffic explicitly." },
-    { answer: "Security Groups", category: "Networking & Access Control", def: "A stateful virtual firewall that controls inbound and outbound traffic at the instance level. All rules are evaluated before deciding whether to allow traffic, and return traffic is automatically allowed." },
-    { answer: "AWS Transit Gateway", category: "Networking & Access Control", def: "A network transit hub that interconnects VPCs and on-premises networks through a central gateway, simplifying your network architecture and reducing the number of connections you need to manage." },
-    { answer: "AWS IAM", category: "Identity & Access Management", def: "A service that enables you to manage access to AWS services and resources securely, controlling who is authenticated (signed in) and authorized (has permissions) to use AWS resources — available at no additional charge." },
-    { answer: "AWS IAM Identity Center", category: "Identity & Access Management", def: "A service that makes it easy to centrally manage single sign-on (SSO) access to multiple AWS accounts and business applications, integrating with your existing workforce identity source." },
-    { answer: "AWS Organizations / SCPs", category: "Identity & Access Management", def: "An account management service for consolidating multiple AWS accounts into an organization. Service Control Policies (SCPs) set maximum permission guardrails for all accounts within the organization." },
-    { answer: "AWS Control Tower", category: "Identity & Access Management", def: "A service that offers the easiest way to set up and govern a secure, multi-account AWS environment (landing zone) based on AWS best practices, with preventive and detective guardrails for ongoing governance." },
-    { answer: "Amazon Cognito", category: "Identity & Access Management", def: "A service that provides user sign-up, sign-in, and access control to your web and mobile applications. It supports millions of users and federated identity from social and enterprise identity providers." },
-    { answer: "Lambda@Edge", category: "Identity & Access Management", def: "A feature of Amazon CloudFront that lets you run Lambda functions at AWS edge locations in response to CloudFront events — enabling low-latency authentication and authorization at the edge globally." },
-    { answer: "AWS Directory Service / AD Connector", category: "Identity & Access Management", def: "AWS Directory Service provides managed Microsoft Active Directory in the AWS Cloud. AD Connector is a directory gateway that redirects directory requests to your existing on-premises Microsoft Active Directory without caching data in the cloud." },
-    { answer: "AWS KMS", category: "Data Protection & Encryption", def: "A managed service that makes it easy to create and control cryptographic keys used to encrypt your data, with built-in integration across AWS services and centralized key management with optional automatic rotation." },
-    { answer: "AWS Certificate Manager (ACM)", category: "Data Protection & Encryption", def: "A service that provisions, manages, and deploys public and private SSL/TLS certificates for use with AWS services and your internal connected resources, handling certificate renewal automatically for ACM-issued certs." },
-    { answer: "AWS Secrets Manager", category: "Data Protection & Encryption", def: "A service that helps you protect access to your applications by enabling you to rotate, manage, and retrieve secrets such as database credentials and API keys throughout their lifecycle — with built-in automatic rotation." },
-    { answer: "AWS Systems Manager Parameter Store", category: "Data Protection & Encryption", def: "A capability of AWS Systems Manager that provides secure, hierarchical storage for configuration data and secrets, supporting plain text strings or encrypted SecureString values using AWS KMS." },
-    { answer: "S3 Object Lock", category: "Data Protection & Encryption", def: "A feature that allows you to store objects in Amazon S3 using a write-once-read-many (WORM) model, preventing objects from being deleted or overwritten for a fixed retention period or indefinitely." },
-    { answer: "SSE-S3 / SSE-KMS / SSE-C", category: "Data Protection & Encryption", def: "Three server-side encryption options for S3: SSE-S3 uses S3-managed keys; SSE-KMS uses AWS KMS customer managed keys with full audit logging; SSE-C uses encryption keys you supply with each request." },
-    { answer: "Amazon Macie", category: "Detection & Compliance", def: "A fully managed data security and privacy service that uses machine learning to automatically discover, classify, and protect sensitive data — such as personally identifiable information (PII) — stored in Amazon S3." },
-    { answer: "Amazon GuardDuty", category: "Detection & Compliance", def: "A threat detection service that continuously monitors your AWS accounts, workloads, and data for malicious activity and unauthorized behavior using machine learning, anomaly detection, and integrated threat intelligence feeds." },
-    { answer: "Amazon Inspector", category: "Detection & Compliance", def: "An automated vulnerability management service that continually scans EC2 instances, Lambda functions, and container images in ECR for software vulnerabilities (CVEs) and unintended network exposure." },
-    { answer: "AWS Config", category: "Detection & Compliance", def: "A service that enables you to assess, audit, and evaluate the configurations of your AWS resources continuously, recording configuration history and evaluating resources against desired configuration rules." },
-    { answer: "AWS CloudTrail", category: "Detection & Compliance", def: "A service that enables governance, compliance, and operational auditing of your AWS account by recording all API calls and account activity across your AWS infrastructure — creating a full audit trail." },
-    { answer: "AWS Security Hub", category: "Detection & Compliance", def: "A cloud security posture management (CSPM) service that aggregates and prioritizes security findings from multiple AWS services and third-party tools, giving you a unified view of your security state across accounts." },
-    { answer: "Amazon EventBridge", category: "Detection & Compliance", def: "A serverless event bus that makes it easy to connect applications using data from your own apps, integrated SaaS applications, and AWS services — enabling event-driven architectures and automated responses to findings." },
-    { answer: "Amazon CloudWatch", category: "Detection & Compliance", def: "A monitoring and observability service that collects logs, metrics, and events from your AWS resources and applications, enabling you to set alarms, visualize data, and automatically react to operational changes." },
-    { answer: "Amazon S3", category: "Storage", def: "An object storage service offering industry-leading scalability, data availability, security, and performance. It stores any amount of data with features including versioning, lifecycle policies, and fine-grained access control." },
-    { answer: "S3 Inventory & S3 Batch Operations", category: "Storage", def: "S3 Inventory generates scheduled CSV reports of your objects and their metadata. S3 Batch Operations performs large-scale batch tasks on S3 objects — such as copying, encrypting, or tagging millions of objects at once." },
-    { answer: "S3 Block Public Access", category: "Storage", def: "Account-level and bucket-level settings that centrally block all public access to Amazon S3 resources, overriding any existing or future bucket policies and ACLs that would allow public access." },
-    { answer: "Amazon EBS", category: "Storage", def: "A high-performance block storage service for use with Amazon EC2. It provides persistent storage volumes that can be encrypted with AWS KMS and are designed for both throughput- and transaction-intensive workloads." },
-    { answer: "Amazon EFS", category: "Storage", def: "A fully managed, serverless, elastic NFS file system for use with AWS services and on-premises resources, automatically scaling up and down as you add and remove files — accessible from multiple instances simultaneously." },
-    { answer: "Amazon EC2", category: "Compute", def: "A web service providing secure, resizable compute capacity in the cloud. You have full control over the underlying OS, with a broad choice of instance types, and you pay only for what you use." },
-    { answer: "AWS Lambda", category: "Compute", def: "A serverless compute service that runs your code in response to events and automatically manages the underlying infrastructure. You are charged only for the compute time your code actually consumes." },
-    { answer: "AWS Systems Manager Session Manager", category: "Compute", def: "A fully managed capability for secure instance access via an interactive browser-based shell or CLI — without opening inbound ports, maintaining bastion hosts, or managing SSH keys." },
-    { answer: "Amazon SNS", category: "Messaging & Notification", def: "A fully managed pub/sub messaging service for application-to-application and application-to-person communication, enabling high-throughput, push-based, many-to-many messaging with support for encryption at rest and in transit." },
-    { answer: "Amazon SQS", category: "Messaging & Notification", def: "A fully managed message queuing service that enables you to decouple and scale microservices, distributed systems, and serverless applications by reliably storing messages between components." },
-    { answer: "AWS Transfer Family", category: "Transfer & Migration", def: "A fully managed service that enables secure file transfers into and out of Amazon S3 or EFS using SFTP, FTPS, FTP, and AS2 protocols — supporting multiple identity providers including Active Directory." },
-    { answer: "AWS CloudFormation", category: "Other", def: "A service that lets you model, provision, and manage AWS and third-party resources by treating infrastructure as code, allowing you to create repeatable, consistent stacks from a single template." },
-    { answer: "Amazon CloudFront", category: "Other", def: "A fast content delivery network (CDN) service that securely delivers data, videos, applications, and APIs to customers globally with low latency, using a worldwide network of edge locations." },
-    { answer: "Amazon API Gateway", category: "Other", def: "A fully managed service for creating, publishing, maintaining, monitoring, and securing APIs at any scale. It acts as the front door for applications to access backend services, with support for REST and WebSocket APIs." },
-    { answer: "Amazon RDS", category: "Other", def: "A managed relational database service that automates time-consuming administration tasks such as hardware provisioning, database setup, patching, and backups — supporting MySQL, PostgreSQL, Oracle, SQL Server, and Aurora." },
-    { answer: "Amazon Aurora", category: "Other", def: "A MySQL- and PostgreSQL-compatible relational database built for the cloud that delivers up to 5x the throughput of MySQL, with the simplicity and cost-effectiveness of open-source databases." },
-    { answer: "Amazon DynamoDB", category: "Other", def: "A fully managed, serverless, key-value and document NoSQL database delivering single-digit millisecond performance at any scale, with built-in security, backups, and in-memory caching." },
-    { answer: "Amazon ECR", category: "Other", def: "A fully managed container registry for storing, managing, sharing, and deploying container images and artifacts. It integrates with ECS, EKS, and Lambda, and includes built-in vulnerability scanning via Amazon Inspector." },
-    { answer: "Amazon ECS", category: "Other", def: "A fully managed container orchestration service that helps you deploy, manage, and scale containerized applications. It supports both EC2 launch type and serverless AWS Fargate." },
-    { answer: "Amazon EKS", category: "Other", def: "A managed Kubernetes service that makes it easy to run Kubernetes on AWS and on-premises. AWS automatically manages the availability and scalability of the Kubernetes control plane." },
-  ]
+// tier: 1=Must Know, 2=Know Well, 3=Nice to Know
+const ALL_CARDS = [
+
+  // ── TIER 1: MUST KNOW COLD ──────────────────────────────────────────────
+  { tier: 1, answer: "Amazon VPC", category: "Networking",
+    def: "A logically isolated section of the AWS Cloud where you can launch resources in a virtual network you define — with full control over IP ranges, subnets, route tables, and gateways.",
+    memory: "VPC = your private walled city inside AWS. You control the roads (routes), gates (gateways), and walls (security groups/NACLs)." },
+
+  { tier: 1, answer: "Security Groups", category: "Networking",
+    def: "A stateful virtual firewall controlling inbound and outbound traffic at the instance level. All rules are evaluated before deciding — and return traffic is automatically allowed.",
+    memory: "Stateful = remembers the conversation. If you let traffic IN, the reply gets OUT automatically. Operates at the instance level." },
+
+  { tier: 1, answer: "Network ACL (NACL)", category: "Networking",
+    def: "An optional, stateless layer of security for your VPC that acts as a firewall at the subnet level. Rules are evaluated in number order; you must explicitly allow both inbound AND outbound.",
+    memory: "Stateless = goldfish memory. Every packet is judged independently. Subnet-level, rules in order — add 100, 200, etc." },
+
+  { tier: 1, answer: "AWS IAM", category: "Identity & Access",
+    def: "Manages who is authenticated and authorized to use AWS resources. Uses users, groups, roles, and policies. Free service, global scope.",
+    memory: "IAM = the bouncer + guest list for all of AWS. Roles = temporary ID badges. Policies = the rulebook." },
+
+  { tier: 1, answer: "IAM Roles", category: "Identity & Access",
+    def: "An IAM identity with specific permissions that can be assumed by AWS services, users, or external identities — providing temporary credentials without embedding long-term access keys.",
+    memory: "Roles = costume, not permanent identity. EC2 assumes a role; it gets a temporary badge that expires. No hardcoded keys needed." },
+
+  { tier: 1, answer: "Amazon S3", category: "Storage",
+    def: "Object storage service with industry-leading scalability. Stores any amount of data with 99.999999999% (11 9s) durability. Features: versioning, lifecycle policies, fine-grained access control, replication.",
+    memory: "S3 = infinite filing cabinet in the cloud. 11 nines durability. Think buckets + objects, not folders + files." },
+
+  { tier: 1, answer: "S3 Storage Classes", category: "Storage",
+    def: "Tiers for cost optimization: Standard (frequent access), Standard-IA (infrequent, retrieval fee), One Zone-IA (single AZ), Glacier Instant (ms retrieval), Glacier Flexible (minutes–hours), Glacier Deep Archive (hours, cheapest), Intelligent-Tiering (auto).",
+    memory: "Hot→Warm→Cold→Frozen. More waiting = cheaper. Glacier = frozen archive. Deep Archive = buried in a bunker." },
+
+  { tier: 1, answer: "Amazon EC2", category: "Compute",
+    def: "Resizable virtual compute capacity in the cloud. Full OS control, broad instance type selection. Pay only for what you use. Supports On-Demand, Reserved, Spot, and Dedicated purchasing options.",
+    memory: "EC2 = virtual computer you rent. On-Demand = pay-as-you-go, Reserved = 1-3 yr contract (up to 72% off), Spot = bid on spare capacity (cheapest but interruptible)." },
+
+  { tier: 1, answer: "Auto Scaling Groups (ASG)", category: "Compute",
+    def: "Automatically adds or removes EC2 instances based on demand, health checks, or schedules. Works with load balancers to distribute traffic across the scaled fleet.",
+    memory: "ASG = rubber band for your fleet. Demand spikes → stretches out. Demand drops → snaps back. Always keep min/max/desired in mind." },
+
+  { tier: 1, answer: "Application Load Balancer (ALB)", category: "Networking",
+    def: "Layer 7 (HTTP/HTTPS) load balancer routing traffic to targets based on request content — path, host, headers, query strings. Supports target groups: EC2, ECS, Lambda, IP.",
+    memory: "ALB = traffic cop who reads the sign on the truck. /api → backend, /images → media servers. Layer 7 = content-aware." },
+
+  { tier: 1, answer: "AWS Lambda", category: "Compute",
+    def: "Serverless compute service that runs code in response to events. No server management. Billed per request and compute time (ms). Max 15-minute execution timeout.",
+    memory: "Lambda = run code without owning a server. Event triggers it, it runs, you pay only for those milliseconds. 15 min max." },
+
+  { tier: 1, answer: "Amazon RDS", category: "Database",
+    def: "Managed relational database service automating hardware provisioning, patching, and backups. Supports MySQL, PostgreSQL, MariaDB, Oracle, SQL Server, and Aurora. Multi-AZ for HA.",
+    memory: "RDS = managed SQL database. AWS handles the boring ops stuff. Multi-AZ = standby replica in another AZ for failover." },
+
+  { tier: 1, answer: "Amazon Aurora", category: "Database",
+    def: "MySQL- and PostgreSQL-compatible relational database built for the cloud. Up to 5× MySQL throughput. Storage auto-scales to 128TB. Aurora Serverless for variable workloads.",
+    memory: "Aurora = RDS on steroids, designed by AWS. 6 copies of data across 3 AZs. Global Database for cross-region reads." },
+
+  { tier: 1, answer: "Amazon DynamoDB", category: "Database",
+    def: "Fully managed, serverless key-value and document NoSQL database. Single-digit millisecond performance at any scale. On-demand or provisioned capacity. Global Tables for multi-region.",
+    memory: "DynamoDB = NoSQL speed demon. No complex joins — just fast key lookups at scale. Think: partition key + sort key." },
+
+  { tier: 1, answer: "Amazon CloudFront", category: "Networking",
+    def: "Global CDN delivering data, videos, and APIs with low latency via a worldwide network of edge locations. Integrates with S3, ALB, EC2. Supports custom SSL certs and WAF.",
+    memory: "CloudFront = worldwide copy machine for your content. User in Tokyo hits an edge, not your US server. Cache = faster + cheaper." },
+
+  { tier: 1, answer: "AWS KMS", category: "Security",
+    def: "Managed service to create and control cryptographic keys for encrypting data. Deep integration across AWS services. Supports automatic key rotation and full audit logging via CloudTrail.",
+    memory: "KMS = key master. CMK = Customer Master Key. Envelope encryption: data key encrypts data, CMK encrypts the data key." },
+
+  { tier: 1, answer: "AWS IAM Identity Center (SSO)", category: "Identity & Access",
+    def: "Central place to manage SSO access to multiple AWS accounts and business applications. Integrates with existing identity sources (AD, Okta, etc.). Replaces legacy AWS SSO.",
+    memory: "IAM Identity Center = one login badge to rule all AWS accounts. Connect your company's AD = employees log in with work creds." },
+
+  { tier: 1, answer: "AWS Organizations", category: "Identity & Access",
+    def: "Account management service for consolidating multiple AWS accounts. Service Control Policies (SCPs) set maximum permission guardrails across all accounts — they can DENY but not grant permissions.",
+    memory: "Organizations = corporate org chart for AWS accounts. SCPs = ceiling on what any account can do, even if the admin tries." },
+
+  { tier: 1, answer: "Amazon Route 53", category: "Networking",
+    def: "Highly available and scalable DNS service. Routes end users to internet apps via domain name. Supports routing policies: Simple, Weighted, Latency, Failover, Geolocation, Geoproximity, Multivalue.",
+    memory: "Route 53 = global phone book + traffic director. Health checks + failover = automatic rerouting when a region goes down." },
+
+  { tier: 1, answer: "AWS CloudTrail", category: "Security",
+    def: "Records all API calls and account activity across your AWS infrastructure — creating a complete audit trail. Logs who did what, from where, and when. Enabled by default (90-day history).",
+    memory: "CloudTrail = security camera DVR for your AWS account. Someone deleted an S3 bucket at 2am? CloudTrail has the footage." },
+
+  { tier: 1, answer: "Amazon CloudWatch", category: "Monitoring",
+    def: "Monitoring and observability service collecting logs, metrics, and events from AWS resources. Set alarms, create dashboards, trigger automated actions. CloudWatch Logs Insights for querying.",
+    memory: "CloudWatch = gauges and dials for your AWS infrastructure. CPU spike → alarm → SNS → Lambda → auto-fix. It's the hub." },
+
+  { tier: 1, answer: "Amazon SQS", category: "Messaging",
+    def: "Fully managed message queuing service. Decouples producers and consumers. Standard queue (best-effort ordering, at-least-once) vs FIFO queue (exactly-once, ordered, 300 TPS).",
+    memory: "SQS = mailbox between services. Producer drops a message, consumer picks it up later. Decouples = neither side knows the other." },
+
+  { tier: 1, answer: "Amazon SNS", category: "Messaging",
+    def: "Fully managed pub/sub messaging service for app-to-app and app-to-person communication. Fan-out pattern: one publish → many subscribers (SQS, Lambda, HTTP, email, SMS).",
+    memory: "SNS = megaphone. You shout once, everyone subscribed hears it. SNS + SQS fan-out = decouple + persist messages." },
+
+  { tier: 1, answer: "NAT Gateway", category: "Networking",
+    def: "Managed Network Address Translation service. Lets private subnet instances initiate outbound internet traffic while blocking inbound connections. Deploy per AZ for high availability.",
+    memory: "NAT Gateway = one-way door for private instances. They can call out to the internet, but the internet can't call back in." },
+
+  { tier: 1, answer: "Internet Gateway", category: "Networking",
+    def: "Horizontally scaled, redundant VPC component enabling communication between your VPC and the internet. Attached to VPC; route table entries point public subnets toward it.",
+    memory: "Internet Gateway = the front door of your VPC to the internet. No IGW = completely private. One per VPC." },
+
+  { tier: 1, answer: "AWS Secrets Manager", category: "Security",
+    def: "Protects access to applications by rotating, managing, and retrieving secrets (DB credentials, API keys). Built-in automatic rotation for RDS, Redshift, DocumentDB.",
+    memory: "Secrets Manager = password vault with auto-rotation. Never hardcode DB passwords — store here and let it rotate them for you." },
+
+  { tier: 1, answer: "Amazon EBS", category: "Storage",
+    def: "High-performance block storage for EC2. Persistent volumes that survive instance stops. Volume types: gp3 (general), io2 (high IOPS), st1 (throughput HDD), sc1 (cold HDD). One AZ.",
+    memory: "EBS = USB drive attached to one EC2. Persists after reboot. gp3 = default. io2 = databases needing high IOPS. Stays in one AZ." },
+
+  // ── TIER 2: KNOW WELL ───────────────────────────────────────────────────
+  { tier: 2, answer: "Amazon EFS", category: "Storage",
+    def: "Fully managed, serverless, elastic NFS file system. Automatically scales up/down. Accessible from multiple EC2 instances simultaneously across multiple AZs. POSIX-compliant.",
+    memory: "EFS = shared network drive for Linux EC2s. EBS = one-to-one, EFS = many-to-one. Think NFS mount across your fleet." },
+
+  { tier: 2, answer: "AWS Fargate", category: "Compute",
+    def: "Serverless compute engine for containers. Works with ECS and EKS. No need to provision or manage EC2 instances — just define CPU/memory requirements and AWS manages the rest.",
+    memory: "Fargate = serverless containers. You say 'run this container with 2 vCPU, 4GB RAM' — AWS figures out the host. No EC2 to babysit." },
+
+  { tier: 2, answer: "Amazon ECS", category: "Compute",
+    def: "Fully managed container orchestration service. Runs Docker containers on EC2 or Fargate. Uses task definitions (blueprint) and services (long-running tasks with ALB integration).",
+    memory: "ECS = AWS's native Docker runner. Task = one run of a container. Service = keep N copies always running behind a load balancer." },
+
+  { tier: 2, answer: "Amazon EKS", category: "Compute",
+    def: "Managed Kubernetes service. AWS manages the Kubernetes control plane. Run worker nodes on EC2 or Fargate. Best when you need Kubernetes portability across cloud/on-prem.",
+    memory: "EKS = Kubernetes without managing the control plane. Use ECS if you're AWS-only; EKS if you need K8s portability or already know K8s." },
+
+  { tier: 2, answer: "Network Load Balancer (NLB)", category: "Networking",
+    def: "Layer 4 (TCP/UDP/TLS) load balancer. Handles millions of requests per second with ultra-low latency. Assigns static IPs (or Elastic IPs). Good for real-time gaming, IoT, and financial apps.",
+    memory: "NLB = Layer 4 speed demon. Doesn't read HTTP headers — just routes TCP/UDP packets fast. Static IP = needed for whitelisting." },
+
+  { tier: 2, answer: "AWS Site-to-Site VPN", category: "Networking",
+    def: "Encrypted IPsec tunnel between on-premises network and Amazon VPC over the public internet. Quick to set up (hours). Uses Virtual Private Gateway on AWS side and Customer Gateway on-prem.",
+    memory: "Site-to-Site VPN = secure tunnel over the internet. Fast to provision. Backup for Direct Connect or quick hybrid cloud start." },
+
+  { tier: 2, answer: "AWS Direct Connect", category: "Networking",
+    def: "Dedicated, private network connection from on-premises to AWS. Not over the public internet. Consistent bandwidth and latency. Takes weeks to provision. 1 Gbps or 10 Gbps links.",
+    memory: "Direct Connect = private fiber highway to AWS. Consistent speed, no internet hops. VPN = road through town (internet). DX = dedicated freeway." },
+
+  { tier: 2, answer: "AWS Transit Gateway", category: "Networking",
+    def: "Central hub connecting VPCs and on-premises networks. Eliminates complex peering meshes. Supports thousands of VPCs. Scales automatically. Use for hub-and-spoke network topology.",
+    memory: "Transit Gateway = airport hub. Instead of direct flights between every city (peering), all traffic routes through the hub. N VPCs → 1 TGW." },
+
+  { tier: 2, answer: "Amazon ElastiCache", category: "Database",
+    def: "Fully managed in-memory caching service. Redis or Memcached. Sub-millisecond latency. Use to reduce DB load (read-through cache) or store session data. Redis supports persistence and pub/sub.",
+    memory: "ElastiCache = speed layer in front of your DB. Hot data lives in RAM. Redis vs Memcached: Redis is smarter (persistence, pub/sub, sorted sets)." },
+
+  { tier: 2, answer: "Amazon Redshift", category: "Database",
+    def: "Fully managed petabyte-scale data warehouse. Columnar storage, massively parallel processing (MPP). Redshift Serverless for on-demand. Redshift Spectrum queries S3 directly.",
+    memory: "Redshift = SQL data warehouse for analytics, not OLTP. Think billions of rows, complex aggregations. Spectrum = query S3 without loading it." },
+
+  { tier: 2, answer: "AWS WAF", category: "Security",
+    def: "Web application firewall protecting against common web exploits (SQL injection, XSS) and bots. Attaches to CloudFront, ALB, API Gateway, AppSync. Uses Web ACLs with rules and rule groups.",
+    memory: "WAF = bouncer with a rulebook at the door. Blocks SQL injection, XSS, bad IPs. Sits in front of CloudFront or ALB." },
+
+  { tier: 2, answer: "Amazon GuardDuty", category: "Security",
+    def: "Threat detection service continuously monitoring AWS accounts, workloads, and data for malicious activity using ML, anomaly detection, and threat intelligence feeds. No agents to install.",
+    memory: "GuardDuty = 24/7 security analyst watching your account. Detects crypto mining, unusual API calls, compromised credentials. Just enable it." },
+
+  { tier: 2, answer: "AWS Config", category: "Security",
+    def: "Continuously records AWS resource configurations and evaluates them against desired rules. Tracks changes over time. Config Rules check compliance. Use for audit and governance.",
+    memory: "Config = continuous compliance camera. Did someone open port 22 to 0.0.0.0/0? Config catches it and can auto-remediate." },
+
+  { tier: 2, answer: "Amazon Inspector", category: "Security",
+    def: "Automated vulnerability management scanning EC2 instances, Lambda functions, and ECR container images for CVEs and unintended network exposure. Provides a risk score for prioritization.",
+    memory: "Inspector = automated vulnerability scanner. Finds known CVEs on your EC2s and containers. Integrates with ECR to scan images on push." },
+
+  { tier: 2, answer: "Amazon Macie", category: "Security",
+    def: "ML-powered data security service that automatically discovers, classifies, and protects sensitive data (PII, financial data) in Amazon S3 buckets. Generates findings for review.",
+    memory: "Macie = bloodhound for sensitive data in S3. If your S3 has credit card numbers or SSNs you didn't know about, Macie finds them." },
+
+  { tier: 2, answer: "AWS Control Tower", category: "Identity & Access",
+    def: "Easiest way to set up and govern a secure, multi-account AWS environment (landing zone). Provides preventive guardrails (SCPs) and detective guardrails (Config rules) out of the box.",
+    memory: "Control Tower = AWS's opinionated multi-account setup wizard. Automates landing zone best practices. Uses Organizations + Config + SSO under the hood." },
+
+  { tier: 2, answer: "Amazon Cognito", category: "Identity & Access",
+    def: "User sign-up, sign-in, and access control for web and mobile apps. User Pools = user directory. Identity Pools = temporary AWS credentials for federated identities (Google, Facebook, SAML).",
+    memory: "Cognito = managed user auth for your app. User Pool = login/signup. Identity Pool = swap social login for AWS creds to access S3, DynamoDB directly." },
+
+  { tier: 2, answer: "Amazon EventBridge", category: "Messaging",
+    def: "Serverless event bus connecting apps using events from AWS services, SaaS apps, or your own apps. Event rules match and route to targets (Lambda, SQS, Step Functions, etc.).",
+    memory: "EventBridge = if-this-then-that for AWS. EC2 state changes → trigger Lambda. Scheduled rules replace cron jobs. SaaS events → AWS workflows." },
+
+  { tier: 2, answer: "AWS Step Functions", category: "Compute",
+    def: "Serverless workflow orchestration service coordinating multiple AWS services into visual workflows (state machines). Standard (long-running, audit) vs Express (high-volume, short-duration).",
+    memory: "Step Functions = flowchart that actually runs. Chain Lambda → wait → DynamoDB write → send SNS. Visualizes the workflow. Handles retries and errors." },
+
+  { tier: 2, answer: "Amazon API Gateway", category: "Networking",
+    def: "Fully managed service for creating REST, HTTP, and WebSocket APIs at any scale. Acts as front door to backend services. Handles auth, throttling, caching, and monitoring.",
+    memory: "API Gateway = managed front door for your APIs. Pair with Lambda for fully serverless APIs. Throttle bad actors, cache responses, add auth." },
+
+  { tier: 2, answer: "AWS Global Accelerator", category: "Networking",
+    def: "Uses the AWS global network to route traffic to optimal regional endpoints. Provides two static anycast IP addresses. Improves performance for TCP/UDP applications (non-HTTP).",
+    memory: "Global Accelerator = fast lane on AWS's private network. Packets enter AWS edge, travel on private backbone. Different from CloudFront (not caching, works for TCP/UDP)." },
+
+  { tier: 2, answer: "VPC Gateway Endpoint", category: "Networking",
+    def: "Gateway for routing private communication from your VPC to S3 or DynamoDB without internet gateway or NAT device. Free. Added as a route table entry.",
+    memory: "Gateway Endpoint = free private shortcut to S3/DynamoDB. Traffic never touches the internet. Just add a route — only works for S3 and DynamoDB." },
+
+  { tier: 2, answer: "VPC Interface Endpoint (PrivateLink)", category: "Networking",
+    def: "Elastic network interface with private IP for private connectivity to AWS services (not just S3/DynamoDB) or your own services. Powered by AWS PrivateLink. Has hourly + data cost.",
+    memory: "Interface Endpoint = private ENI in your subnet to reach any AWS service. Not free like Gateway. PrivateLink = the tech underneath." },
+
+  { tier: 2, answer: "Amazon Kinesis Data Streams", category: "Messaging",
+    def: "Real-time data streaming service. Producers push records to shards; consumers read from shards. Retention up to 365 days. Use for real-time analytics, log ingestion, event sourcing.",
+    memory: "Kinesis = real-time river of data. SQS = post office (pull, decoupled). Kinesis = river (stream, time-ordered). Multiple consumers can read the same stream." },
+
+  { tier: 2, answer: "AWS CloudFormation", category: "DevOps",
+    def: "Infrastructure as code service. Define AWS resources in JSON or YAML templates. Stacks manage the lifecycle. Drift detection, change sets, nested stacks. No extra cost for CloudFormation itself.",
+    memory: "CloudFormation = blueprint for your AWS infrastructure. Write once, deploy anywhere. Stack = group of resources managed together. Change set = preview before applying." },
+
+  { tier: 2, answer: "S3 Block Public Access", category: "Storage",
+    def: "Account-level and bucket-level settings that override any bucket policy or ACL that would allow public access. Should be enabled by default. The simplest way to prevent public data leaks.",
+    memory: "Block Public Access = master kill switch for S3 public exposure. Even if a bucket policy says public, Block Public Access says NO. Enable by default." },
+
+  { tier: 2, answer: "Amazon ECR", category: "Compute",
+    def: "Fully managed container registry for storing, managing, and deploying Docker and OCI images. Integrates with ECS, EKS, Lambda. Lifecycle policies auto-clean old images. Built-in vulnerability scanning.",
+    memory: "ECR = Docker Hub, but inside AWS. Push your images here, ECS/EKS pulls from here. Private, integrated with IAM. Lifecycle = auto-delete old image versions." },
+
+  { tier: 2, answer: "AWS Systems Manager (SSM)", category: "DevOps",
+    def: "Unified operations hub for AWS resources. Key features: Session Manager (shell without SSH), Parameter Store (secrets/config), Patch Manager, Run Command, Automation.",
+    memory: "SSM = Swiss Army knife for managing EC2 at scale. Session Manager replaces bastion hosts. Parameter Store = free secrets storage. Run Command = remote shell scripts." },
+
+  { tier: 2, answer: "Amazon S3 Object Lock", category: "Storage",
+    def: "WORM (Write Once Read Many) model for S3 objects. Retention modes: Compliance (no one can delete, even root) and Governance (admin can override). Use for regulatory compliance.",
+    memory: "Object Lock = vault mode for S3. Compliance mode = nothing and nobody can delete. WORM = regulatory requirement (SEC, FINRA). Set retention period or legal hold." },
+
+  // ── TIER 3: NICE TO KNOW ────────────────────────────────────────────────
+  { tier: 3, answer: "AWS PrivateLink", category: "Networking",
+    def: "Technology enabling private connectivity between VPCs and AWS/your services via interface endpoints. All traffic stays on the Amazon network. Use to expose services to other VPCs without peering.",
+    memory: "PrivateLink = private service marketplace. You run a service in your VPC, expose it privately to other VPCs via PrivateLink. No VPC peering needed." },
+
+  { tier: 3, answer: "Amazon VPC Lattice", category: "Networking",
+    def: "Fully managed application networking service simplifying service-to-service connectivity, security, and observability across VPCs and accounts. Abstracts networking for microservices.",
+    memory: "VPC Lattice = PrivateLink + service mesh simplified. Define service networks and policies once; AWS handles the plumbing between microservices across accounts." },
+
+  { tier: 3, answer: "AWS Certificate Manager (ACM)", category: "Security",
+    def: "Provisions, manages, and deploys public and private SSL/TLS certificates for use with AWS services. Handles automatic renewal for ACM-issued certs. Free for public certs on AWS services.",
+    memory: "ACM = free SSL certificate vending machine. Deploy to ALB, CloudFront, API Gateway. Auto-renews so certs never expire on your watch." },
+
+  { tier: 3, answer: "SSM Parameter Store", category: "Security",
+    def: "Secure, hierarchical storage for configuration data and secrets. Standard tier is free. SecureString values encrypted with KMS. Versioning supported. Alternative to Secrets Manager (no auto-rotation).",
+    memory: "Parameter Store = free config store. /prod/db/password as SecureString. No auto-rotation (that's Secrets Manager). Great for app config, free tier is generous." },
+
+  { tier: 3, answer: "SSE-S3 / SSE-KMS / SSE-C", category: "Storage",
+    def: "Three S3 server-side encryption options. SSE-S3: AWS-managed keys (AES-256, free). SSE-KMS: Customer keys in KMS with CloudTrail audit (costs $). SSE-C: You supply the key per request.",
+    memory: "SSE-S3 = AWS owns the keys (simplest). SSE-KMS = you manage keys in KMS (audit trail, costs). SSE-C = you bring keys per upload (most control, most work)." },
+
+  { tier: 3, answer: "Amazon Kinesis Data Firehose", category: "Messaging",
+    def: "Fully managed service for loading streaming data into data stores: S3, Redshift, OpenSearch, Splunk. Auto-scales, batches, compresses, and optionally transforms data with Lambda.",
+    memory: "Firehose = streaming data delivery truck. No consumers to manage. Point at S3 or Redshift and data lands there. Firehose ≠ Streams (no consumers/shards)." },
+
+  { tier: 3, answer: "Amazon Athena", category: "Database",
+    def: "Serverless interactive query service analyzing data in S3 using standard SQL (Presto). No infrastructure to manage. Pay per query (per TB scanned). Use with Glue Data Catalog.",
+    memory: "Athena = SQL on your S3 files. No loading required. Columnar formats (Parquet, ORC) reduce scan costs. Good for ad-hoc analysis on logs or events." },
+
+  { tier: 3, answer: "AWS Glue", category: "Database",
+    def: "Fully managed ETL (Extract, Transform, Load) service. Glue Data Catalog is the metadata store. Glue crawlers discover schema. Glue Studio for visual ETL. Serverless Apache Spark.",
+    memory: "Glue = ETL glue between your data sources. Crawler scans S3 → adds schema to Data Catalog → Athena/Redshift Spectrum can query it. Think data pipeline prep." },
+
+  { tier: 3, answer: "Lambda@Edge", category: "Compute",
+    def: "Runs Lambda functions at CloudFront edge locations in response to CloudFront events (viewer request/response, origin request/response). Enables low-latency auth and personalization globally.",
+    memory: "Lambda@Edge = Lambda that lives at the CDN edge. Auth before content is served. A/B testing per user. Runs in 13 CloudFront regions, not one." },
+
+  { tier: 3, answer: "AWS Transfer Family", category: "Storage",
+    def: "Fully managed service for secure file transfers into/out of S3 or EFS using SFTP, FTPS, FTP, AS2 protocols. Supports multiple identity providers. Lift-and-shift for legacy file transfer workflows.",
+    memory: "Transfer Family = managed SFTP server backed by S3. Legacy apps that only speak SFTP can connect here; files land in S3 automatically. No server to run." },
+
+  { tier: 3, answer: "AWS DataSync", category: "Storage",
+    def: "Online data transfer service to move data between on-premises and AWS storage services (S3, EFS, FSx). Automates scheduling, monitoring, and data integrity validation. Up to 10× faster than open-source tools.",
+    memory: "DataSync = fast mover for data migration. On-prem NAS → S3 or EFS. Handles scheduling, verification, bandwidth throttling. Not for real-time streaming — use Kinesis for that." },
+
+  { tier: 3, answer: "AWS Snowball / Snowball Edge", category: "Storage",
+    def: "Physical devices for transferring petabytes of data to/from AWS when network transfer is impractical. Snowball Edge adds compute (Lambda, EC2). Snowmobile = truck for exabyte-scale.",
+    memory: "Snowball = 'sneakernet to AWS.' When uploading 80TB over internet would take months, ship a physical device instead. Edge variant can process data locally too." },
+
+  { tier: 3, answer: "Amazon OpenSearch Service", category: "Database",
+    def: "Managed service for OpenSearch and Elasticsearch. Used for log analytics, full-text search, real-time application monitoring. Often the destination for Kinesis Firehose log pipelines.",
+    memory: "OpenSearch = managed Elasticsearch. Search logs, trace data, clickstreams. Pair with Kinesis Firehose for log ingestion pipeline. CloudWatch Logs can export here too." },
+
+  { tier: 3, answer: "Amazon SES", category: "Messaging",
+    def: "Scalable email sending service for transactional, marketing, and bulk emails. High deliverability. Send via SMTP or API. Can receive email and trigger Lambda or S3 storage.",
+    memory: "SES = AWS's email delivery truck. Transactional emails (receipts, password resets) at scale. SNS is pub/sub; SES is actual email sending. Cheaper than SendGrid at volume." },
+
+  { tier: 3, answer: "AWS Security Hub", category: "Security",
+    def: "Cloud security posture management (CSPM) service aggregating findings from GuardDuty, Inspector, Macie, Config, and third-party tools. Provides unified security score across accounts.",
+    memory: "Security Hub = unified security dashboard. Aggregates all your GuardDuty, Inspector, Config findings in one place. Like a SIEM for AWS. Enable it to see your overall posture." },
+
+  { tier: 3, answer: "Amazon Cognito User Pools vs Identity Pools", category: "Identity & Access",
+    def: "User Pools: directory for managing user sign-up/sign-in, returns JWT tokens. Identity Pools: exchanges JWT or social tokens for temporary AWS credentials to call AWS services directly.",
+    memory: "User Pool = who are you? Returns JWT. Identity Pool = what can you do in AWS? Exchanges JWT for IAM role creds. Exam loves the two-step: authenticate via User Pool → authorize via Identity Pool." },
+
+  { tier: 3, answer: "AWS Directory Service / AD Connector", category: "Identity & Access",
+    def: "AWS Managed Microsoft AD: fully managed AD in the cloud. AD Connector: proxy redirecting requests to on-premises AD without caching. Simple AD: Samba-based for small orgs.",
+    memory: "AD Connector = passthrough to your on-prem AD. No cloud copy of your directory. Managed AD = real AD in AWS. Choose based on whether you need a cloud-native AD or just a bridge." },
+
+  { tier: 3, answer: "Amazon FSx for Windows / Lustre", category: "Storage",
+    def: "FSx for Windows File Server: fully managed Windows-native shared file system (SMB, NTFS, AD integration). FSx for Lustre: high-performance file system for HPC, ML, media processing — integrates with S3.",
+    memory: "FSx Windows = managed Windows file share (SMB). FSx Lustre = blazing fast HPC file system. Lustre integrates with S3: lazy-load files on access, write back results." },
+
+  { tier: 3, answer: "AWS Backup", category: "Storage",
+    def: "Centralized backup service across AWS services (EC2, EBS, RDS, DynamoDB, EFS, FSx, S3, Aurora). Define backup plans with schedules and retention policies. Cross-region and cross-account backups.",
+    memory: "AWS Backup = one dashboard for all your backups. Instead of per-service backup configs, define backup plans here. Compliance teams love it for centralized audit trail." },
+
+  { tier: 3, answer: "Amazon SWF (Simple Workflow Service)", category: "Compute",
+    def: "Workflow coordination service for background jobs with complex, long-running steps. Largely superseded by Step Functions. Still appears in exam for scenarios involving external or human tasks.",
+    memory: "SWF = old-school Step Functions. Rarely the right answer today. If exam says 'human approval step outside AWS' and Step Functions isn't an option — SWF. Otherwise pick Step Functions." },
+
+  { tier: 3, answer: "Amazon MQ", category: "Messaging",
+    def: "Managed message broker service for Apache ActiveMQ and RabbitMQ. For migrations from on-premises message brokers — no code changes needed. SQS/SNS are preferred for new AWS-native apps.",
+    memory: "Amazon MQ = managed ActiveMQ/RabbitMQ. Lift-and-shift legacy apps that use JMS, AMQP, STOMP. New apps should use SQS/SNS instead. Migration shortcut." },
+
+  { tier: 3, answer: "AWS Service Catalog", category: "DevOps",
+    def: "Create and manage catalogs of IT services that are approved for use on AWS. Enables self-service provisioning of CloudFormation stacks within guardrails. Used for compliance and standardization.",
+    memory: "Service Catalog = approved menu of CloudFormation stacks for your org. Devs pick from the menu; they can't provision outside it. Central governance without blocking teams." },
+
+  { tier: 3, answer: "Amazon WorkSpaces", category: "Compute",
+    def: "Fully managed Desktop-as-a-Service (DaaS). Persistent cloud desktops for users. Can connect to on-premises AD. Pay monthly or hourly per user. Good for remote workforce or VDI replacement.",
+    memory: "WorkSpaces = Windows/Linux desktops in the cloud. VDI without the hardware. Connect to AD, deploy apps, users work from browser or client. Good for exam BCP/DR remote work scenarios." },
 ];
 
-let activeDeck = 0;
+const TIER_LABELS = {
+  1: { label: '🔥 Must Know', cls: 't1', tabCls: 'active-tier1' },
+  2: { label: '⚡ Know Well', cls: 't2', tabCls: 'active-tier2' },
+  3: { label: '🌿 Nice to Know', cls: 't3', tabCls: 'active-tier3' },
+  0: { label: '🃏 All Cards', cls: 't1', tabCls: 'active-tier1' }
+};
+
+let activeTier = 0;
 let deck = [];
 let retryPile = [];
 let knownCount = 0;
@@ -631,18 +736,29 @@ function shuffle(arr) {
   return a;
 }
 
-function selectDomain(idx) {
-  if (idx !== 0) return;
-  activeDeck = idx;
-  document.querySelectorAll('.tab').forEach((t, i) => {
-    if (!t.classList.contains('coming-soon')) t.classList.toggle('active', i === idx);
+function getCards() {
+  if (activeTier === 0) return ALL_CARDS;
+  return ALL_CARDS.filter(c => c.tier === activeTier);
+}
+
+function selectTier(idx) {
+  activeTier = idx;
+  [0,1,2,3].forEach(i => {
+    const el = document.getElementById('tab' + i);
+    el.className = 'tier-tab';
+    if (i === idx) {
+      const tierNum = idx === 0 ? 0 : idx + 0;
+      const cls = idx === 0 ? 'active-tier1' : 'active-tier' + idx;
+      el.classList.add(cls);
+    }
   });
   restart();
 }
 
 function init() {
-  totalCards = allDecks[activeDeck].length;
-  deck = shuffle(allDecks[activeDeck]);
+  const cards = getCards();
+  totalCards = cards.length;
+  deck = shuffle(cards);
   retryPile = [];
   knownCount = 0;
   passCount = 1;
@@ -666,6 +782,13 @@ function showCard() {
   document.getElementById('defText').textContent = current.def;
   document.getElementById('answerText').textContent = current.answer;
   document.getElementById('categoryText').textContent = current.category;
+  document.getElementById('memoryText').textContent = current.memory;
+
+  const badge = document.getElementById('tierBadgeEl');
+  const tl = TIER_LABELS[current.tier];
+  badge.textContent = tl.label;
+  badge.className = 'tier-badge ' + tl.cls;
+
   document.getElementById('actions').classList.add('hidden');
   document.getElementById('preFlipActions').style.visibility = 'visible';
   updateProgress();
@@ -684,31 +807,17 @@ function flipCard() {
   }
 }
 
-function gotIt() {
-  deck.shift();
-  knownCount++;
-  showCard();
-}
-
-function dontKnow() {
-  retryPile.push(deck.shift());
-  showCard();
-}
+function gotIt() { deck.shift(); knownCount++; showCard(); }
+function dontKnow() { retryPile.push(deck.shift()); showCard(); }
 
 function updateProgress() {
   const pct = totalCards > 0 ? Math.round((knownCount / totalCards) * 100) : 0;
   document.getElementById('progressFill').style.width = pct + '%';
   document.getElementById('progressKnown').textContent = knownCount + ' of ' + totalCards + ' known';
-
-  const retryCount = retryPile.length;
-  const retryEl = document.getElementById('retryBadge');
-  if (retryCount > 0) {
-    retryEl.style.display = 'flex';
-    document.getElementById('retryCount').textContent = retryCount;
-  } else {
-    retryEl.style.display = 'none';
-  }
-
+  const rc = retryPile.length;
+  const rb = document.getElementById('retryBadge');
+  if (rc > 0) { rb.style.display = 'flex'; document.getElementById('retryCount').textContent = rc; }
+  else rb.style.display = 'none';
   const remaining = deck.length + retryPile.length;
   const cardNum = totalCards - remaining + 1;
   document.getElementById('cardCounter').textContent = 'Card ' + Math.min(cardNum, totalCards) + ' / ' + totalCards;
@@ -721,14 +830,16 @@ function showDone() {
   document.getElementById('statTotal').textContent = totalCards;
   document.getElementById('statPasses').textContent = passCount;
   const perfect = knownCount === totalCards;
-  document.getElementById('doneTitle').textContent = perfect ? 'Perfect score!' : 'Deck complete!';
+  document.getElementById('doneTitle').textContent = perfect ? 'Perfect score! 🎯' : 'Deck complete!';
   document.getElementById('doneSub').textContent = perfect
-    ? 'You knew every card on this domain. Add Domain 2 when ready!'
-    : 'Keep going — you can restart and the cards you missed will come back around.';
+    ? 'You knew every card in this tier. Move up to the next tier or try All Cards!'
+    : 'Keep going — retry the ones you missed until they stick.';
 }
 
 function restart() { init(); }
 
+// init default tab styling
+document.getElementById('tab0').classList.add('active-tier1');
 init();
 </script>
 </body>
