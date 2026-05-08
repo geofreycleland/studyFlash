@@ -1,20 +1,45 @@
-
-<!DOCTYPE html>
-<html>
+<!doctype html>
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AWS Study Site</title>
-  <link rel="stylesheet" href="style.css">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>AWS SAA Study Quiz</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <div id="quiz-container">
-    <h1>AWS Solutions Architect Study Site</h1>
-    <p id="question-number"></p>
-    <h2 id="question-text"></h2>
-    <div id="answers"></div>
-    <div id="feedback"></div>
-  </div>
+  <main class="app">
+    <section class="hero">
+      <div>
+        <p class="eyebrow">AWS Solutions Architect Associate</p>
+        <h1>65 Question Study Quiz</h1>
+        <p class="sub">One question at a time. Pick an answer, submit, then review why each choice is right or wrong.</p>
+      </div>
+      <button id="resetBtn" class="ghost">Reset</button>
+    </section>
+
+    <section class="stats" aria-label="quiz stats">
+      <div><span id="qCount">1 / 65</span><small>Question</small></div>
+      <div><span id="score">0</span><small>Correct</small></div>
+      <div><span id="percent">0%</span><small>Score</small></div>
+    </section>
+
+    <div class="progress"><div id="progressBar"></div></div>
+
+    <section class="card" id="quizCard">
+      <div class="questionTop">
+        <span id="questionBadge">Question 1</span>
+        <span id="multiBadge" class="multi hidden">Choose two</span>
+      </div>
+      <h2 id="questionText"></h2>
+      <form id="answerForm" class="answers"></form>
+      <div class="actions">
+        <button id="submitBtn" class="primary">Submit answer</button>
+        <button id="nextBtn" class="secondary hidden">Next question</button>
+      </div>
+    </section>
+
+    <section id="feedback" class="feedback hidden"></section>
+  </main>
 
   <script src="questions.js"></script>
   <script src="script.js"></script>
