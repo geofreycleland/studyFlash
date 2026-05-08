@@ -17,33 +17,34 @@ const QUESTIONS = [
       {
         "choice": "B",
         "text": "Use AWS Systems Manager Maintenance Windows to modify the RDS backup retention period.",
-        "reason": "This choice misses a key requirement, is less managed, or is less cost-effective than the correct answer."
+        "reason": "Systems Manager Maintenance Windows can schedule maintenance tasks, but this problem only requires changing the RDS automated backup retention setting. It adds an unnecessary service and does not improve the backup solution."
       },
       {
         "choice": "C",
         "text": "Write an AWS Lambda function to create an RDS snapshot every day.",
-        "reason": "This choice misses a key requirement, is less managed, or is less cost-effective than the correct answer."
+        "reason": "A Lambda snapshot job could create daily manual snapshots, but then you own the scheduling, error handling, permissions, monitoring, and cleanup. RDS automated backups already solve this with less overhead."
       },
       {
         "choice": "D",
         "text": "Create a manual snapshot every day by using the AWS CLI. Modify the RDS backup retention period.",
-        "reason": "This adds more manual work or custom maintenance, so it is not the least operational overhead choice."
+        "reason": "Creating snapshots manually with the CLI is operationally heavier and easier to forget. The requirement is daily 30-day retention, which automated backups handle directly."
       }
     ],
     "services": [
       {
         "name": "Amazon RDS",
-        "definition": "Managed relational database service for engines like MySQL, PostgreSQL, Oracle, and SQL Server."
+        "definition": "Managed relational database service. AWS handles database provisioning, patching, backups, Multi-AZ options, and common admin tasks for engines like MySQL, PostgreSQL, Oracle, and SQL Server."
       },
       {
         "name": "RDS",
-        "definition": "Managed relational database service for relational databases."
+        "definition": "Managed relational database service. On the exam, choose RDS when the workload needs a traditional relational database without managing the database server yourself."
       },
       {
         "name": "AWS Lambda",
-        "definition": "Serverless compute that runs code without managing servers."
+        "definition": "Serverless compute for short-running code. Good for event-driven tasks, but not ideal for long-running jobs beyond Lambda limits."
       }
-    ]
+    ],
+    "examTip": "Exam clue: when the question says least operational overhead, prefer the managed AWS feature that already solves the requirement over custom scripts, EC2 fleets, or manual work."
   },
   {
     "id": 2,
@@ -63,45 +64,50 @@ const QUESTIONS = [
       {
         "choice": "B",
         "text": "Use Amazon Athena to process the S3 data. Use AWS Glue with the Amazon Redshift data to enrich the S3 data.",
-        "reason": "Redshift is mainly for analytics/data warehousing, not the best fit for the application requirement here."
+        "reason": "This option is weaker because it misses at least one keyword in the question, usually least operational overhead, high availability, private connectivity, compatibility, or cost-effectiveness. The correct answer uses the AWS service that directly matches the requirement."
       },
       {
         "choice": "C",
         "text": "Use Amazon EMR to process the S3 data. Use Amazon Kinesis Data Streams to move the S3 data into Amazon Redshift so that the data",
-        "reason": "Redshift is mainly for analytics/data warehousing, not the best fit for the application requirement here."
+        "reason": "This option is weaker because it misses at least one keyword in the question, usually least operational overhead, high availability, private connectivity, compatibility, or cost-effectiveness. The correct answer uses the AWS service that directly matches the requirement."
       },
       {
         "choice": "D",
         "text": "Use AWS Glue to process the S3 data. Use AWS Lake Formation with the Amazon Redshift data to enrich the S3 data.",
-        "reason": "Redshift is mainly for analytics/data warehousing, not the best fit for the application requirement here."
+        "reason": "This option is weaker because it misses at least one keyword in the question, usually least operational overhead, high availability, private connectivity, compatibility, or cost-effectiveness. The correct answer uses the AWS service that directly matches the requirement."
       }
     ],
     "services": [
       {
         "name": "Amazon EMR",
-        "definition": "Managed big data platform for distributed processing with Spark, Hadoop, and related tools."
+        "definition": "Managed big data platform for distributed processing with Spark, Hadoop, Hive, and Presto. Good for large-scale parallel processing of data in S3 and integration with services like Redshift."
       },
       {
         "name": "Amazon S3",
-        "definition": "Object storage for durable, scalable storage of files and data."
+        "definition": "Highly durable object storage for files, logs, backups, static assets, and data lakes. It is not block storage or a mounted file system by default."
       },
       {
         "name": "Amazon Redshift",
-        "definition": "Managed data warehouse for SQL analytics at scale."
+        "definition": "Managed data warehouse built for large-scale SQL analytics and reporting. Best for analytical queries, not transactional application processing."
       },
       {
         "name": "Kinesis Data Streams",
-        "definition": "Managed real-time streaming service for ordered event data."
+        "definition": "Managed streaming service for ordered, real-time event data. Choose it when sequence/order and streaming spikes matter."
       },
       {
         "name": "Athena",
-        "definition": "Serverless SQL query service for data in S3."
+        "definition": "Serverless SQL query service for data in S3. Good for occasional analysis without running a database cluster."
       },
       {
         "name": "Glue",
-        "definition": "Managed ETL and data integration service."
+        "definition": "Managed serverless data integration and ETL service. Commonly used to transform files and load/query data lakes and warehouses."
+      },
+      {
+        "name": "Lake Formation",
+        "definition": "Service for building, securing, and governing data lakes on AWS."
       }
-    ]
+    ],
+    "examTip": "Exam clue: match the service to the main requirement, then eliminate answers that add manual work, change the application model, or solve a different problem."
   },
   {
     "id": 3,
@@ -121,29 +127,30 @@ const QUESTIONS = [
       {
         "choice": "B",
         "text": "Amazon ElastiCache for Memcached cluster",
-        "reason": "This choice misses a key requirement, is less managed, or is less cost-effective than the correct answer."
+        "reason": "This option is weaker because it misses at least one keyword in the question, usually least operational overhead, high availability, private connectivity, compatibility, or cost-effectiveness. The correct answer uses the AWS service that directly matches the requirement."
       },
       {
         "choice": "C",
         "text": "Instance store volume",
-        "reason": "This choice misses a key requirement, is less managed, or is less cost-effective than the correct answer."
+        "reason": "This option is weaker because it misses at least one keyword in the question, usually least operational overhead, high availability, private connectivity, compatibility, or cost-effectiveness. The correct answer uses the AWS service that directly matches the requirement."
       },
       {
         "choice": "D",
         "text": "Throughput Optimized HDD Amazon Elastic Block Store (Amazon EBS) volume",
-        "reason": "This choice misses a key requirement, is less managed, or is less cost-effective than the correct answer."
+        "reason": "This option is weaker because it misses at least one keyword in the question, usually least operational overhead, high availability, private connectivity, compatibility, or cost-effectiveness. The correct answer uses the AWS service that directly matches the requirement."
       }
     ],
     "services": [
       {
         "name": "Amazon EBS",
-        "definition": "Block storage volumes for EC2 instances."
+        "definition": "Block storage volumes attached to EC2 instances. Use it when an instance needs disk-like storage, but standard EBS volumes are usually tied to one Availability Zone."
       },
       {
         "name": "ElastiCache",
-        "definition": "Managed in-memory caching service for Redis or Memcached."
+        "definition": "Managed in-memory cache using Redis or Memcached. It reduces read latency for supported application patterns but usually requires app changes."
       }
-    ]
+    ],
+    "examTip": "Exam clue: match the service to the main requirement, then eliminate answers that add manual work, change the application model, or solve a different problem."
   },
   {
     "id": 4,
@@ -163,37 +170,38 @@ const QUESTIONS = [
       {
         "choice": "A",
         "text": "Create an Amazon EventBridge event to invoke an AWS Lambda function when the CPU utilization metric value for the Auto Scaling group reaches 60%. Configure the Lambda function to increase the Auto Scaling group's desired capacity and maximum capacity by 20%.",
-        "reason": "This choice misses a key requirement, is less managed, or is less cost-effective than the correct answer."
+        "reason": "Lambda is serverless, but it is not the best fit for this long-running workload. The job duration and predictable CPU/memory point more toward a container task such as ECS on Fargate."
       },
       {
         "choice": "B",
         "text": "Create a dynamic scaling policy for the Auto Scaling group. Configure the policy to scale based on the CPU utilization metric. Set the target value for the metric to 60%.",
-        "reason": "This choice misses a key requirement, is less managed, or is less cost-effective than the correct answer."
+        "reason": "This option is weaker because it misses at least one keyword in the question, usually least operational overhead, high availability, private connectivity, compatibility, or cost-effectiveness. The correct answer uses the AWS service that directly matches the requirement."
       },
       {
         "choice": "C",
         "text": "Create a scheduled scaling policy for the Auto Scaling group. Set the appropriate desired capacity, minimum capacity, and maximum capacity. Set the recurrence to weekly. Set the start time to 30 minutes before the batch jobs run.",
-        "reason": "This choice misses a key requirement, is less managed, or is less cost-effective than the correct answer."
+        "reason": "This option is weaker because it misses at least one keyword in the question, usually least operational overhead, high availability, private connectivity, compatibility, or cost-effectiveness. The correct answer uses the AWS service that directly matches the requirement."
       }
     ],
     "services": [
       {
         "name": "EC2",
-        "definition": "Virtual servers in AWS."
+        "definition": "Virtual servers in AWS. Flexible, but you manage more operating system and scaling details than with serverless or fully managed services."
       },
       {
         "name": "Auto Scaling",
-        "definition": "Automatically adjusts capacity to match demand."
+        "definition": "Automatically adjusts compute capacity based on demand, schedules, or forecasts. Commonly used with EC2 Auto Scaling groups."
       },
       {
         "name": "EventBridge",
-        "definition": "Event bus and scheduler for routing events and running scheduled tasks."
+        "definition": "Serverless event bus and scheduler. Useful for scheduled jobs and event-driven automation without running a cron server."
       },
       {
         "name": "AWS Lambda",
-        "definition": "Serverless compute that runs code without managing servers."
+        "definition": "Serverless compute for short-running code. Good for event-driven tasks, but not ideal for long-running jobs beyond Lambda limits."
       }
-    ]
+    ],
+    "examTip": "Exam clue: when the question says least operational overhead, prefer the managed AWS feature that already solves the requirement over custom scripts, EC2 fleets, or manual work."
   },
   {
     "id": 5,
@@ -213,41 +221,42 @@ const QUESTIONS = [
       {
         "choice": "B",
         "text": "Provision an Amazon Elastic File System (Amazon EFS) file system in General Purpose performance mode. Monitor Amazon CloudWatch for IOPS bottlenecks. Change to Provisioned Throughput performance mode if necessary.",
-        "reason": "This choice misses a key requirement, is less managed, or is less cost-effective than the correct answer."
+        "reason": "EFS is shared file storage, not a managed MySQL database. It does not directly solve relational database write performance."
       },
       {
         "choice": "C",
         "text": "Provision an Amazon RDS for MySQL DB instance with General Purpose SSD storage. Place an Amazon ElastiCache cluster in front of the DB instance. Configure the application to query ElastiCache instead.",
-        "reason": "This choice misses a key requirement, is less managed, or is less cost-effective than the correct answer."
+        "reason": "This option is weaker because it misses at least one keyword in the question, usually least operational overhead, high availability, private connectivity, compatibility, or cost-effectiveness. The correct answer uses the AWS service that directly matches the requirement."
       },
       {
         "choice": "D",
         "text": "Provision an Amazon DocumentDB (with MongoDB compatibility) instance with a memory optimized instance type. Monitor Amazon CloudWatch for performance-related issues. Change the instance class if necessary.",
-        "reason": "This choice misses a key requirement, is less managed, or is less cost-effective than the correct answer."
+        "reason": "DocumentDB is MongoDB-compatible, not MySQL-compatible. Migrating to it would require application changes and does not preserve MySQL behavior."
       }
     ],
     "services": [
       {
         "name": "Amazon RDS",
-        "definition": "Managed relational database service for engines like MySQL, PostgreSQL, Oracle, and SQL Server."
+        "definition": "Managed relational database service. AWS handles database provisioning, patching, backups, Multi-AZ options, and common admin tasks for engines like MySQL, PostgreSQL, Oracle, and SQL Server."
       },
       {
         "name": "RDS",
-        "definition": "Managed relational database service for relational databases."
+        "definition": "Managed relational database service. On the exam, choose RDS when the workload needs a traditional relational database without managing the database server yourself."
       },
       {
         "name": "ElastiCache",
-        "definition": "Managed in-memory caching service for Redis or Memcached."
+        "definition": "Managed in-memory cache using Redis or Memcached. It reduces read latency for supported application patterns but usually requires app changes."
       },
       {
         "name": "CloudWatch",
-        "definition": "Monitoring and metrics service for AWS resources."
+        "definition": "Monitoring service for metrics, logs, alarms, and dashboards across AWS resources."
       },
       {
         "name": "Amazon EFS",
-        "definition": "Managed shared NFS file storage for Linux workloads."
+        "definition": "Managed shared NFS file system for Linux workloads. Multiple EC2 instances across Availability Zones can mount the same file system at the same time."
       }
-    ]
+    ],
+    "examTip": "Exam clue: match the service to the main requirement, then eliminate answers that add manual work, change the application model, or solve a different problem."
   },
   {
     "id": 6,
@@ -267,25 +276,26 @@ const QUESTIONS = [
       {
         "choice": "A",
         "text": "Store all the objects in S3 Standard with an S3 Lifecycle rule to transition the objects to S3 Glacier after 30 days.",
-        "reason": "Glacier classes are for archive access and are not ideal when objects must be immediately available."
+        "reason": "S3 Glacier classes are optimized for archival storage. They are cheaper, but retrieval is not the same as immediate, frequent access, so this misses the readily available requirement."
       },
       {
         "choice": "C",
         "text": "Store all the objects in S3 Standard with an S3 Lifecycle rule to transition the objects to S3 One Zone-Infrequent Access (S3 One Zone-IA) after 30 days.",
-        "reason": "One Zone storage is cheaper but less resilient because it stores data in one Availability Zone."
+        "reason": "S3 One Zone-IA stores data in only one Availability Zone. It is cheaper, but it reduces resilience and is not the best choice when durability/availability are emphasized."
       },
       {
         "choice": "D",
         "text": "Store all the objects in S3 Intelligent-Tiering with an S3 Lifecycle rule to transition the objects to S3 Standard-Infrequent Access (S3 Standard-IA) after 30 days.",
-        "reason": "This choice misses a key requirement, is less managed, or is less cost-effective than the correct answer."
+        "reason": "This option is weaker because it misses at least one keyword in the question, usually least operational overhead, high availability, private connectivity, compatibility, or cost-effectiveness. The correct answer uses the AWS service that directly matches the requirement."
       }
     ],
     "services": [
       {
         "name": "Amazon S3",
-        "definition": "Object storage for durable, scalable storage of files and data."
+        "definition": "Highly durable object storage for files, logs, backups, static assets, and data lakes. It is not block storage or a mounted file system by default."
       }
-    ]
+    ],
+    "examTip": "Exam clue: cost-effective usually means choosing the smallest managed service that directly fits the access pattern instead of overbuilding."
   },
   {
     "id": 7,
@@ -305,33 +315,34 @@ const QUESTIONS = [
       {
         "choice": "A",
         "text": "Create an IAM role in each account that denies the launch of large EC2 instances. Grant the developers IAM group access to the role.",
-        "reason": "This can work in some designs, but it requires more server management than the managed/serverless option."
+        "reason": "This adds server management. You would have to manage instances, patching, scaling, and recovery, which conflicts with the low-operational-overhead requirement."
       },
       {
         "choice": "C",
         "text": "Define a resource in AWS Resource Access Manager that prevents the launch of large EC2 instances.",
-        "reason": "This can work in some designs, but it requires more server management than the managed/serverless option."
+        "reason": "This adds server management. You would have to manage instances, patching, scaling, and recovery, which conflicts with the low-operational-overhead requirement."
       },
       {
         "choice": "D",
         "text": "Update the IAM policies to deny the launch of large EC2 instances. Apply the policies to all users.",
-        "reason": "This can work in some designs, but it requires more server management than the managed/serverless option."
+        "reason": "This adds server management. You would have to manage instances, patching, scaling, and recovery, which conflicts with the low-operational-overhead requirement."
       }
     ],
     "services": [
       {
         "name": "EC2",
-        "definition": "Virtual servers in AWS."
+        "definition": "Virtual servers in AWS. Flexible, but you manage more operating system and scaling details than with serverless or fully managed services."
       },
       {
         "name": "AWS Organizations",
-        "definition": "Central management for multiple AWS accounts."
+        "definition": "Central management service for multiple AWS accounts. Supports service control policies for account guardrails."
       },
       {
         "name": "SCP",
-        "definition": "Service control policy that sets permission guardrails in AWS Organizations."
+        "definition": "Service Control Policy. An Organizations policy that sets maximum allowed permissions for accounts or OUs."
       }
-    ]
+    ],
+    "examTip": "Exam clue: when the question says least operational overhead, prefer the managed AWS feature that already solves the requirement over custom scripts, EC2 fleets, or manual work."
   },
   {
     "id": 8,
@@ -351,27 +362,27 @@ const QUESTIONS = [
       {
         "choice": "A",
         "text": "Establish an AWS Site-to-Site VPN connection between the VPC and the S3 bucket.",
-        "reason": "This choice misses a key requirement, is less managed, or is less cost-effective than the correct answer."
+        "reason": "VPN is for network connectivity between networks, not for privately reaching an AWS service like S3/DynamoDB from inside a VPC when an endpoint exists."
       },
       {
         "choice": "B",
         "text": "Create a private hosted zone by using Amazon Route 53.",
-        "reason": "This choice misses a key requirement, is less managed, or is less cost-effective than the correct answer."
+        "reason": "Route 53 private hosted zones solve private DNS naming, not private network access to S3 or other AWS service APIs."
       },
       {
         "choice": "C",
         "text": "Configure the EC2 instances to use a NAT gateway to access the S3 bucket.",
-        "reason": "This can work in some designs, but it requires more server management than the managed/serverless option."
+        "reason": "A NAT gateway sends private subnet traffic out toward public AWS service endpoints and adds hourly/data processing cost. A VPC endpoint is the private, purpose-built answer."
       }
     ],
     "services": [
       {
         "name": "Amazon S3",
-        "definition": "Object storage for durable, scalable storage of files and data."
+        "definition": "Highly durable object storage for files, logs, backups, static assets, and data lakes. It is not block storage or a mounted file system by default."
       },
       {
         "name": "EC2",
-        "definition": "Virtual servers in AWS."
+        "definition": "Virtual servers in AWS. Flexible, but you manage more operating system and scaling details than with serverless or fully managed services."
       },
       {
         "name": "VPC endpoint",
@@ -379,9 +390,10 @@ const QUESTIONS = [
       },
       {
         "name": "Route 53",
-        "definition": "DNS and health-check service."
+        "definition": "AWS DNS service with routing policies and health checks, often used for failover between Regions."
       }
-    ]
+    ],
+    "examTip": "Exam clue: private access to AWS services from a VPC usually points to VPC endpoints. S3 and DynamoDB use gateway endpoints; many others, like SQS, use interface endpoints."
   },
   {
     "id": 9,
@@ -401,61 +413,62 @@ const QUESTIONS = [
       {
         "choice": "A",
         "text": "Push score updates to Amazon Kinesis Data Streams. Process the updates with a fleet of Amazon EC2 instances set up for Auto Scaling. Store the processed updates in Amazon Redshift.",
-        "reason": "This can work in some designs, but it requires more server management than the managed/serverless option."
+        "reason": "Redshift is a data warehouse for analytics. It is usually not the right target for transactional processing or low-latency application reads."
       },
       {
         "choice": "C",
         "text": "Push score updates to an Amazon Simple Notification Service (Amazon SNS) topic. Subscribe an AWS Lambda function to the SNS topic to process the updates. Store the processed updates in a SQL database running on Amazon EC2.",
-        "reason": "This choice misses a key requirement, is less managed, or is less cost-effective than the correct answer."
+        "reason": "This option is weaker because it misses at least one keyword in the question, usually least operational overhead, high availability, private connectivity, compatibility, or cost-effectiveness. The correct answer uses the AWS service that directly matches the requirement."
       },
       {
         "choice": "D",
         "text": "Push score updates to an Amazon Simple Queue Service (Amazon SQS) queue. Use a fleet of Amazon EC2 instances with Auto Scaling to process the updates in the SQS queue. Store the processed updates in an Amazon RDS Multi-AZ DB instance.",
-        "reason": "This can work in some designs, but it requires more server management than the managed/serverless option."
+        "reason": "This option is weaker because it misses at least one keyword in the question, usually least operational overhead, high availability, private connectivity, compatibility, or cost-effectiveness. The correct answer uses the AWS service that directly matches the requirement."
       }
     ],
     "services": [
       {
         "name": "Amazon RDS",
-        "definition": "Managed relational database service for engines like MySQL, PostgreSQL, Oracle, and SQL Server."
+        "definition": "Managed relational database service. AWS handles database provisioning, patching, backups, Multi-AZ options, and common admin tasks for engines like MySQL, PostgreSQL, Oracle, and SQL Server."
       },
       {
         "name": "RDS",
-        "definition": "Managed relational database service for relational databases."
+        "definition": "Managed relational database service. On the exam, choose RDS when the workload needs a traditional relational database without managing the database server yourself."
       },
       {
         "name": "Amazon Redshift",
-        "definition": "Managed data warehouse for SQL analytics at scale."
+        "definition": "Managed data warehouse built for large-scale SQL analytics and reporting. Best for analytical queries, not transactional application processing."
       },
       {
         "name": "EC2",
-        "definition": "Virtual servers in AWS."
+        "definition": "Virtual servers in AWS. Flexible, but you manage more operating system and scaling details than with serverless or fully managed services."
       },
       {
         "name": "Auto Scaling",
-        "definition": "Automatically adjusts capacity to match demand."
+        "definition": "Automatically adjusts compute capacity based on demand, schedules, or forecasts. Commonly used with EC2 Auto Scaling groups."
       },
       {
         "name": "AWS Lambda",
-        "definition": "Serverless compute that runs code without managing servers."
+        "definition": "Serverless compute for short-running code. Good for event-driven tasks, but not ideal for long-running jobs beyond Lambda limits."
       },
       {
         "name": "DynamoDB",
-        "definition": "Managed NoSQL key-value and document database."
+        "definition": "Fully managed NoSQL key-value/document database. It scales automatically and is highly available, but it is not a relational SQL database."
       },
       {
         "name": "Kinesis Data Streams",
-        "definition": "Managed real-time streaming service for ordered event data."
+        "definition": "Managed streaming service for ordered, real-time event data. Choose it when sequence/order and streaming spikes matter."
       },
       {
         "name": "SNS",
-        "definition": "Pub/sub notification service that can fan out messages and send emails."
+        "definition": "Simple Notification Service. Pub/sub fanout and notifications, including email subscriptions. It does not hold jobs like a queue."
       },
       {
         "name": "SQS",
-        "definition": "Managed message queue for decoupling systems."
+        "definition": "Simple Queue Service. Durable message queue used to decouple producers and workers and smooth traffic spikes."
       }
-    ]
+    ],
+    "examTip": "Exam clue: high availability usually means multiple Availability Zones, managed failover, or a managed Multi-AZ design."
   },
   {
     "id": 10,
@@ -475,37 +488,38 @@ const QUESTIONS = [
       {
         "choice": "A",
         "text": "Use Amazon RDS in a Single-AZ deployment to create an Oracle database. Create a read replica in the same zone as the primary DB instance. Direct the reporting functions to the read replica.",
-        "reason": "Single-AZ does not meet the high availability requirement."
+        "reason": "This fails the high availability requirement. Single-AZ places the database in one Availability Zone, so an AZ or instance failure can cause downtime."
       },
       {
         "choice": "B",
         "text": "Use AWS Database Migration Service (AWS DMS) to create an Amazon RDS DB instance in multiple AWS Regions. Point the reporting to a read replica.",
-        "reason": "This choice misses a key requirement, is less managed, or is less cost-effective than the correct answer."
+        "reason": "This option is weaker because it misses at least one keyword in the question, usually least operational overhead, high availability, private connectivity, compatibility, or cost-effectiveness. The correct answer uses the AWS service that directly matches the requirement."
       },
       {
         "choice": "D",
         "text": "Use Amazon RDS deployed in a Multi-AZ instance deployment to create an Amazon Aurora database. Direct the reporting functions to the reader instances.",
-        "reason": "This choice misses a key requirement, is less managed, or is less cost-effective than the correct answer."
+        "reason": "This option is weaker because it misses at least one keyword in the question, usually least operational overhead, high availability, private connectivity, compatibility, or cost-effectiveness. The correct answer uses the AWS service that directly matches the requirement."
       }
     ],
     "services": [
       {
         "name": "Amazon RDS",
-        "definition": "Managed relational database service for engines like MySQL, PostgreSQL, Oracle, and SQL Server."
+        "definition": "Managed relational database service. AWS handles database provisioning, patching, backups, Multi-AZ options, and common admin tasks for engines like MySQL, PostgreSQL, Oracle, and SQL Server."
       },
       {
         "name": "RDS",
-        "definition": "Managed relational database service for relational databases."
+        "definition": "Managed relational database service. On the exam, choose RDS when the workload needs a traditional relational database without managing the database server yourself."
       },
       {
         "name": "DMS",
-        "definition": "Database Migration Service for moving databases to AWS."
+        "definition": "Database Migration Service. Helps migrate or replicate databases to AWS with minimal downtime."
       },
       {
         "name": "Aurora",
-        "definition": "AWS cloud-native relational database compatible with MySQL and PostgreSQL."
+        "definition": "AWS cloud-native relational database compatible with MySQL and PostgreSQL. It supports read replicas, high availability, and autoscaling options."
       }
-    ]
+    ],
+    "examTip": "Exam clue: match the service to the main requirement, then eliminate answers that add manual work, change the application model, or solve a different problem."
   },
   {
     "id": 11,
@@ -525,29 +539,30 @@ const QUESTIONS = [
       {
         "choice": "A",
         "text": "Set up inter-Region VPC peering between the VPC in us-east-1 and the VPCs in eu-west-2.",
-        "reason": "This choice misses a key requirement, is less managed, or is less cost-effective than the correct answer."
+        "reason": "This option is weaker because it misses at least one keyword in the question, usually least operational overhead, high availability, private connectivity, compatibility, or cost-effectiveness. The correct answer uses the AWS service that directly matches the requirement."
       },
       {
         "choice": "B",
         "text": "Create private virtual interfaces from the Direct Connect connection in us-east-1 to the VPCs in eu-west-2.",
-        "reason": "This choice misses a key requirement, is less managed, or is less cost-effective than the correct answer."
+        "reason": "This option is weaker because it misses at least one keyword in the question, usually least operational overhead, high availability, private connectivity, compatibility, or cost-effectiveness. The correct answer uses the AWS service that directly matches the requirement."
       },
       {
         "choice": "C",
         "text": "Establish VPN appliances in a fully meshed VPN network hosted by Amazon EC2. Use AWS VPN CloudHub to send and receive data between the data centers and each VPC.",
-        "reason": "This choice misses a key requirement, is less managed, or is less cost-effective than the correct answer."
+        "reason": "VPN is for network connectivity between networks, not for privately reaching an AWS service like S3/DynamoDB from inside a VPC when an endpoint exists."
       }
     ],
     "services": [
       {
         "name": "EC2",
-        "definition": "Virtual servers in AWS."
+        "definition": "Virtual servers in AWS. Flexible, but you manage more operating system and scaling details than with serverless or fully managed services."
       },
       {
         "name": "Direct Connect",
-        "definition": "Dedicated private network connection from on premises to AWS."
+        "definition": "Dedicated private network connection from on-premises locations to AWS. Used for consistent bandwidth and private connectivity."
       }
-    ]
+    ],
+    "examTip": "Exam clue: match the service to the main requirement, then eliminate answers that add manual work, change the application model, or solve a different problem."
   },
   {
     "id": 12,
@@ -567,33 +582,34 @@ const QUESTIONS = [
       {
         "choice": "A",
         "text": "Use AWS Organizations to set up the infrastructure. Use AWS Service Catalog to track changes.",
-        "reason": "This choice misses a key requirement, is less managed, or is less cost-effective than the correct answer."
+        "reason": "This option is weaker because it misses at least one keyword in the question, usually least operational overhead, high availability, private connectivity, compatibility, or cost-effectiveness. The correct answer uses the AWS service that directly matches the requirement."
       },
       {
         "choice": "C",
         "text": "Use AWS Organizations to set up the infrastructure. Use AWS Config to track changes.",
-        "reason": "This choice misses a key requirement, is less managed, or is less cost-effective than the correct answer."
+        "reason": "This option is weaker because it misses at least one keyword in the question, usually least operational overhead, high availability, private connectivity, compatibility, or cost-effectiveness. The correct answer uses the AWS service that directly matches the requirement."
       },
       {
         "choice": "D",
         "text": "Use AWS CloudFormation to set up the infrastructure. Use AWS Service Catalog to track changes",
-        "reason": "This choice misses a key requirement, is less managed, or is less cost-effective than the correct answer."
+        "reason": "This option is weaker because it misses at least one keyword in the question, usually least operational overhead, high availability, private connectivity, compatibility, or cost-effectiveness. The correct answer uses the AWS service that directly matches the requirement."
       }
     ],
     "services": [
       {
         "name": "AWS Organizations",
-        "definition": "Central management for multiple AWS accounts."
+        "definition": "Central management service for multiple AWS accounts. Supports service control policies for account guardrails."
       },
       {
         "name": "CloudFormation",
-        "definition": "Infrastructure as code service for provisioning AWS resources."
+        "definition": "Infrastructure as code service. It provisions AWS resources from templates so environments can be recreated consistently."
       },
       {
         "name": "AWS Config",
-        "definition": "Tracks resource configuration and compliance over time."
+        "definition": "Tracks resource configuration history and compliance. Good for auditing changes and detecting noncompliant resources."
       }
-    ]
+    ],
+    "examTip": "Exam clue: match the service to the main requirement, then eliminate answers that add manual work, change the application model, or solve a different problem."
   },
   {
     "id": 13,
@@ -613,49 +629,50 @@ const QUESTIONS = [
       {
         "choice": "B",
         "text": "Migrate the database to Amazon Redshift by using the mysqldump utility. Turn on Auto Scaling for the Amazon Redshift cluster.",
-        "reason": "Redshift is mainly for analytics/data warehousing, not the best fit for the application requirement here."
+        "reason": "Redshift is a data warehouse for analytics. It is usually not the right target for transactional processing or low-latency application reads."
       },
       {
         "choice": "C",
         "text": "Use native MySQL tools to migrate the database to Amazon RDS for MySQL. Configure elastic storage scaling.",
-        "reason": "This choice misses a key requirement, is less managed, or is less cost-effective than the correct answer."
+        "reason": "This option is weaker because it misses at least one keyword in the question, usually least operational overhead, high availability, private connectivity, compatibility, or cost-effectiveness. The correct answer uses the AWS service that directly matches the requirement."
       },
       {
         "choice": "D",
         "text": "Use AWS Database Migration Service (AWS DMS) to migrate the database to Amazon DynamoDB. Configure an Auto Scaling policy.",
-        "reason": "This choice misses a key requirement, is less managed, or is less cost-effective than the correct answer."
+        "reason": "DynamoDB is NoSQL and would require application/data model changes. The question asks to keep relational database compatibility."
       }
     ],
     "services": [
       {
         "name": "Amazon RDS",
-        "definition": "Managed relational database service for engines like MySQL, PostgreSQL, Oracle, and SQL Server."
+        "definition": "Managed relational database service. AWS handles database provisioning, patching, backups, Multi-AZ options, and common admin tasks for engines like MySQL, PostgreSQL, Oracle, and SQL Server."
       },
       {
         "name": "RDS",
-        "definition": "Managed relational database service for relational databases."
+        "definition": "Managed relational database service. On the exam, choose RDS when the workload needs a traditional relational database without managing the database server yourself."
       },
       {
         "name": "Amazon Redshift",
-        "definition": "Managed data warehouse for SQL analytics at scale."
+        "definition": "Managed data warehouse built for large-scale SQL analytics and reporting. Best for analytical queries, not transactional application processing."
       },
       {
         "name": "Auto Scaling",
-        "definition": "Automatically adjusts capacity to match demand."
+        "definition": "Automatically adjusts compute capacity based on demand, schedules, or forecasts. Commonly used with EC2 Auto Scaling groups."
       },
       {
         "name": "DynamoDB",
-        "definition": "Managed NoSQL key-value and document database."
+        "definition": "Fully managed NoSQL key-value/document database. It scales automatically and is highly available, but it is not a relational SQL database."
       },
       {
         "name": "DMS",
-        "definition": "Database Migration Service for moving databases to AWS."
+        "definition": "Database Migration Service. Helps migrate or replicate databases to AWS with minimal downtime."
       },
       {
         "name": "Aurora",
-        "definition": "AWS cloud-native relational database compatible with MySQL and PostgreSQL."
+        "definition": "AWS cloud-native relational database compatible with MySQL and PostgreSQL. It supports read replicas, high availability, and autoscaling options."
       }
-    ]
+    ],
+    "examTip": "Exam clue: match the service to the main requirement, then eliminate answers that add manual work, change the application model, or solve a different problem."
   },
   {
     "id": 14,
@@ -675,41 +692,42 @@ const QUESTIONS = [
       {
         "choice": "B",
         "text": "Update the EC2 user data in the Auto Scaling group lifecycle policy to copy the website assets from the EC2 instance that was launched most recently. Configure the ALB to make changes to the website assets only in the newest EC2 instance.",
-        "reason": "This choice misses a key requirement, is less managed, or is less cost-effective than the correct answer."
+        "reason": "This option is weaker because it misses at least one keyword in the question, usually least operational overhead, high availability, private connectivity, compatibility, or cost-effectiveness. The correct answer uses the AWS service that directly matches the requirement."
       },
       {
         "choice": "C",
         "text": "Copy the website assets to an Amazon S3 bucket. Ensure that each EC2 instance downloads the website assets from the S3 bucket to the attached Amazon Elastic Block Store (Amazon EBS) volume. Run the S3 sync command once each hour to keep files up to date.",
-        "reason": "This choice misses a key requirement, is less managed, or is less cost-effective than the correct answer."
+        "reason": "This option is weaker because it misses at least one keyword in the question, usually least operational overhead, high availability, private connectivity, compatibility, or cost-effectiveness. The correct answer uses the AWS service that directly matches the requirement."
       },
       {
         "choice": "D",
         "text": "Restore an Amazon Elastic Block Store (Amazon EBS) snapshot with the website assets. Attach the EBS snapshot as a secondary EBS volume when a new EC2 instance is launched. Configure the website hosting application to reference the website assets that are stored in the secondary EBS volume.",
-        "reason": "This choice misses a key requirement, is less managed, or is less cost-effective than the correct answer."
+        "reason": "This option is weaker because it misses at least one keyword in the question, usually least operational overhead, high availability, private connectivity, compatibility, or cost-effectiveness. The correct answer uses the AWS service that directly matches the requirement."
       }
     ],
     "services": [
       {
         "name": "Amazon S3",
-        "definition": "Object storage for durable, scalable storage of files and data."
+        "definition": "Highly durable object storage for files, logs, backups, static assets, and data lakes. It is not block storage or a mounted file system by default."
       },
       {
         "name": "Amazon EBS",
-        "definition": "Block storage volumes for EC2 instances."
+        "definition": "Block storage volumes attached to EC2 instances. Use it when an instance needs disk-like storage, but standard EBS volumes are usually tied to one Availability Zone."
       },
       {
         "name": "EC2",
-        "definition": "Virtual servers in AWS."
+        "definition": "Virtual servers in AWS. Flexible, but you manage more operating system and scaling details than with serverless or fully managed services."
       },
       {
         "name": "Auto Scaling",
-        "definition": "Automatically adjusts capacity to match demand."
+        "definition": "Automatically adjusts compute capacity based on demand, schedules, or forecasts. Commonly used with EC2 Auto Scaling groups."
       },
       {
         "name": "Amazon EFS",
-        "definition": "Managed shared NFS file storage for Linux workloads."
+        "definition": "Managed shared NFS file system for Linux workloads. Multiple EC2 instances across Availability Zones can mount the same file system at the same time."
       }
-    ]
+    ],
+    "examTip": "Exam clue: match the service to the main requirement, then eliminate answers that add manual work, change the application model, or solve a different problem."
   },
   {
     "id": 15,
@@ -729,25 +747,26 @@ const QUESTIONS = [
       {
         "choice": "A",
         "text": "Create a new S3 bucket that is configured to host a public static website. Migrate the operations data to the new S3 bucket. Share the S3 website URL with the external consultant.",
-        "reason": "This choice misses a key requirement, is less managed, or is less cost-effective than the correct answer."
+        "reason": "Making a bucket or website public exposes more than the one required object and creates security risk. The requirement is temporary access to only one report."
       },
       {
         "choice": "C",
         "text": "Enable public access to the S3 bucket for 7 days. Remove access to the S3 bucket when the external consultant completes the audit.",
-        "reason": "This choice misses a key requirement, is less managed, or is less cost-effective than the correct answer."
+        "reason": "Making a bucket or website public exposes more than the one required object and creates security risk. The requirement is temporary access to only one report."
       },
       {
         "choice": "D",
         "text": "Create a new IAM user that has access to the report in the S3 bucket. Provide the access keys to the external consultant. Revoke the access keys after 7 days.",
-        "reason": "This choice misses a key requirement, is less managed, or is less cost-effective than the correct answer."
+        "reason": "Creating long-term IAM users or access keys for outsiders is more risky and more work to manage. Cross-account roles or presigned URLs are preferred depending on the use case."
       }
     ],
     "services": [
       {
         "name": "Amazon S3",
-        "definition": "Object storage for durable, scalable storage of files and data."
+        "definition": "Highly durable object storage for files, logs, backups, static assets, and data lakes. It is not block storage or a mounted file system by default."
       }
-    ]
+    ],
+    "examTip": "Exam clue: when the question says least operational overhead, prefer the managed AWS feature that already solves the requirement over custom scripts, EC2 fleets, or manual work."
   },
   {
     "id": 16,
@@ -767,37 +786,38 @@ const QUESTIONS = [
       {
         "choice": "A",
         "text": "Create a second Aurora DB cluster. Configure a copy job to replicate the users' data to the new database. Update the application to use the second database to read the data.",
-        "reason": "This choice misses a key requirement, is less managed, or is less cost-effective than the correct answer."
+        "reason": "This option is weaker because it misses at least one keyword in the question, usually least operational overhead, high availability, private connectivity, compatibility, or cost-effectiveness. The correct answer uses the AWS service that directly matches the requirement."
       },
       {
         "choice": "B",
         "text": "Create an Amazon Redshift cluster. Copy the users' data to the Redshift cluster. Update the application to connect to the Redshift cluster and to perform read-only queries on the Redshift cluster.",
-        "reason": "Redshift is mainly for analytics/data warehousing, not the best fit for the application requirement here."
+        "reason": "Redshift is a data warehouse for analytics. It is usually not the right target for transactional processing or low-latency application reads."
       },
       {
         "choice": "D",
         "text": "Create an Amazon DynamoDB Accelerator (DAX) cluster in front of the existing Aurora DB cluster. Update the application to use the DAX",
-        "reason": "This choice misses a key requirement, is less managed, or is less cost-effective than the correct answer."
+        "reason": "This option is weaker because it misses at least one keyword in the question, usually least operational overhead, high availability, private connectivity, compatibility, or cost-effectiveness. The correct answer uses the AWS service that directly matches the requirement."
       }
     ],
     "services": [
       {
         "name": "Amazon Redshift",
-        "definition": "Managed data warehouse for SQL analytics at scale."
+        "definition": "Managed data warehouse built for large-scale SQL analytics and reporting. Best for analytical queries, not transactional application processing."
       },
       {
         "name": "DynamoDB",
-        "definition": "Managed NoSQL key-value and document database."
+        "definition": "Fully managed NoSQL key-value/document database. It scales automatically and is highly available, but it is not a relational SQL database."
       },
       {
         "name": "DAX",
-        "definition": "DynamoDB Accelerator, an in-memory cache for DynamoDB."
+        "definition": "DynamoDB Accelerator, a managed in-memory cache for DynamoDB. It gives microsecond read latency with small application endpoint changes."
       },
       {
         "name": "Aurora",
-        "definition": "AWS cloud-native relational database compatible with MySQL and PostgreSQL."
+        "definition": "AWS cloud-native relational database compatible with MySQL and PostgreSQL. It supports read replicas, high availability, and autoscaling options."
       }
-    ]
+    ],
+    "examTip": "Exam clue: cost-effective usually means choosing the smallest managed service that directly fits the access pattern instead of overbuilding."
   },
   {
     "id": 17,
@@ -817,20 +837,21 @@ const QUESTIONS = [
       {
         "choice": "A",
         "text": "Create an IAM group in the company's account. Add the tool's IAM user from the vendor account to the group. Attach the appropriate IAM policies to the group for the permissions that the vendor requires.",
-        "reason": "This choice misses a key requirement, is less managed, or is less cost-effective than the correct answer."
+        "reason": "Creating long-term IAM users or access keys for outsiders is more risky and more work to manage. Cross-account roles or presigned URLs are preferred depending on the use case."
       },
       {
         "choice": "B",
         "text": "Create an IAM user in the company's account with a password that meets the password complexity requirements. Attach the appropriate IAM policies to the user for the permissions that the vendor requires.",
-        "reason": "This choice misses a key requirement, is less managed, or is less cost-effective than the correct answer."
+        "reason": "Creating long-term IAM users or access keys for outsiders is more risky and more work to manage. Cross-account roles or presigned URLs are preferred depending on the use case."
       },
       {
         "choice": "D",
         "text": "Create a new identity provider by choosing \u201cAWS account\u201d as the provider type in the IAM console. Supply the vendor's AWS account ID and user name. Attach the appropriate IAM policies to the new provider for the permissions that the vendor requires.",
-        "reason": "This choice misses a key requirement, is less managed, or is less cost-effective than the correct answer."
+        "reason": "This option is weaker because it misses at least one keyword in the question, usually least operational overhead, high availability, private connectivity, compatibility, or cost-effectiveness. The correct answer uses the AWS service that directly matches the requirement."
       }
     ],
-    "services": []
+    "services": [],
+    "examTip": "Exam clue: match the service to the main requirement, then eliminate answers that add manual work, change the application model, or solve a different problem."
   },
   {
     "id": 18,
@@ -850,41 +871,42 @@ const QUESTIONS = [
       {
         "choice": "A",
         "text": "Use the modify-db-instance command in the AWS CLI to change the password.",
-        "reason": "This adds more manual work or custom maintenance, so it is not the least operational overhead choice."
+        "reason": "This can be made to work, but it creates custom operational work such as scheduling, monitoring, failure handling, and cleanup. The exam usually prefers the managed AWS feature when it directly meets the requirement."
       },
       {
         "choice": "B",
         "text": "Use Amazon EventBridge to schedule a custom AWS Lambda function to rotate the password every 30 days.",
-        "reason": "This adds more manual work or custom maintenance, so it is not the least operational overhead choice."
+        "reason": "This can be made to work, but it creates custom operational work such as scheduling, monitoring, failure handling, and cleanup. The exam usually prefers the managed AWS feature when it directly meets the requirement."
       },
       {
         "choice": "C",
         "text": "Integrate AWS Systems Manager Parameter Store with Amazon RDS for PostgreSQL to automate password rotation.",
-        "reason": "Parameter Store can store values, but it is not the simplest fully managed rotation choice for this database password requirement."
+        "reason": "This option is weaker because it misses at least one keyword in the question, usually least operational overhead, high availability, private connectivity, compatibility, or cost-effectiveness. The correct answer uses the AWS service that directly matches the requirement."
       }
     ],
     "services": [
       {
         "name": "Amazon RDS",
-        "definition": "Managed relational database service for engines like MySQL, PostgreSQL, Oracle, and SQL Server."
+        "definition": "Managed relational database service. AWS handles database provisioning, patching, backups, Multi-AZ options, and common admin tasks for engines like MySQL, PostgreSQL, Oracle, and SQL Server."
       },
       {
         "name": "RDS",
-        "definition": "Managed relational database service for relational databases."
+        "definition": "Managed relational database service. On the exam, choose RDS when the workload needs a traditional relational database without managing the database server yourself."
       },
       {
         "name": "EventBridge",
-        "definition": "Event bus and scheduler for routing events and running scheduled tasks."
+        "definition": "Serverless event bus and scheduler. Useful for scheduled jobs and event-driven automation without running a cron server."
       },
       {
         "name": "AWS Lambda",
-        "definition": "Serverless compute that runs code without managing servers."
+        "definition": "Serverless compute for short-running code. Good for event-driven tasks, but not ideal for long-running jobs beyond Lambda limits."
       },
       {
         "name": "Secrets Manager",
-        "definition": "Secure secret storage with automatic rotation support."
+        "definition": "Secure service for storing, retrieving, and automatically rotating secrets such as database passwords."
       }
-    ]
+    ],
+    "examTip": "Exam clue: when the question says least operational overhead, prefer the managed AWS feature that already solves the requirement over custom scripts, EC2 fleets, or manual work."
   },
   {
     "id": 19,
@@ -904,45 +926,46 @@ const QUESTIONS = [
       {
         "choice": "A",
         "text": "Enable Cost and Usage Reports in the management account. Deliver reports to Amazon Kinesis. Use Amazon EMR for analysis.",
-        "reason": "This choice misses a key requirement, is less managed, or is less cost-effective than the correct answer."
+        "reason": "This option is weaker because it misses at least one keyword in the question, usually least operational overhead, high availability, private connectivity, compatibility, or cost-effectiveness. The correct answer uses the AWS service that directly matches the requirement."
       },
       {
         "choice": "B",
         "text": "Enable Cost and Usage Reports for member accounts. Deliver the reports to Amazon S3 Use Amazon Redshift for analysis.",
-        "reason": "This choice misses a key requirement, is less managed, or is less cost-effective than the correct answer."
+        "reason": "This option is weaker because it misses at least one keyword in the question, usually least operational overhead, high availability, private connectivity, compatibility, or cost-effectiveness. The correct answer uses the AWS service that directly matches the requirement."
       },
       {
         "choice": "D",
         "text": "Enable Cost and Usage Reports for member accounts. Deliver the reports to Amazon Kinesis. Use Amazon QuickSight tor analysis.",
-        "reason": "This choice misses a key requirement, is less managed, or is less cost-effective than the correct answer."
+        "reason": "This option is weaker because it misses at least one keyword in the question, usually least operational overhead, high availability, private connectivity, compatibility, or cost-effectiveness. The correct answer uses the AWS service that directly matches the requirement."
       }
     ],
     "services": [
       {
         "name": "Amazon EMR",
-        "definition": "Managed big data platform for distributed processing with Spark, Hadoop, and related tools."
+        "definition": "Managed big data platform for distributed processing with Spark, Hadoop, Hive, and Presto. Good for large-scale parallel processing of data in S3 and integration with services like Redshift."
       },
       {
         "name": "Amazon S3",
-        "definition": "Object storage for durable, scalable storage of files and data."
+        "definition": "Highly durable object storage for files, logs, backups, static assets, and data lakes. It is not block storage or a mounted file system by default."
       },
       {
         "name": "Amazon Redshift",
-        "definition": "Managed data warehouse for SQL analytics at scale."
+        "definition": "Managed data warehouse built for large-scale SQL analytics and reporting. Best for analytical queries, not transactional application processing."
       },
       {
         "name": "AWS Organizations",
-        "definition": "Central management for multiple AWS accounts."
+        "definition": "Central management service for multiple AWS accounts. Supports service control policies for account guardrails."
       },
       {
         "name": "Athena",
-        "definition": "Serverless SQL query service for data in S3."
+        "definition": "Serverless SQL query service for data in S3. Good for occasional analysis without running a database cluster."
       },
       {
         "name": "QuickSight",
-        "definition": "Managed business intelligence and dashboard service."
+        "definition": "Managed BI and dashboard service. Used to visualize data from sources like Athena, S3, Redshift, and RDS."
       }
-    ]
+    ],
+    "examTip": "Exam clue: cost-effective usually means choosing the smallest managed service that directly fits the access pattern instead of overbuilding."
   },
   {
     "id": 20,
@@ -962,33 +985,34 @@ const QUESTIONS = [
       {
         "choice": "A",
         "text": "Add an Amazon ElastiCache for Redis cache to the application stack. Update the application to point to the Redis cache endpoint instead of DynamoDB.",
-        "reason": "This choice misses a key requirement, is less managed, or is less cost-effective than the correct answer."
+        "reason": "This option is weaker because it misses at least one keyword in the question, usually least operational overhead, high availability, private connectivity, compatibility, or cost-effectiveness. The correct answer uses the AWS service that directly matches the requirement."
       },
       {
         "choice": "C",
         "text": "Add DynamoDB read replicas to handle the increased read load. Update the application to point to the read endpoint for the read replicas.",
-        "reason": "This choice misses a key requirement, is less managed, or is less cost-effective than the correct answer."
+        "reason": "This option is weaker because it misses at least one keyword in the question, usually least operational overhead, high availability, private connectivity, compatibility, or cost-effectiveness. The correct answer uses the AWS service that directly matches the requirement."
       },
       {
         "choice": "D",
         "text": "Double the number of read capacity units for the new messages table in DynamoDB. Continue to use the existing DynamoDB endpoint.",
-        "reason": "This choice misses a key requirement, is less managed, or is less cost-effective than the correct answer."
+        "reason": "This option is weaker because it misses at least one keyword in the question, usually least operational overhead, high availability, private connectivity, compatibility, or cost-effectiveness. The correct answer uses the AWS service that directly matches the requirement."
       }
     ],
     "services": [
       {
         "name": "ElastiCache",
-        "definition": "Managed in-memory caching service for Redis or Memcached."
+        "definition": "Managed in-memory cache using Redis or Memcached. It reduces read latency for supported application patterns but usually requires app changes."
       },
       {
         "name": "DynamoDB",
-        "definition": "Managed NoSQL key-value and document database."
+        "definition": "Fully managed NoSQL key-value/document database. It scales automatically and is highly available, but it is not a relational SQL database."
       },
       {
         "name": "DAX",
-        "definition": "DynamoDB Accelerator, an in-memory cache for DynamoDB."
+        "definition": "DynamoDB Accelerator, a managed in-memory cache for DynamoDB. It gives microsecond read latency with small application endpoint changes."
       }
-    ]
+    ],
+    "examTip": "Exam clue: match the service to the main requirement, then eliminate answers that add manual work, change the application model, or solve a different problem."
   },
   {
     "id": 21,
@@ -1008,33 +1032,34 @@ const QUESTIONS = [
       {
         "choice": "A",
         "text": "Migrate the Oracle database to Amazon RDS for Oracle. Activate Cross-Region automated backups to replicate the snapshots to another AWS Region.",
-        "reason": "This choice misses a key requirement, is less managed, or is less cost-effective than the correct answer."
+        "reason": "This option is weaker because it misses at least one keyword in the question, usually least operational overhead, high availability, private connectivity, compatibility, or cost-effectiveness. The correct answer uses the AWS service that directly matches the requirement."
       },
       {
         "choice": "B",
         "text": "Migrate the Oracle database to an Amazon EC2 instance. Set up database replication to a different AWS Region.",
-        "reason": "This choice misses a key requirement, is less managed, or is less cost-effective than the correct answer."
+        "reason": "This option is weaker because it misses at least one keyword in the question, usually least operational overhead, high availability, private connectivity, compatibility, or cost-effectiveness. The correct answer uses the AWS service that directly matches the requirement."
       },
       {
         "choice": "C",
         "text": "Migrate the Oracle database to Amazon RDS for Oracle. Create a standby database in another Availability Zone.",
-        "reason": "This choice misses a key requirement, is less managed, or is less cost-effective than the correct answer."
+        "reason": "This option is weaker because it misses at least one keyword in the question, usually least operational overhead, high availability, private connectivity, compatibility, or cost-effectiveness. The correct answer uses the AWS service that directly matches the requirement."
       }
     ],
     "services": [
       {
         "name": "Amazon RDS",
-        "definition": "Managed relational database service for engines like MySQL, PostgreSQL, Oracle, and SQL Server."
+        "definition": "Managed relational database service. AWS handles database provisioning, patching, backups, Multi-AZ options, and common admin tasks for engines like MySQL, PostgreSQL, Oracle, and SQL Server."
       },
       {
         "name": "RDS",
-        "definition": "Managed relational database service for relational databases."
+        "definition": "Managed relational database service. On the exam, choose RDS when the workload needs a traditional relational database without managing the database server yourself."
       },
       {
         "name": "EC2",
-        "definition": "Virtual servers in AWS."
+        "definition": "Virtual servers in AWS. Flexible, but you manage more operating system and scaling details than with serverless or fully managed services."
       }
-    ]
+    ],
+    "examTip": "Exam clue: match the service to the main requirement, then eliminate answers that add manual work, change the application model, or solve a different problem."
   },
   {
     "id": 22,
@@ -1054,37 +1079,38 @@ const QUESTIONS = [
       {
         "choice": "A",
         "text": "Set up Amazon ElastiCache for Redis between the DynamoDB table and the web application. Route all read requests through Redis.",
-        "reason": "This choice misses a key requirement, is less managed, or is less cost-effective than the correct answer."
+        "reason": "This option is weaker because it misses at least one keyword in the question, usually least operational overhead, high availability, private connectivity, compatibility, or cost-effectiveness. The correct answer uses the AWS service that directly matches the requirement."
       },
       {
         "choice": "C",
         "text": "Set up Amazon DynamoDB Streams on the table, and have AWS Lambda read from the table and populate Amazon ElastiCache. Route all read requests through ElastiCache.",
-        "reason": "This choice misses a key requirement, is less managed, or is less cost-effective than the correct answer."
+        "reason": "This option is weaker because it misses at least one keyword in the question, usually least operational overhead, high availability, private connectivity, compatibility, or cost-effectiveness. The correct answer uses the AWS service that directly matches the requirement."
       },
       {
         "choice": "D",
         "text": "Set up Amazon ElastiCache for Memcached between the DynamoDB table and the web application. Route all read requests through Memcached.",
-        "reason": "This choice misses a key requirement, is less managed, or is less cost-effective than the correct answer."
+        "reason": "This option is weaker because it misses at least one keyword in the question, usually least operational overhead, high availability, private connectivity, compatibility, or cost-effectiveness. The correct answer uses the AWS service that directly matches the requirement."
       }
     ],
     "services": [
       {
         "name": "ElastiCache",
-        "definition": "Managed in-memory caching service for Redis or Memcached."
+        "definition": "Managed in-memory cache using Redis or Memcached. It reduces read latency for supported application patterns but usually requires app changes."
       },
       {
         "name": "AWS Lambda",
-        "definition": "Serverless compute that runs code without managing servers."
+        "definition": "Serverless compute for short-running code. Good for event-driven tasks, but not ideal for long-running jobs beyond Lambda limits."
       },
       {
         "name": "DynamoDB",
-        "definition": "Managed NoSQL key-value and document database."
+        "definition": "Fully managed NoSQL key-value/document database. It scales automatically and is highly available, but it is not a relational SQL database."
       },
       {
         "name": "DAX",
-        "definition": "DynamoDB Accelerator, an in-memory cache for DynamoDB."
+        "definition": "DynamoDB Accelerator, a managed in-memory cache for DynamoDB. It gives microsecond read latency with small application endpoint changes."
       }
-    ]
+    ],
+    "examTip": "Exam clue: match the service to the main requirement, then eliminate answers that add manual work, change the application model, or solve a different problem."
   },
   {
     "id": 23,
@@ -1104,29 +1130,30 @@ const QUESTIONS = [
       {
         "choice": "A",
         "text": "Change the setup from a Single-AZ to a Multi-AZ instance deployment with a larger secondary standby instance. Provide the data scientists with a single read replica.",
-        "reason": "Single-AZ does not meet the high availability requirement."
+        "reason": "This fails the high availability requirement. Single-AZ places the database in one Availability Zone, so an AZ or instance failure can cause downtime."
       },
       {
         "choice": "C",
         "text": "Scale the existing production database in a maintenance window to provide enough power for the data scientists.",
-        "reason": "This choice misses a key requirement, is less managed, or is less cost-effective than the correct answer."
+        "reason": "This option is weaker because it misses at least one keyword in the question, usually least operational overhead, high availability, private connectivity, compatibility, or cost-effectiveness. The correct answer uses the AWS service that directly matches the requirement."
       },
       {
         "choice": "D",
         "text": "Change the setup from a Single-AZ to a Multi-AZ instance deployment. Provide two additional read replicas for the data scientists.",
-        "reason": "Single-AZ does not meet the high availability requirement."
+        "reason": "This fails the high availability requirement. Single-AZ places the database in one Availability Zone, so an AZ or instance failure can cause downtime."
       }
     ],
     "services": [
       {
         "name": "Amazon RDS",
-        "definition": "Managed relational database service for engines like MySQL, PostgreSQL, Oracle, and SQL Server."
+        "definition": "Managed relational database service. AWS handles database provisioning, patching, backups, Multi-AZ options, and common admin tasks for engines like MySQL, PostgreSQL, Oracle, and SQL Server."
       },
       {
         "name": "RDS",
-        "definition": "Managed relational database service for relational databases."
+        "definition": "Managed relational database service. On the exam, choose RDS when the workload needs a traditional relational database without managing the database server yourself."
       }
-    ]
+    ],
+    "examTip": "Exam clue: high availability usually means multiple Availability Zones, managed failover, or a managed Multi-AZ design."
   },
   {
     "id": 24,
@@ -1147,36 +1174,41 @@ const QUESTIONS = [
       {
         "choice": "C",
         "text": "Use Amazon Route 53 to route traffic to different EC2 instances.",
-        "reason": "This can work in some designs, but it requires more server management than the managed/serverless option."
+        "reason": "This option is weaker because it misses at least one keyword in the question, usually least operational overhead, high availability, private connectivity, compatibility, or cost-effectiveness. The correct answer uses the AWS service that directly matches the requirement."
       },
       {
         "choice": "D",
         "text": "Add more EC2 instances to accommodate the increasing amount of incoming data.",
-        "reason": "This can work in some designs, but it requires more server management than the managed/serverless option."
+        "reason": "This option is weaker because it misses at least one keyword in the question, usually least operational overhead, high availability, private connectivity, compatibility, or cost-effectiveness. The correct answer uses the AWS service that directly matches the requirement."
       }
     ],
     "services": [
       {
         "name": "Amazon S3",
-        "definition": "Object storage for durable, scalable storage of files and data."
+        "definition": "Highly durable object storage for files, logs, backups, static assets, and data lakes. It is not block storage or a mounted file system by default."
       },
       {
         "name": "EC2",
-        "definition": "Virtual servers in AWS."
+        "definition": "Virtual servers in AWS. Flexible, but you manage more operating system and scaling details than with serverless or fully managed services."
       },
       {
         "name": "Kinesis Data Firehose",
-        "definition": "Managed delivery stream that loads streaming data into destinations like S3 and Redshift."
+        "definition": "Managed delivery service that loads streaming data into destinations like S3, Redshift, OpenSearch, or Splunk with very little operations work."
       },
       {
         "name": "Route 53",
-        "definition": "DNS and health-check service."
+        "definition": "AWS DNS service with routing policies and health checks, often used for failover between Regions."
       },
       {
         "name": "Glue",
-        "definition": "Managed ETL and data integration service."
+        "definition": "Managed serverless data integration and ETL service. Commonly used to transform files and load/query data lakes and warehouses."
+      },
+      {
+        "name": "API Gateway",
+        "definition": "Managed service for creating and securing APIs at scale without managing API servers."
       }
-    ]
+    ],
+    "examTip": "Exam clue: match the service to the main requirement, then eliminate answers that add manual work, change the application model, or solve a different problem."
   },
   {
     "id": 25,
@@ -1196,45 +1228,46 @@ const QUESTIONS = [
       {
         "choice": "B",
         "text": "Create an AWS Key Management Service (AWS KMS) customer managed key. Allow the EC2 role to use the KMS key for encryption operations. Store the encrypted data on Amazon Elastic Block Store (Amazon EBS) volumes.",
-        "reason": "This adds more manual work or custom maintenance, so it is not the least operational overhead choice."
+        "reason": "This can be made to work, but it creates custom operational work such as scheduling, monitoring, failure handling, and cleanup. The exam usually prefers the managed AWS feature when it directly meets the requirement."
       },
       {
         "choice": "C",
         "text": "Create an AWS Lambda function that uses the Python cryptography library to receive and perform encryption operations. Store the function in an Amazon S3 bucket.",
-        "reason": "This choice misses a key requirement, is less managed, or is less cost-effective than the correct answer."
+        "reason": "This option is weaker because it misses at least one keyword in the question, usually least operational overhead, high availability, private connectivity, compatibility, or cost-effectiveness. The correct answer uses the AWS service that directly matches the requirement."
       },
       {
         "choice": "D",
         "text": "Create AWS Secrets Manager secrets for encrypted certificates. Manually update the certificates as needed. Control access to the data by using fine-grained IAM access.",
-        "reason": "This adds more manual work or custom maintenance, so it is not the least operational overhead choice."
+        "reason": "This can be made to work, but it creates custom operational work such as scheduling, monitoring, failure handling, and cleanup. The exam usually prefers the managed AWS feature when it directly meets the requirement."
       }
     ],
     "services": [
       {
         "name": "Amazon S3",
-        "definition": "Object storage for durable, scalable storage of files and data."
+        "definition": "Highly durable object storage for files, logs, backups, static assets, and data lakes. It is not block storage or a mounted file system by default."
       },
       {
         "name": "Amazon EBS",
-        "definition": "Block storage volumes for EC2 instances."
+        "definition": "Block storage volumes attached to EC2 instances. Use it when an instance needs disk-like storage, but standard EBS volumes are usually tied to one Availability Zone."
       },
       {
         "name": "EC2",
-        "definition": "Virtual servers in AWS."
+        "definition": "Virtual servers in AWS. Flexible, but you manage more operating system and scaling details than with serverless or fully managed services."
       },
       {
         "name": "AWS Lambda",
-        "definition": "Serverless compute that runs code without managing servers."
+        "definition": "Serverless compute for short-running code. Good for event-driven tasks, but not ideal for long-running jobs beyond Lambda limits."
       },
       {
         "name": "Secrets Manager",
-        "definition": "Secure secret storage with automatic rotation support."
+        "definition": "Secure service for storing, retrieving, and automatically rotating secrets such as database passwords."
       },
       {
         "name": "KMS",
-        "definition": "Key Management Service for creating and controlling encryption keys."
+        "definition": "Key Management Service. Creates and controls encryption keys used by AWS services and applications."
       }
-    ]
+    ],
+    "examTip": "Exam clue: when the question says least operational overhead, prefer the managed AWS feature that already solves the requirement over custom scripts, EC2 fleets, or manual work."
   },
   {
     "id": 26,
@@ -1254,20 +1287,21 @@ const QUESTIONS = [
       {
         "choice": "A",
         "text": "Use the compute optimized instance family for the application. Use the memory optimized instance family for the database.",
-        "reason": "This choice misses a key requirement, is less managed, or is less cost-effective than the correct answer."
+        "reason": "This option is weaker because it misses at least one keyword in the question, usually least operational overhead, high availability, private connectivity, compatibility, or cost-effectiveness. The correct answer uses the AWS service that directly matches the requirement."
       },
       {
         "choice": "C",
         "text": "Use the high performance computing (HPC) optimized instance family for the application. Use the memory optimized instance family for the database.",
-        "reason": "This choice misses a key requirement, is less managed, or is less cost-effective than the correct answer."
+        "reason": "This option is weaker because it misses at least one keyword in the question, usually least operational overhead, high availability, private connectivity, compatibility, or cost-effectiveness. The correct answer uses the AWS service that directly matches the requirement."
       },
       {
         "choice": "D",
         "text": "Use the storage optimized instance family for both the application and the database.",
-        "reason": "This choice misses a key requirement, is less managed, or is less cost-effective than the correct answer."
+        "reason": "This option is weaker because it misses at least one keyword in the question, usually least operational overhead, high availability, private connectivity, compatibility, or cost-effectiveness. The correct answer uses the AWS service that directly matches the requirement."
       }
     ],
-    "services": []
+    "services": [],
+    "examTip": "Exam clue: match the service to the main requirement, then eliminate answers that add manual work, change the application model, or solve a different problem."
   },
   {
     "id": 27,
@@ -1288,24 +1322,25 @@ const QUESTIONS = [
       {
         "choice": "A",
         "text": "Deploy AWS Snowball Edge to provision NFS mounts to on-premises servers.",
-        "reason": "This choice misses a key requirement, is less managed, or is less cost-effective than the correct answer."
+        "reason": "This option is weaker because it misses at least one keyword in the question, usually least operational overhead, high availability, private connectivity, compatibility, or cost-effectiveness. The correct answer uses the AWS service that directly matches the requirement."
       },
       {
         "choice": "C",
         "text": "Deploy Amazon Elastic File System (Amazon EFS) volumes and mount them to on-premises servers.",
-        "reason": "This choice misses a key requirement, is less managed, or is less cost-effective than the correct answer."
+        "reason": "This option is weaker because it misses at least one keyword in the question, usually least operational overhead, high availability, private connectivity, compatibility, or cost-effectiveness. The correct answer uses the AWS service that directly matches the requirement."
       }
     ],
     "services": [
       {
         "name": "Amazon EFS",
-        "definition": "Managed shared NFS file storage for Linux workloads."
+        "definition": "Managed shared NFS file system for Linux workloads. Multiple EC2 instances across Availability Zones can mount the same file system at the same time."
       },
       {
         "name": "Storage Gateway",
-        "definition": "Hybrid cloud storage service connecting on-premises apps to AWS storage."
+        "definition": "Hybrid cloud storage service that connects on-premises applications to AWS storage with local caching."
       }
-    ]
+    ],
+    "examTip": "Exam clue: match the service to the main requirement, then eliminate answers that add manual work, change the application model, or solve a different problem."
   },
   {
     "id": 28,
@@ -1325,49 +1360,50 @@ const QUESTIONS = [
       {
         "choice": "A",
         "text": "Create an ingestion service on Amazon EC2 instances that are spread across multiple Availability Zones. Configure the service to forward data to an Amazon RDS Multi-AZ database.",
-        "reason": "This can work in some designs, but it requires more server management than the managed/serverless option."
+        "reason": "This adds server management. You would have to manage instances, patching, scaling, and recovery, which conflicts with the low-operational-overhead requirement."
       },
       {
         "choice": "B",
         "text": "Place activity data in an Amazon S3 bucket. Configure Amazon S3 to run an AWS Lambda function on the data as the data arrives in the S3 bucket.",
-        "reason": "This choice misses a key requirement, is less managed, or is less cost-effective than the correct answer."
+        "reason": "This option is weaker because it misses at least one keyword in the question, usually least operational overhead, high availability, private connectivity, compatibility, or cost-effectiveness. The correct answer uses the AWS service that directly matches the requirement."
       },
       {
         "choice": "D",
         "text": "Send activity data to an Amazon Kinesis data stream. Configure the stream to deliver the data to an Amazon S3 bucket.",
-        "reason": "This choice misses a key requirement, is less managed, or is less cost-effective than the correct answer."
+        "reason": "This option is weaker because it misses at least one keyword in the question, usually least operational overhead, high availability, private connectivity, compatibility, or cost-effectiveness. The correct answer uses the AWS service that directly matches the requirement."
       }
     ],
     "services": [
       {
         "name": "Amazon RDS",
-        "definition": "Managed relational database service for engines like MySQL, PostgreSQL, Oracle, and SQL Server."
+        "definition": "Managed relational database service. AWS handles database provisioning, patching, backups, Multi-AZ options, and common admin tasks for engines like MySQL, PostgreSQL, Oracle, and SQL Server."
       },
       {
         "name": "RDS",
-        "definition": "Managed relational database service for relational databases."
+        "definition": "Managed relational database service. On the exam, choose RDS when the workload needs a traditional relational database without managing the database server yourself."
       },
       {
         "name": "Amazon S3",
-        "definition": "Object storage for durable, scalable storage of files and data."
+        "definition": "Highly durable object storage for files, logs, backups, static assets, and data lakes. It is not block storage or a mounted file system by default."
       },
       {
         "name": "Amazon Redshift",
-        "definition": "Managed data warehouse for SQL analytics at scale."
+        "definition": "Managed data warehouse built for large-scale SQL analytics and reporting. Best for analytical queries, not transactional application processing."
       },
       {
         "name": "EC2",
-        "definition": "Virtual servers in AWS."
+        "definition": "Virtual servers in AWS. Flexible, but you manage more operating system and scaling details than with serverless or fully managed services."
       },
       {
         "name": "AWS Lambda",
-        "definition": "Serverless compute that runs code without managing servers."
+        "definition": "Serverless compute for short-running code. Good for event-driven tasks, but not ideal for long-running jobs beyond Lambda limits."
       },
       {
         "name": "Kinesis Data Firehose",
-        "definition": "Managed delivery stream that loads streaming data into destinations like S3 and Redshift."
+        "definition": "Managed delivery service that loads streaming data into destinations like S3, Redshift, OpenSearch, or Splunk with very little operations work."
       }
-    ]
+    ],
+    "examTip": "Exam clue: when the question says least operational overhead, prefer the managed AWS feature that already solves the requirement over custom scripts, EC2 fleets, or manual work."
   },
   {
     "id": 29,
@@ -1387,37 +1423,38 @@ const QUESTIONS = [
       {
         "choice": "B",
         "text": "Store the data in Amazon S3 Glacier. Update the S3 Glacier vault policy to allow access to the application instances.",
-        "reason": "Glacier classes are for archive access and are not ideal when objects must be immediately available."
+        "reason": "S3 Glacier classes are optimized for archival storage. They are cheaper, but retrieval is not the same as immediate, frequent access, so this misses the readily available requirement."
       },
       {
         "choice": "C",
         "text": "Store the data in an Amazon Elastic Block Store (Amazon EBS) volume. Mount the EBS volume on the application instances.",
-        "reason": "This choice misses a key requirement, is less managed, or is less cost-effective than the correct answer."
+        "reason": "This option is weaker because it misses at least one keyword in the question, usually least operational overhead, high availability, private connectivity, compatibility, or cost-effectiveness. The correct answer uses the AWS service that directly matches the requirement."
       },
       {
         "choice": "D",
         "text": "Store the data in an Amazon Elastic Block Store (Amazon EBS) Provisioned IOPS volume shared between the application instances.",
-        "reason": "This choice misses a key requirement, is less managed, or is less cost-effective than the correct answer."
+        "reason": "This option is weaker because it misses at least one keyword in the question, usually least operational overhead, high availability, private connectivity, compatibility, or cost-effectiveness. The correct answer uses the AWS service that directly matches the requirement."
       }
     ],
     "services": [
       {
         "name": "Amazon S3",
-        "definition": "Object storage for durable, scalable storage of files and data."
+        "definition": "Highly durable object storage for files, logs, backups, static assets, and data lakes. It is not block storage or a mounted file system by default."
       },
       {
         "name": "Amazon EBS",
-        "definition": "Block storage volumes for EC2 instances."
+        "definition": "Block storage volumes attached to EC2 instances. Use it when an instance needs disk-like storage, but standard EBS volumes are usually tied to one Availability Zone."
       },
       {
         "name": "EC2",
-        "definition": "Virtual servers in AWS."
+        "definition": "Virtual servers in AWS. Flexible, but you manage more operating system and scaling details than with serverless or fully managed services."
       },
       {
         "name": "Amazon EFS",
-        "definition": "Managed shared NFS file storage for Linux workloads."
+        "definition": "Managed shared NFS file system for Linux workloads. Multiple EC2 instances across Availability Zones can mount the same file system at the same time."
       }
-    ]
+    ],
+    "examTip": "Exam clue: match the service to the main requirement, then eliminate answers that add manual work, change the application model, or solve a different problem."
   },
   {
     "id": 30,
@@ -1437,53 +1474,58 @@ const QUESTIONS = [
       {
         "choice": "A",
         "text": "Use Amazon Inspector to perform threat detection and to update the AWS WAF rules. Create a VPC network ACL to limit access to the web application.",
-        "reason": "This choice misses a key requirement, is less managed, or is less cost-effective than the correct answer."
+        "reason": "Inspector focuses on vulnerability findings for workloads. GuardDuty is the managed threat detection service for suspicious behavior."
       },
       {
         "choice": "B",
         "text": "Use AWS Firewall Manager to perform threat detection. Configure Amazon EventBridge to filter for Firewall Manager findings and to invoke an AWS Lambda function to adjust the AWS WAF web ACL.",
-        "reason": "This choice misses a key requirement, is less managed, or is less cost-effective than the correct answer."
+        "reason": "This option is weaker because it misses at least one keyword in the question, usually least operational overhead, high availability, private connectivity, compatibility, or cost-effectiveness. The correct answer uses the AWS service that directly matches the requirement."
       },
       {
         "choice": "D",
         "text": "Use Amazon Macie to perform threat detection and to update the AWS WAF rules. Create a VPC network ACL to limit access to the web application.",
-        "reason": "This choice misses a key requirement, is less managed, or is less cost-effective than the correct answer."
+        "reason": "Macie discovers sensitive data in S3. It is not the main service for broad suspicious activity and threat detection."
       }
     ],
     "services": [
       {
         "name": "Amazon RDS",
-        "definition": "Managed relational database service for engines like MySQL, PostgreSQL, Oracle, and SQL Server."
+        "definition": "Managed relational database service. AWS handles database provisioning, patching, backups, Multi-AZ options, and common admin tasks for engines like MySQL, PostgreSQL, Oracle, and SQL Server."
       },
       {
         "name": "RDS",
-        "definition": "Managed relational database service for relational databases."
+        "definition": "Managed relational database service. On the exam, choose RDS when the workload needs a traditional relational database without managing the database server yourself."
       },
       {
         "name": "EC2",
-        "definition": "Virtual servers in AWS."
+        "definition": "Virtual servers in AWS. Flexible, but you manage more operating system and scaling details than with serverless or fully managed services."
       },
       {
         "name": "EventBridge",
-        "definition": "Event bus and scheduler for routing events and running scheduled tasks."
+        "definition": "Serverless event bus and scheduler. Useful for scheduled jobs and event-driven automation without running a cron server."
       },
       {
         "name": "AWS Lambda",
-        "definition": "Serverless compute that runs code without managing servers."
+        "definition": "Serverless compute for short-running code. Good for event-driven tasks, but not ideal for long-running jobs beyond Lambda limits."
       },
       {
         "name": "GuardDuty",
-        "definition": "Threat detection service for AWS accounts and workloads."
+        "definition": "Managed threat detection service that analyzes logs and behavior to find suspicious activity in AWS accounts and workloads."
       },
       {
         "name": "AWS WAF",
-        "definition": "Web application firewall for filtering HTTP/S traffic."
+        "definition": "Web application firewall for HTTP/S traffic. Protects ALB, CloudFront, and API Gateway from common web exploits like SQL injection and XSS."
       },
       {
         "name": "Macie",
-        "definition": "Sensitive data discovery service for S3."
+        "definition": "Managed sensitive data discovery service for S3. It identifies PII and other sensitive data."
+      },
+      {
+        "name": "Amazon Inspector",
+        "definition": "Vulnerability management service for EC2, container images, and Lambda. It is not a general WAF updater."
       }
-    ]
+    ],
+    "examTip": "Exam clue: match the service to the main requirement, then eliminate answers that add manual work, change the application model, or solve a different problem."
   },
   {
     "id": 31,
@@ -1503,33 +1545,34 @@ const QUESTIONS = [
       {
         "choice": "B",
         "text": "Create a new ALB that directs traffic to an Amazon EC2 instance running a third-party firewall, which then passes the traffic to the current ALB.",
-        "reason": "This choice misses a key requirement, is less managed, or is less cost-effective than the correct answer."
+        "reason": "This option is weaker because it misses at least one keyword in the question, usually least operational overhead, high availability, private connectivity, compatibility, or cost-effectiveness. The correct answer uses the AWS service that directly matches the requirement."
       },
       {
         "choice": "C",
         "text": "Deploy the application using Amazon S3 with public hosting enabled.",
-        "reason": "This choice misses a key requirement, is less managed, or is less cost-effective than the correct answer."
+        "reason": "This option is weaker because it misses at least one keyword in the question, usually least operational overhead, high availability, private connectivity, compatibility, or cost-effectiveness. The correct answer uses the AWS service that directly matches the requirement."
       },
       {
         "choice": "D",
         "text": "Deploy AWS Shield Advanced and add the ALB as a protected resource.",
-        "reason": "This choice misses a key requirement, is less managed, or is less cost-effective than the correct answer."
+        "reason": "Shield protects against DDoS attacks. SQL injection and cross-site scripting are application-layer web attacks handled by AWS WAF."
       }
     ],
     "services": [
       {
         "name": "Amazon S3",
-        "definition": "Object storage for durable, scalable storage of files and data."
+        "definition": "Highly durable object storage for files, logs, backups, static assets, and data lakes. It is not block storage or a mounted file system by default."
       },
       {
         "name": "EC2",
-        "definition": "Virtual servers in AWS."
+        "definition": "Virtual servers in AWS. Flexible, but you manage more operating system and scaling details than with serverless or fully managed services."
       },
       {
         "name": "AWS WAF",
-        "definition": "Web application firewall for filtering HTTP/S traffic."
+        "definition": "Web application firewall for HTTP/S traffic. Protects ALB, CloudFront, and API Gateway from common web exploits like SQL injection and XSS."
       }
-    ]
+    ],
+    "examTip": "Exam clue: match the service to the main requirement, then eliminate answers that add manual work, change the application model, or solve a different problem."
   },
   {
     "id": 32,
@@ -1549,29 +1592,30 @@ const QUESTIONS = [
       {
         "choice": "A",
         "text": "Create a VPC and an Amazon S3 interface endpoint. Route the AWS traffic from the on-premises network to the S3 interface endpoint.",
-        "reason": "This choice misses a key requirement, is less managed, or is less cost-effective than the correct answer."
+        "reason": "This option is weaker because it misses at least one keyword in the question, usually least operational overhead, high availability, private connectivity, compatibility, or cost-effectiveness. The correct answer uses the AWS service that directly matches the requirement."
       },
       {
         "choice": "B",
         "text": "Create a VPC peering connection between the on-premises network and Direct Connect. Route the AWS traffic over the peering connection.",
-        "reason": "This choice misses a key requirement, is less managed, or is less cost-effective than the correct answer."
+        "reason": "This option is weaker because it misses at least one keyword in the question, usually least operational overhead, high availability, private connectivity, compatibility, or cost-effectiveness. The correct answer uses the AWS service that directly matches the requirement."
       },
       {
         "choice": "C",
         "text": "Create a VPC and a NAT gateway. Route the AWS traffic from the on-premises network to the NAT gateway.",
-        "reason": "This does not keep traffic fully private to the AWS service or adds unnecessary network cost."
+        "reason": "A NAT gateway sends private subnet traffic out toward public AWS service endpoints and adds hourly/data processing cost. A VPC endpoint is the private, purpose-built answer."
       }
     ],
     "services": [
       {
         "name": "Amazon S3",
-        "definition": "Object storage for durable, scalable storage of files and data."
+        "definition": "Highly durable object storage for files, logs, backups, static assets, and data lakes. It is not block storage or a mounted file system by default."
       },
       {
         "name": "Direct Connect",
-        "definition": "Dedicated private network connection from on premises to AWS."
+        "definition": "Dedicated private network connection from on-premises locations to AWS. Used for consistent bandwidth and private connectivity."
       }
-    ]
+    ],
+    "examTip": "Exam clue: cost-effective usually means choosing the smallest managed service that directly fits the access pattern instead of overbuilding."
   },
   {
     "id": 33,
@@ -1591,37 +1635,38 @@ const QUESTIONS = [
       {
         "choice": "A",
         "text": "Use AWS CloudFormation templates to create accounts in Organizations. Use the drift detection operation on a stack to identify the changes to the OU hierarchy.",
-        "reason": "This choice misses a key requirement, is less managed, or is less cost-effective than the correct answer."
+        "reason": "This option is weaker because it misses at least one keyword in the question, usually least operational overhead, high availability, private connectivity, compatibility, or cost-effectiveness. The correct answer uses the AWS service that directly matches the requirement."
       },
       {
         "choice": "B",
         "text": "Provision the AWS accounts by using AWS Control Tower. Use AWS Config aggregated rules to identify the changes to the OU hierarchy.",
-        "reason": "This choice misses a key requirement, is less managed, or is less cost-effective than the correct answer."
+        "reason": "This option is weaker because it misses at least one keyword in the question, usually least operational overhead, high availability, private connectivity, compatibility, or cost-effectiveness. The correct answer uses the AWS service that directly matches the requirement."
       },
       {
         "choice": "C",
         "text": "Use AWS Service Catalog to create accounts in Organizations. Use an AWS CloudTrail organization trail to identify the changes to the OU hierarchy.",
-        "reason": "This choice misses a key requirement, is less managed, or is less cost-effective than the correct answer."
+        "reason": "This option is weaker because it misses at least one keyword in the question, usually least operational overhead, high availability, private connectivity, compatibility, or cost-effectiveness. The correct answer uses the AWS service that directly matches the requirement."
       }
     ],
     "services": [
       {
         "name": "AWS Organizations",
-        "definition": "Central management for multiple AWS accounts."
+        "definition": "Central management service for multiple AWS accounts. Supports service control policies for account guardrails."
       },
       {
         "name": "CloudFormation",
-        "definition": "Infrastructure as code service for provisioning AWS resources."
+        "definition": "Infrastructure as code service. It provisions AWS resources from templates so environments can be recreated consistently."
       },
       {
         "name": "AWS Config",
-        "definition": "Tracks resource configuration and compliance over time."
+        "definition": "Tracks resource configuration history and compliance. Good for auditing changes and detecting noncompliant resources."
       },
       {
         "name": "Control Tower",
-        "definition": "Governance service for setting up and managing multi-account AWS environments."
+        "definition": "Managed landing zone and account governance service for AWS Organizations. It can detect drift from governed account structures."
       }
-    ]
+    ],
+    "examTip": "Exam clue: when the question says least operational overhead, prefer the managed AWS feature that already solves the requirement over custom scripts, EC2 fleets, or manual work."
   },
   {
     "id": 34,
@@ -1641,29 +1686,30 @@ const QUESTIONS = [
       {
         "choice": "A",
         "text": "Request an Amazon issued private certificate from AWS Certificate Manager (ACM) in the us-west-1 Region.",
-        "reason": "This choice misses a key requirement, is less managed, or is less cost-effective than the correct answer."
+        "reason": "This option is weaker because it misses at least one keyword in the question, usually least operational overhead, high availability, private connectivity, compatibility, or cost-effectiveness. The correct answer uses the AWS service that directly matches the requirement."
       },
       {
         "choice": "B",
         "text": "Request an Amazon issued public certificate from AWS Certificate Manager (ACM) in the us-west-1 Region.",
-        "reason": "This choice misses a key requirement, is less managed, or is less cost-effective than the correct answer."
+        "reason": "This option is weaker because it misses at least one keyword in the question, usually least operational overhead, high availability, private connectivity, compatibility, or cost-effectiveness. The correct answer uses the AWS service that directly matches the requirement."
       },
       {
         "choice": "C",
         "text": "Request an Amazon issued private certificate from AWS Certificate Manager (ACM) in the us-east-1 Region.",
-        "reason": "This choice misses a key requirement, is less managed, or is less cost-effective than the correct answer."
+        "reason": "This option is weaker because it misses at least one keyword in the question, usually least operational overhead, high availability, private connectivity, compatibility, or cost-effectiveness. The correct answer uses the AWS service that directly matches the requirement."
       }
     ],
     "services": [
       {
         "name": "ACM",
-        "definition": "AWS Certificate Manager for provisioning and renewing TLS certificates."
+        "definition": "AWS Certificate Manager. Provisions, manages, and renews public TLS certificates for supported AWS services."
       },
       {
         "name": "CloudFront",
-        "definition": "Global content delivery network."
+        "definition": "Global content delivery network. Caches and serves web content close to users and supports signed URLs/cookies for private content."
       }
-    ]
+    ],
+    "examTip": "Exam clue: cost-effective usually means choosing the smallest managed service that directly fits the access pattern instead of overbuilding."
   },
   {
     "id": 35,
@@ -1684,48 +1730,53 @@ const QUESTIONS = [
       {
         "choice": "B",
         "text": "Configure an Amazon API Gateway REST API with a usage plan.",
-        "reason": "This choice misses a key requirement, is less managed, or is less cost-effective than the correct answer."
+        "reason": "This option is weaker because it misses at least one keyword in the question, usually least operational overhead, high availability, private connectivity, compatibility, or cost-effectiveness. The correct answer uses the AWS service that directly matches the requirement."
       },
       {
         "choice": "C",
         "text": "Configure an AWS Lambda function to retry the ticket purchases until the processing is complete.",
-        "reason": "This choice misses a key requirement, is less managed, or is less cost-effective than the correct answer."
+        "reason": "This option is weaker because it misses at least one keyword in the question, usually least operational overhead, high availability, private connectivity, compatibility, or cost-effectiveness. The correct answer uses the AWS service that directly matches the requirement."
       }
     ],
     "services": [
       {
         "name": "Amazon RDS",
-        "definition": "Managed relational database service for engines like MySQL, PostgreSQL, Oracle, and SQL Server."
+        "definition": "Managed relational database service. AWS handles database provisioning, patching, backups, Multi-AZ options, and common admin tasks for engines like MySQL, PostgreSQL, Oracle, and SQL Server."
       },
       {
         "name": "RDS",
-        "definition": "Managed relational database service for relational databases."
+        "definition": "Managed relational database service. On the exam, choose RDS when the workload needs a traditional relational database without managing the database server yourself."
       },
       {
         "name": "EC2",
-        "definition": "Virtual servers in AWS."
+        "definition": "Virtual servers in AWS. Flexible, but you manage more operating system and scaling details than with serverless or fully managed services."
       },
       {
         "name": "Auto Scaling",
-        "definition": "Automatically adjusts capacity to match demand."
+        "definition": "Automatically adjusts compute capacity based on demand, schedules, or forecasts. Commonly used with EC2 Auto Scaling groups."
       },
       {
         "name": "AWS Lambda",
-        "definition": "Serverless compute that runs code without managing servers."
+        "definition": "Serverless compute for short-running code. Good for event-driven tasks, but not ideal for long-running jobs beyond Lambda limits."
       },
       {
         "name": "SQS",
-        "definition": "Managed message queue for decoupling systems."
+        "definition": "Simple Queue Service. Durable message queue used to decouple producers and workers and smooth traffic spikes."
       },
       {
         "name": "Aurora",
-        "definition": "AWS cloud-native relational database compatible with MySQL and PostgreSQL."
+        "definition": "AWS cloud-native relational database compatible with MySQL and PostgreSQL. It supports read replicas, high availability, and autoscaling options."
       },
       {
         "name": "RDS Proxy",
-        "definition": "Managed database proxy that pools and manages application database connections."
+        "definition": "Managed database proxy that pools connections and protects RDS/Aurora databases from connection storms."
+      },
+      {
+        "name": "API Gateway",
+        "definition": "Managed service for creating and securing APIs at scale without managing API servers."
       }
-    ]
+    ],
+    "examTip": "Exam clue: cost-effective usually means choosing the smallest managed service that directly fits the access pattern instead of overbuilding."
   },
   {
     "id": 36,
@@ -1746,44 +1797,53 @@ const QUESTIONS = [
       {
         "choice": "A",
         "text": "Create an Auto Scaling group of Amazon EC2 instances to run a custom application that processes the scanned files and extracts the medical information.",
-        "reason": "This adds more manual work or custom maintenance, so it is not the least operational overhead choice."
+        "reason": "This can be made to work, but it creates custom operational work such as scheduling, monitoring, failure handling, and cleanup. The exam usually prefers the managed AWS feature when it directly meets the requirement."
       },
       {
         "choice": "D",
         "text": "Create an AWS Lambda function that runs when new documents are uploaded. Use Amazon Rekognition to convert the documents to raw text. Use Amazon Transcribe Medical to detect and extract relevant medical information from the text.",
-        "reason": "This choice misses a key requirement, is less managed, or is less cost-effective than the correct answer."
+        "reason": "Rekognition analyzes images/video, but Textract is the purpose-built service for extracting text and structure from documents."
       }
     ],
     "services": [
       {
         "name": "Amazon S3",
-        "definition": "Object storage for durable, scalable storage of files and data."
+        "definition": "Highly durable object storage for files, logs, backups, static assets, and data lakes. It is not block storage or a mounted file system by default."
       },
       {
         "name": "EC2",
-        "definition": "Virtual servers in AWS."
+        "definition": "Virtual servers in AWS. Flexible, but you manage more operating system and scaling details than with serverless or fully managed services."
       },
       {
         "name": "Auto Scaling",
-        "definition": "Automatically adjusts capacity to match demand."
+        "definition": "Automatically adjusts compute capacity based on demand, schedules, or forecasts. Commonly used with EC2 Auto Scaling groups."
       },
       {
         "name": "AWS Lambda",
-        "definition": "Serverless compute that runs code without managing servers."
+        "definition": "Serverless compute for short-running code. Good for event-driven tasks, but not ideal for long-running jobs beyond Lambda limits."
       },
       {
         "name": "Athena",
-        "definition": "Serverless SQL query service for data in S3."
+        "definition": "Serverless SQL query service for data in S3. Good for occasional analysis without running a database cluster."
       },
       {
         "name": "Textract",
-        "definition": "Extracts text and structured data from scanned documents and images."
+        "definition": "ML service that extracts text, handwriting, forms, and tables from scanned documents and images."
       },
       {
         "name": "Comprehend Medical",
-        "definition": "Detects medical information and PHI from text."
+        "definition": "ML service that detects medical entities and protected health information from text."
+      },
+      {
+        "name": "Amazon Rekognition",
+        "definition": "Image and video analysis service. It is not the best OCR choice for document text extraction."
+      },
+      {
+        "name": "Amazon Transcribe Medical",
+        "definition": "Speech-to-text for medical audio. It does not extract PHI from written PDFs/images."
       }
-    ]
+    ],
+    "examTip": "Exam clue: when the question says least operational overhead, prefer the managed AWS feature that already solves the requirement over custom scripts, EC2 fleets, or manual work."
   },
   {
     "id": 37,
@@ -1803,57 +1863,58 @@ const QUESTIONS = [
       {
         "choice": "A",
         "text": "Configure the Auto Scaling group to use multiple AWS Regions. Write the data from the application to Amazon S3. Use S3 Event Notifications to launch an AWS Lambda function to write the data to the database.",
-        "reason": "This choice misses a key requirement, is less managed, or is less cost-effective than the correct answer."
+        "reason": "This option is weaker because it misses at least one keyword in the question, usually least operational overhead, high availability, private connectivity, compatibility, or cost-effectiveness. The correct answer uses the AWS service that directly matches the requirement."
       },
       {
         "choice": "C",
         "text": "Configure the Auto Scaling group to use one Availability Zone. Generate hourly snapshots of the database. Recover the database from the snapshots in the event of a failure.",
-        "reason": "This choice misses a key requirement, is less managed, or is less cost-effective than the correct answer."
+        "reason": "This option is weaker because it misses at least one keyword in the question, usually least operational overhead, high availability, private connectivity, compatibility, or cost-effectiveness. The correct answer uses the AWS service that directly matches the requirement."
       },
       {
         "choice": "D",
         "text": "Place the EC2 instances in different AWS Regions. Use Amazon Route 53 health checks to redirect traffic. Use Aurora PostgreSQL Cross-Region Replication.",
-        "reason": "This can work in some designs, but it requires more server management than the managed/serverless option."
+        "reason": "This option is weaker because it misses at least one keyword in the question, usually least operational overhead, high availability, private connectivity, compatibility, or cost-effectiveness. The correct answer uses the AWS service that directly matches the requirement."
       }
     ],
     "services": [
       {
         "name": "Amazon RDS",
-        "definition": "Managed relational database service for engines like MySQL, PostgreSQL, Oracle, and SQL Server."
+        "definition": "Managed relational database service. AWS handles database provisioning, patching, backups, Multi-AZ options, and common admin tasks for engines like MySQL, PostgreSQL, Oracle, and SQL Server."
       },
       {
         "name": "RDS",
-        "definition": "Managed relational database service for relational databases."
+        "definition": "Managed relational database service. On the exam, choose RDS when the workload needs a traditional relational database without managing the database server yourself."
       },
       {
         "name": "Amazon S3",
-        "definition": "Object storage for durable, scalable storage of files and data."
+        "definition": "Highly durable object storage for files, logs, backups, static assets, and data lakes. It is not block storage or a mounted file system by default."
       },
       {
         "name": "EC2",
-        "definition": "Virtual servers in AWS."
+        "definition": "Virtual servers in AWS. Flexible, but you manage more operating system and scaling details than with serverless or fully managed services."
       },
       {
         "name": "Auto Scaling",
-        "definition": "Automatically adjusts capacity to match demand."
+        "definition": "Automatically adjusts compute capacity based on demand, schedules, or forecasts. Commonly used with EC2 Auto Scaling groups."
       },
       {
         "name": "AWS Lambda",
-        "definition": "Serverless compute that runs code without managing servers."
+        "definition": "Serverless compute for short-running code. Good for event-driven tasks, but not ideal for long-running jobs beyond Lambda limits."
       },
       {
         "name": "Aurora",
-        "definition": "AWS cloud-native relational database compatible with MySQL and PostgreSQL."
+        "definition": "AWS cloud-native relational database compatible with MySQL and PostgreSQL. It supports read replicas, high availability, and autoscaling options."
       },
       {
         "name": "RDS Proxy",
-        "definition": "Managed database proxy that pools and manages application database connections."
+        "definition": "Managed database proxy that pools connections and protects RDS/Aurora databases from connection storms."
       },
       {
         "name": "Route 53",
-        "definition": "DNS and health-check service."
+        "definition": "AWS DNS service with routing policies and health checks, often used for failover between Regions."
       }
-    ]
+    ],
+    "examTip": "Exam clue: high availability usually means multiple Availability Zones, managed failover, or a managed Multi-AZ design."
   },
   {
     "id": 38,
@@ -1873,41 +1934,42 @@ const QUESTIONS = [
       {
         "choice": "A",
         "text": "Create an AWS Lambda function that scans the DynamoDB table and uses Amazon Simple Queue Service (Amazon SQS) to send email messages to employees when necessary. Schedule this Lambda function to run every day.",
-        "reason": "SQS queues messages but does not directly send email notifications."
+        "reason": "SQS is a queue, not an email notification service. SNS can send email notifications directly through subscriptions."
       },
       {
         "choice": "B",
         "text": "Create a script that scans the DynamoDB table and uses Amazon Simple Queue Service (Amazon SQS) to send email messages to employees when necessary. Use a cron job to run this script every day on an Amazon EC2 instance.",
-        "reason": "This adds more manual work or custom maintenance, so it is not the least operational overhead choice."
+        "reason": "This can be made to work, but it creates custom operational work such as scheduling, monitoring, failure handling, and cleanup. The exam usually prefers the managed AWS feature when it directly meets the requirement."
       },
       {
         "choice": "D",
         "text": "Create a script that scans the DynamoDB table and uses Amazon Simple Notification Service (Amazon SNS) to send email messages to",
-        "reason": "This adds more manual work or custom maintenance, so it is not the least operational overhead choice."
+        "reason": "This can be made to work, but it creates custom operational work such as scheduling, monitoring, failure handling, and cleanup. The exam usually prefers the managed AWS feature when it directly meets the requirement."
       }
     ],
     "services": [
       {
         "name": "EC2",
-        "definition": "Virtual servers in AWS."
+        "definition": "Virtual servers in AWS. Flexible, but you manage more operating system and scaling details than with serverless or fully managed services."
       },
       {
         "name": "AWS Lambda",
-        "definition": "Serverless compute that runs code without managing servers."
+        "definition": "Serverless compute for short-running code. Good for event-driven tasks, but not ideal for long-running jobs beyond Lambda limits."
       },
       {
         "name": "DynamoDB",
-        "definition": "Managed NoSQL key-value and document database."
+        "definition": "Fully managed NoSQL key-value/document database. It scales automatically and is highly available, but it is not a relational SQL database."
       },
       {
         "name": "SNS",
-        "definition": "Pub/sub notification service that can fan out messages and send emails."
+        "definition": "Simple Notification Service. Pub/sub fanout and notifications, including email subscriptions. It does not hold jobs like a queue."
       },
       {
         "name": "SQS",
-        "definition": "Managed message queue for decoupling systems."
+        "definition": "Simple Queue Service. Durable message queue used to decouple producers and workers and smooth traffic spikes."
       }
-    ]
+    ],
+    "examTip": "Exam clue: when the question says least operational overhead, prefer the managed AWS feature that already solves the requirement over custom scripts, EC2 fleets, or manual work."
   },
   {
     "id": 39,
@@ -1927,41 +1989,46 @@ const QUESTIONS = [
       {
         "choice": "B",
         "text": "Use AWS Lambda with a new code that uses one of the supported languages. Create multiple Lambda functions to support the load. Use Amazon API Gateway as an entry point to the Lambda functions.",
-        "reason": "This choice misses a key requirement, is less managed, or is less cost-effective than the correct answer."
+        "reason": "This option is weaker because it misses at least one keyword in the question, usually least operational overhead, high availability, private connectivity, compatibility, or cost-effectiveness. The correct answer uses the AWS service that directly matches the requirement."
       },
       {
         "choice": "C",
         "text": "Use a high performance computing (HPC) solution such as AWS ParallelCluster to establish an HPC cluster that can process the incoming requests at the appropriate scale.",
-        "reason": "This choice misses a key requirement, is less managed, or is less cost-effective than the correct answer."
+        "reason": "This option is weaker because it misses at least one keyword in the question, usually least operational overhead, high availability, private connectivity, compatibility, or cost-effectiveness. The correct answer uses the AWS service that directly matches the requirement."
       },
       {
         "choice": "D",
         "text": "Use two Amazon EC2 instances to host the containerized web application. Use an Application Load Balancer to distribute the incoming requests.",
-        "reason": "This can work in some designs, but it requires more server management than the managed/serverless option."
+        "reason": "This adds server management. You would have to manage instances, patching, scaling, and recovery, which conflicts with the low-operational-overhead requirement."
       }
     ],
     "services": [
       {
         "name": "EC2",
-        "definition": "Virtual servers in AWS."
+        "definition": "Virtual servers in AWS. Flexible, but you manage more operating system and scaling details than with serverless or fully managed services."
       },
       {
         "name": "Auto Scaling",
-        "definition": "Automatically adjusts capacity to match demand."
+        "definition": "Automatically adjusts compute capacity based on demand, schedules, or forecasts. Commonly used with EC2 Auto Scaling groups."
       },
       {
         "name": "AWS Lambda",
-        "definition": "Serverless compute that runs code without managing servers."
+        "definition": "Serverless compute for short-running code. Good for event-driven tasks, but not ideal for long-running jobs beyond Lambda limits."
       },
       {
         "name": "Fargate",
-        "definition": "Serverless compute engine for containers on ECS or EKS."
+        "definition": "Serverless compute engine for containers on ECS or EKS. You run containers without managing EC2 instances."
       },
       {
         "name": "ECS",
-        "definition": "Container orchestration service for running Docker containers."
+        "definition": "Elastic Container Service. AWS container orchestration service for running and scaling containers."
+      },
+      {
+        "name": "API Gateway",
+        "definition": "Managed service for creating and securing APIs at scale without managing API servers."
       }
-    ]
+    ],
+    "examTip": "Exam clue: when the question says least operational overhead, prefer the managed AWS feature that already solves the requirement over custom scripts, EC2 fleets, or manual work."
   },
   {
     "id": 40,
@@ -1981,49 +2048,50 @@ const QUESTIONS = [
       {
         "choice": "A",
         "text": "Create an AWS CloudFormation template to create EC2 instances and a load balancer to be launched when needed. Configure the DynamoDB table as a global table. Configure DNS failover to point to the new disaster recovery Region's load balancer.",
-        "reason": "This can work in some designs, but it requires more server management than the managed/serverless option."
+        "reason": "This option is weaker because it misses at least one keyword in the question, usually least operational overhead, high availability, private connectivity, compatibility, or cost-effectiveness. The correct answer uses the AWS service that directly matches the requirement."
       },
       {
         "choice": "B",
         "text": "Create an Auto Scaling group and a load balancer in the disaster recovery Region. Configure the DynamoDB table as a global table.",
-        "reason": "This choice misses a key requirement, is less managed, or is less cost-effective than the correct answer."
+        "reason": "This option is weaker because it misses at least one keyword in the question, usually least operational overhead, high availability, private connectivity, compatibility, or cost-effectiveness. The correct answer uses the AWS service that directly matches the requirement."
       },
       {
         "choice": "C",
         "text": "Create an AWS CloudFormation template to create EC2 instances, load balancers, and DynamoDB tables to be launched when needed. Configure DNS failover to point to the new disaster recovery Region's load balancer.",
-        "reason": "This can work in some designs, but it requires more server management than the managed/serverless option."
+        "reason": "This option is weaker because it misses at least one keyword in the question, usually least operational overhead, high availability, private connectivity, compatibility, or cost-effectiveness. The correct answer uses the AWS service that directly matches the requirement."
       }
     ],
     "services": [
       {
         "name": "EC2",
-        "definition": "Virtual servers in AWS."
+        "definition": "Virtual servers in AWS. Flexible, but you manage more operating system and scaling details than with serverless or fully managed services."
       },
       {
         "name": "Auto Scaling",
-        "definition": "Automatically adjusts capacity to match demand."
+        "definition": "Automatically adjusts compute capacity based on demand, schedules, or forecasts. Commonly used with EC2 Auto Scaling groups."
       },
       {
         "name": "AWS Lambda",
-        "definition": "Serverless compute that runs code without managing servers."
+        "definition": "Serverless compute for short-running code. Good for event-driven tasks, but not ideal for long-running jobs beyond Lambda limits."
       },
       {
         "name": "CloudWatch",
-        "definition": "Monitoring and metrics service for AWS resources."
+        "definition": "Monitoring service for metrics, logs, alarms, and dashboards across AWS resources."
       },
       {
         "name": "DynamoDB",
-        "definition": "Managed NoSQL key-value and document database."
+        "definition": "Fully managed NoSQL key-value/document database. It scales automatically and is highly available, but it is not a relational SQL database."
       },
       {
         "name": "CloudFormation",
-        "definition": "Infrastructure as code service for provisioning AWS resources."
+        "definition": "Infrastructure as code service. It provisions AWS resources from templates so environments can be recreated consistently."
       },
       {
         "name": "Route 53",
-        "definition": "DNS and health-check service."
+        "definition": "AWS DNS service with routing policies and health checks, often used for failover between Regions."
       }
-    ]
+    ],
+    "examTip": "Exam clue: match the service to the main requirement, then eliminate answers that add manual work, change the application model, or solve a different problem."
   },
   {
     "id": 41,
@@ -2043,33 +2111,34 @@ const QUESTIONS = [
       {
         "choice": "B",
         "text": "Use a pre-built ML Amazon Machine Image (AMI) from the AWS Marketplace to build and train models. Use Amazon OpenSearch Service to visualize the data.",
-        "reason": "This choice misses a key requirement, is less managed, or is less cost-effective than the correct answer."
+        "reason": "This option is weaker because it misses at least one keyword in the question, usually least operational overhead, high availability, private connectivity, compatibility, or cost-effectiveness. The correct answer uses the AWS service that directly matches the requirement."
       },
       {
         "choice": "C",
         "text": "Use AWS Glue to create an ML transform to build and train models. Use Amazon OpenSearch Service to visualize the data.",
-        "reason": "This choice misses a key requirement, is less managed, or is less cost-effective than the correct answer."
+        "reason": "This option is weaker because it misses at least one keyword in the question, usually least operational overhead, high availability, private connectivity, compatibility, or cost-effectiveness. The correct answer uses the AWS service that directly matches the requirement."
       },
       {
         "choice": "D",
         "text": "Use Amazon QuickSight to build and train models by using calculated fields. Use Amazon QuickSight to visualize the data.",
-        "reason": "This choice misses a key requirement, is less managed, or is less cost-effective than the correct answer."
+        "reason": "This option is weaker because it misses at least one keyword in the question, usually least operational overhead, high availability, private connectivity, compatibility, or cost-effectiveness. The correct answer uses the AWS service that directly matches the requirement."
       }
     ],
     "services": [
       {
         "name": "QuickSight",
-        "definition": "Managed business intelligence and dashboard service."
+        "definition": "Managed BI and dashboard service. Used to visualize data from sources like Athena, S3, Redshift, and RDS."
       },
       {
         "name": "SageMaker",
-        "definition": "Managed machine learning service for building, training, and deploying models."
+        "definition": "Managed machine learning service for building, training, and deploying ML models."
       },
       {
         "name": "Glue",
-        "definition": "Managed ETL and data integration service."
+        "definition": "Managed serverless data integration and ETL service. Commonly used to transform files and load/query data lakes and warehouses."
       }
-    ]
+    ],
+    "examTip": "Exam clue: when the question says least operational overhead, prefer the managed AWS feature that already solves the requirement over custom scripts, EC2 fleets, or manual work."
   },
   {
     "id": 42,
@@ -2090,24 +2159,25 @@ const QUESTIONS = [
       {
         "choice": "B",
         "text": "Create an elastic network interface for the endpoint in each of the subnets of the VPC.",
-        "reason": "This choice misses a key requirement, is less managed, or is less cost-effective than the correct answer."
+        "reason": "This option is weaker because it misses at least one keyword in the question, usually least operational overhead, high availability, private connectivity, compatibility, or cost-effectiveness. The correct answer uses the AWS service that directly matches the requirement."
       },
       {
         "choice": "D",
         "text": "Create an interface endpoint for Amazon EC2.",
-        "reason": "This choice misses a key requirement, is less managed, or is less cost-effective than the correct answer."
+        "reason": "This option is weaker because it misses at least one keyword in the question, usually least operational overhead, high availability, private connectivity, compatibility, or cost-effectiveness. The correct answer uses the AWS service that directly matches the requirement."
       }
     ],
     "services": [
       {
         "name": "EC2",
-        "definition": "Virtual servers in AWS."
+        "definition": "Virtual servers in AWS. Flexible, but you manage more operating system and scaling details than with serverless or fully managed services."
       },
       {
         "name": "DynamoDB",
-        "definition": "Managed NoSQL key-value and document database."
+        "definition": "Fully managed NoSQL key-value/document database. It scales automatically and is highly available, but it is not a relational SQL database."
       }
-    ]
+    ],
+    "examTip": "Exam clue: match the service to the main requirement, then eliminate answers that add manual work, change the application model, or solve a different problem."
   },
   {
     "id": 43,
@@ -2127,41 +2197,42 @@ const QUESTIONS = [
       {
         "choice": "B",
         "text": "Share an Amazon CloudWatch dashboard that includes the requested table visual. Configure CloudWatch to use Amazon Athena to query the new report.",
-        "reason": "This choice misses a key requirement, is less managed, or is less cost-effective than the correct answer."
+        "reason": "This option is weaker because it misses at least one keyword in the question, usually least operational overhead, high availability, private connectivity, compatibility, or cost-effectiveness. The correct answer uses the AWS service that directly matches the requirement."
       },
       {
         "choice": "C",
         "text": "Share an Amazon CloudWatch dashboard that includes the requested table visual. Configure CloudWatch to use AWS DataSync to query the new report.",
-        "reason": "This choice misses a key requirement, is less managed, or is less cost-effective than the correct answer."
+        "reason": "This option is weaker because it misses at least one keyword in the question, usually least operational overhead, high availability, private connectivity, compatibility, or cost-effectiveness. The correct answer uses the AWS service that directly matches the requirement."
       },
       {
         "choice": "D",
         "text": "Share an Amazon QuickSight dashboard that includes the requested table visual. Configure QuickSight to use AWS DataSync to query the new report.",
-        "reason": "This choice misses a key requirement, is less managed, or is less cost-effective than the correct answer."
+        "reason": "This option is weaker because it misses at least one keyword in the question, usually least operational overhead, high availability, private connectivity, compatibility, or cost-effectiveness. The correct answer uses the AWS service that directly matches the requirement."
       }
     ],
     "services": [
       {
         "name": "Amazon S3",
-        "definition": "Object storage for durable, scalable storage of files and data."
+        "definition": "Highly durable object storage for files, logs, backups, static assets, and data lakes. It is not block storage or a mounted file system by default."
       },
       {
         "name": "CloudWatch",
-        "definition": "Monitoring and metrics service for AWS resources."
+        "definition": "Monitoring service for metrics, logs, alarms, and dashboards across AWS resources."
       },
       {
         "name": "AWS Organizations",
-        "definition": "Central management for multiple AWS accounts."
+        "definition": "Central management service for multiple AWS accounts. Supports service control policies for account guardrails."
       },
       {
         "name": "Athena",
-        "definition": "Serverless SQL query service for data in S3."
+        "definition": "Serverless SQL query service for data in S3. Good for occasional analysis without running a database cluster."
       },
       {
         "name": "QuickSight",
-        "definition": "Managed business intelligence and dashboard service."
+        "definition": "Managed BI and dashboard service. Used to visualize data from sources like Athena, S3, Redshift, and RDS."
       }
-    ]
+    ],
+    "examTip": "Exam clue: cost-effective usually means choosing the smallest managed service that directly fits the access pattern instead of overbuilding."
   },
   {
     "id": 44,
@@ -2181,33 +2252,34 @@ const QUESTIONS = [
       {
         "choice": "A",
         "text": "Create an Amazon SNS topic to send the jobs that need to be processed. Create an Amazon Machine Image (AMI) that consists of the processor application. Create a launch configuration that uses the AMI. Create an Auto Scaling group using the launch configuration. Set the scaling policy for the Auto Scaling group to add and remove nodes based on CPU usage.",
-        "reason": "SNS is pub/sub and does not durably hold work items like a queue."
+        "reason": "SNS is pub/sub fanout. It does not durably hold work items for workers the way SQS does, so it is weaker for job processing queues."
       },
       {
         "choice": "B",
         "text": "Create an Amazon SNS topic to send the jobs that need to be processed. Create an Amazon Machine Image (AMI) that consists of the processor application. Create a launch template that uses the AMI. Create an Auto Scaling group using the launch template. Set the scaling policy for the Auto Scaling group to add and remove nodes based on the number of messages published to the SNS topic.",
-        "reason": "SNS is pub/sub and does not durably hold work items like a queue."
+        "reason": "SNS is pub/sub fanout. It does not durably hold work items for workers the way SQS does, so it is weaker for job processing queues."
       },
       {
         "choice": "D",
         "text": "Create an Amazon SQS queue to hold the jobs that need to be processed. Create an Amazon Machine Image (AMI) that consists of the processor application. Create a launch configuration that uses the AMI. Create an Auto Scaling group using the launch configuration. Set the scaling policy for the Auto Scaling group to add and remove nodes based on network usage.",
-        "reason": "This choice misses a key requirement, is less managed, or is less cost-effective than the correct answer."
+        "reason": "This option is weaker because it misses at least one keyword in the question, usually least operational overhead, high availability, private connectivity, compatibility, or cost-effectiveness. The correct answer uses the AWS service that directly matches the requirement."
       }
     ],
     "services": [
       {
         "name": "Auto Scaling",
-        "definition": "Automatically adjusts capacity to match demand."
+        "definition": "Automatically adjusts compute capacity based on demand, schedules, or forecasts. Commonly used with EC2 Auto Scaling groups."
       },
       {
         "name": "SNS",
-        "definition": "Pub/sub notification service that can fan out messages and send emails."
+        "definition": "Simple Notification Service. Pub/sub fanout and notifications, including email subscriptions. It does not hold jobs like a queue."
       },
       {
         "name": "SQS",
-        "definition": "Managed message queue for decoupling systems."
+        "definition": "Simple Queue Service. Durable message queue used to decouple producers and workers and smooth traffic spikes."
       }
-    ]
+    ],
+    "examTip": "Exam clue: match the service to the main requirement, then eliminate answers that add manual work, change the application model, or solve a different problem."
   },
   {
     "id": 45,
@@ -2227,37 +2299,38 @@ const QUESTIONS = [
       {
         "choice": "A",
         "text": "Use an Amazon Cognito custom authorizer to authenticate users. Invoke an AWS Lambda function to generate a temporary SSH key.",
-        "reason": "This adds more manual work or custom maintenance, so it is not the least operational overhead choice."
+        "reason": "This can be made to work, but it creates custom operational work such as scheduling, monitoring, failure handling, and cleanup. The exam usually prefers the managed AWS feature when it directly meets the requirement."
       },
       {
         "choice": "C",
         "text": "Allow shared SSH access to a set of bastion instances. Configure all other instances to allow only SSH access from the bastion instances.",
-        "reason": "This choice misses a key requirement, is less managed, or is less cost-effective than the correct answer."
+        "reason": "This option is weaker because it misses at least one keyword in the question, usually least operational overhead, high availability, private connectivity, compatibility, or cost-effectiveness. The correct answer uses the AWS service that directly matches the requirement."
       },
       {
         "choice": "D",
         "text": "Use AWS Security Token Service (AWS STS) to generate one-time SSH keys on demand.",
-        "reason": "This choice misses a key requirement, is less managed, or is less cost-effective than the correct answer."
+        "reason": "This option is weaker because it misses at least one keyword in the question, usually least operational overhead, high availability, private connectivity, compatibility, or cost-effectiveness. The correct answer uses the AWS service that directly matches the requirement."
       }
     ],
     "services": [
       {
         "name": "EC2",
-        "definition": "Virtual servers in AWS."
+        "definition": "Virtual servers in AWS. Flexible, but you manage more operating system and scaling details than with serverless or fully managed services."
       },
       {
         "name": "AWS Lambda",
-        "definition": "Serverless compute that runs code without managing servers."
+        "definition": "Serverless compute for short-running code. Good for event-driven tasks, but not ideal for long-running jobs beyond Lambda limits."
       },
       {
         "name": "Systems Manager Session Manager",
-        "definition": "Secure browser/CLI access to instances without SSH keys."
+        "definition": "Secure instance access through AWS Systems Manager without opening SSH ports or managing shared SSH keys."
       },
       {
         "name": "Cognito",
-        "definition": "Managed user sign-up, sign-in, and authentication."
+        "definition": "Managed user identity service for sign-up, sign-in, and authentication in web and mobile apps."
       }
-    ]
+    ],
+    "examTip": "Exam clue: match the service to the main requirement, then eliminate answers that add manual work, change the application model, or solve a different problem."
   },
   {
     "id": 46,
@@ -2277,45 +2350,46 @@ const QUESTIONS = [
       {
         "choice": "B",
         "text": "Create an on-demand backup of the table by using the DynamoDB console. Store the backup in an Amazon S3 bucket. Set an S3 Lifecycle configuration for the S3 bucket.",
-        "reason": "This choice misses a key requirement, is less managed, or is less cost-effective than the correct answer."
+        "reason": "This option is weaker because it misses at least one keyword in the question, usually least operational overhead, high availability, private connectivity, compatibility, or cost-effectiveness. The correct answer uses the AWS service that directly matches the requirement."
       },
       {
         "choice": "C",
         "text": "Create an Amazon EventBridge (Amazon CloudWatch Events) rule to invoke an AWS Lambda function. Configure the Lambda function to back up the table and to store the backup in an Amazon S3 bucket. Set an S3 Lifecycle configuration for the S3 bucket.",
-        "reason": "This choice misses a key requirement, is less managed, or is less cost-effective than the correct answer."
+        "reason": "This option is weaker because it misses at least one keyword in the question, usually least operational overhead, high availability, private connectivity, compatibility, or cost-effectiveness. The correct answer uses the AWS service that directly matches the requirement."
       },
       {
         "choice": "D",
         "text": "Use DynamoDB point-in-time recovery to back up the table continuously.",
-        "reason": "This choice misses a key requirement, is less managed, or is less cost-effective than the correct answer."
+        "reason": "This option is weaker because it misses at least one keyword in the question, usually least operational overhead, high availability, private connectivity, compatibility, or cost-effectiveness. The correct answer uses the AWS service that directly matches the requirement."
       }
     ],
     "services": [
       {
         "name": "Amazon S3",
-        "definition": "Object storage for durable, scalable storage of files and data."
+        "definition": "Highly durable object storage for files, logs, backups, static assets, and data lakes. It is not block storage or a mounted file system by default."
       },
       {
         "name": "EventBridge",
-        "definition": "Event bus and scheduler for routing events and running scheduled tasks."
+        "definition": "Serverless event bus and scheduler. Useful for scheduled jobs and event-driven automation without running a cron server."
       },
       {
         "name": "AWS Lambda",
-        "definition": "Serverless compute that runs code without managing servers."
+        "definition": "Serverless compute for short-running code. Good for event-driven tasks, but not ideal for long-running jobs beyond Lambda limits."
       },
       {
         "name": "CloudWatch",
-        "definition": "Monitoring and metrics service for AWS resources."
+        "definition": "Monitoring service for metrics, logs, alarms, and dashboards across AWS resources."
       },
       {
         "name": "DynamoDB",
-        "definition": "Managed NoSQL key-value and document database."
+        "definition": "Fully managed NoSQL key-value/document database. It scales automatically and is highly available, but it is not a relational SQL database."
       },
       {
         "name": "AWS Backup",
-        "definition": "Centralized backup service for AWS resources."
+        "definition": "Centralized backup service for AWS resources with scheduled backup plans and retention policies."
       }
-    ]
+    ],
+    "examTip": "Exam clue: match the service to the main requirement, then eliminate answers that add manual work, change the application model, or solve a different problem."
   },
   {
     "id": 47,
@@ -2335,37 +2409,38 @@ const QUESTIONS = [
       {
         "choice": "B",
         "text": "Replicate the primary infrastructure in a second AWS Region. Use Amazon Route 53 to configure active-active failover. Create an Aurora database that is restored from the latest snapshot.",
-        "reason": "This choice misses a key requirement, is less managed, or is less cost-effective than the correct answer."
+        "reason": "This option is weaker because it misses at least one keyword in the question, usually least operational overhead, high availability, private connectivity, compatibility, or cost-effectiveness. The correct answer uses the AWS service that directly matches the requirement."
       },
       {
         "choice": "C",
         "text": "Back up data with AWS Backup. Use the backup to create the required infrastructure in a second AWS Region. Use Amazon Route 53 to configure active-passive failover. Create an Aurora second primary instance in the second Region.",
-        "reason": "This choice misses a key requirement, is less managed, or is less cost-effective than the correct answer."
+        "reason": "This option is weaker because it misses at least one keyword in the question, usually least operational overhead, high availability, private connectivity, compatibility, or cost-effectiveness. The correct answer uses the AWS service that directly matches the requirement."
       },
       {
         "choice": "D",
         "text": "Host a scaled-down deployment of the application in a second AWS Region. Use Amazon Route 53 to configure active-active failover. Create an Aurora Replica in the second Region.",
-        "reason": "This choice misses a key requirement, is less managed, or is less cost-effective than the correct answer."
+        "reason": "This option is weaker because it misses at least one keyword in the question, usually least operational overhead, high availability, private connectivity, compatibility, or cost-effectiveness. The correct answer uses the AWS service that directly matches the requirement."
       }
     ],
     "services": [
       {
         "name": "EC2",
-        "definition": "Virtual servers in AWS."
+        "definition": "Virtual servers in AWS. Flexible, but you manage more operating system and scaling details than with serverless or fully managed services."
       },
       {
         "name": "Aurora",
-        "definition": "AWS cloud-native relational database compatible with MySQL and PostgreSQL."
+        "definition": "AWS cloud-native relational database compatible with MySQL and PostgreSQL. It supports read replicas, high availability, and autoscaling options."
       },
       {
         "name": "AWS Backup",
-        "definition": "Centralized backup service for AWS resources."
+        "definition": "Centralized backup service for AWS resources with scheduled backup plans and retention policies."
       },
       {
         "name": "Route 53",
-        "definition": "DNS and health-check service."
+        "definition": "AWS DNS service with routing policies and health checks, often used for failover between Regions."
       }
-    ]
+    ],
+    "examTip": "Exam clue: match the service to the main requirement, then eliminate answers that add manual work, change the application model, or solve a different problem."
   },
   {
     "id": 48,
@@ -2386,45 +2461,46 @@ const QUESTIONS = [
       {
         "choice": "A",
         "text": "Use Amazon EC2 instances in an Auto Scaling group to process the data.",
-        "reason": "This can work in some designs, but it requires more server management than the managed/serverless option."
+        "reason": "This adds server management. You would have to manage instances, patching, scaling, and recovery, which conflicts with the low-operational-overhead requirement."
       },
       {
         "choice": "B",
         "text": "Use AWS Database Migration Service (AWS DMS) to ingest the data.",
-        "reason": "This choice misses a key requirement, is less managed, or is less cost-effective than the correct answer."
+        "reason": "This option is weaker because it misses at least one keyword in the question, usually least operational overhead, high availability, private connectivity, compatibility, or cost-effectiveness. The correct answer uses the AWS service that directly matches the requirement."
       },
       {
         "choice": "D",
         "text": "Use AWS Lambda with AWS Step Functions to process the data.",
-        "reason": "This choice misses a key requirement, is less managed, or is less cost-effective than the correct answer."
+        "reason": "Lambda is serverless, but it is not the best fit for this long-running workload. The job duration and predictable CPU/memory point more toward a container task such as ECS on Fargate."
       }
     ],
     "services": [
       {
         "name": "EC2",
-        "definition": "Virtual servers in AWS."
+        "definition": "Virtual servers in AWS. Flexible, but you manage more operating system and scaling details than with serverless or fully managed services."
       },
       {
         "name": "Auto Scaling",
-        "definition": "Automatically adjusts capacity to match demand."
+        "definition": "Automatically adjusts compute capacity based on demand, schedules, or forecasts. Commonly used with EC2 Auto Scaling groups."
       },
       {
         "name": "AWS Lambda",
-        "definition": "Serverless compute that runs code without managing servers."
+        "definition": "Serverless compute for short-running code. Good for event-driven tasks, but not ideal for long-running jobs beyond Lambda limits."
       },
       {
         "name": "DMS",
-        "definition": "Database Migration Service for moving databases to AWS."
+        "definition": "Database Migration Service. Helps migrate or replicate databases to AWS with minimal downtime."
       },
       {
         "name": "Fargate",
-        "definition": "Serverless compute engine for containers on ECS or EKS."
+        "definition": "Serverless compute engine for containers on ECS or EKS. You run containers without managing EC2 instances."
       },
       {
         "name": "ECS",
-        "definition": "Container orchestration service for running Docker containers."
+        "definition": "Elastic Container Service. AWS container orchestration service for running and scaling containers."
       }
-    ]
+    ],
+    "examTip": "Exam clue: match the service to the main requirement, then eliminate answers that add manual work, change the application model, or solve a different problem."
   },
   {
     "id": 49,
@@ -2444,29 +2520,30 @@ const QUESTIONS = [
       {
         "choice": "B",
         "text": "Use a CloudFront security policy to create a certificate.",
-        "reason": "This choice misses a key requirement, is less managed, or is less cost-effective than the correct answer."
+        "reason": "This option is weaker because it misses at least one keyword in the question, usually least operational overhead, high availability, private connectivity, compatibility, or cost-effectiveness. The correct answer uses the AWS service that directly matches the requirement."
       },
       {
         "choice": "C",
         "text": "Use a CloudFront origin access control (OAC) to create a certificate.",
-        "reason": "This choice misses a key requirement, is less managed, or is less cost-effective than the correct answer."
+        "reason": "This option is weaker because it misses at least one keyword in the question, usually least operational overhead, high availability, private connectivity, compatibility, or cost-effectiveness. The correct answer uses the AWS service that directly matches the requirement."
       },
       {
         "choice": "D",
         "text": "Use AWS Certificate Manager (ACM) to create a certificate. Use email validation for the domain.",
-        "reason": "This choice misses a key requirement, is less managed, or is less cost-effective than the correct answer."
+        "reason": "This option is weaker because it misses at least one keyword in the question, usually least operational overhead, high availability, private connectivity, compatibility, or cost-effectiveness. The correct answer uses the AWS service that directly matches the requirement."
       }
     ],
     "services": [
       {
         "name": "ACM",
-        "definition": "AWS Certificate Manager for provisioning and renewing TLS certificates."
+        "definition": "AWS Certificate Manager. Provisions, manages, and renews public TLS certificates for supported AWS services."
       },
       {
         "name": "CloudFront",
-        "definition": "Global content delivery network."
+        "definition": "Global content delivery network. Caches and serves web content close to users and supports signed URLs/cookies for private content."
       }
-    ]
+    ],
+    "examTip": "Exam clue: when the question says least operational overhead, prefer the managed AWS feature that already solves the requirement over custom scripts, EC2 fleets, or manual work."
   },
   {
     "id": 50,
@@ -2486,37 +2563,46 @@ const QUESTIONS = [
       {
         "choice": "A",
         "text": "Use existing Python libraries to extract the text from the reports and to identify the PHI from the extracted text.",
-        "reason": "This choice misses a key requirement, is less managed, or is less cost-effective than the correct answer."
+        "reason": "This option is weaker because it misses at least one keyword in the question, usually least operational overhead, high availability, private connectivity, compatibility, or cost-effectiveness. The correct answer uses the AWS service that directly matches the requirement."
       },
       {
         "choice": "B",
         "text": "Use Amazon Textract to extract the text from the reports. Use Amazon SageMaker to identify the PHI from the extracted text.",
-        "reason": "This choice misses a key requirement, is less managed, or is less cost-effective than the correct answer."
+        "reason": "This option is weaker because it misses at least one keyword in the question, usually least operational overhead, high availability, private connectivity, compatibility, or cost-effectiveness. The correct answer uses the AWS service that directly matches the requirement."
       },
       {
         "choice": "C",
         "text": "Use Amazon Rekognition to extract the text from the reports. Use Amazon Comprehend Medical to identify the PHI from the extracted text.",
-        "reason": "This choice misses a key requirement, is less managed, or is less cost-effective than the correct answer."
+        "reason": "Rekognition analyzes images/video, but Textract is the purpose-built service for extracting text and structure from documents."
       }
     ],
     "services": [
       {
         "name": "AWS Lambda",
-        "definition": "Serverless compute that runs code without managing servers."
+        "definition": "Serverless compute for short-running code. Good for event-driven tasks, but not ideal for long-running jobs beyond Lambda limits."
       },
       {
         "name": "Textract",
-        "definition": "Extracts text and structured data from scanned documents and images."
+        "definition": "ML service that extracts text, handwriting, forms, and tables from scanned documents and images."
       },
       {
         "name": "Comprehend Medical",
-        "definition": "Detects medical information and PHI from text."
+        "definition": "ML service that detects medical entities and protected health information from text."
       },
       {
         "name": "SageMaker",
-        "definition": "Managed machine learning service for building, training, and deploying models."
+        "definition": "Managed machine learning service for building, training, and deploying ML models."
+      },
+      {
+        "name": "API Gateway",
+        "definition": "Managed service for creating and securing APIs at scale without managing API servers."
+      },
+      {
+        "name": "Amazon Rekognition",
+        "definition": "Image and video analysis service. It is not the best OCR choice for document text extraction."
       }
-    ]
+    ],
+    "examTip": "Exam clue: when the question says least operational overhead, prefer the managed AWS feature that already solves the requirement over custom scripts, EC2 fleets, or manual work."
   },
   {
     "id": 51,
@@ -2536,33 +2622,34 @@ const QUESTIONS = [
       {
         "choice": "B",
         "text": "Launch EC2 instances in a secondary AWS Region. Keep the EC2 instances in the secondary Region active at all times.",
-        "reason": "This can work in some designs, but it requires more server management than the managed/serverless option."
+        "reason": "This option is weaker because it misses at least one keyword in the question, usually least operational overhead, high availability, private connectivity, compatibility, or cost-effectiveness. The correct answer uses the AWS service that directly matches the requirement."
       },
       {
         "choice": "C",
         "text": "Launch EC2 instances in a secondary Availability Zone. Keep the EC2 instances in the secondary Availability Zone active at all times.",
-        "reason": "This can work in some designs, but it requires more server management than the managed/serverless option."
+        "reason": "This option is weaker because it misses at least one keyword in the question, usually least operational overhead, high availability, private connectivity, compatibility, or cost-effectiveness. The correct answer uses the AWS service that directly matches the requirement."
       },
       {
         "choice": "D",
         "text": "Create Amazon Machine Images (AMIs) to back up the EC2 instances. Copy the AMIs to a secondary AWS Region. Automate infrastructure deployment in the secondary Region by using AWS Lambda and custom scripts.",
-        "reason": "This adds more manual work or custom maintenance, so it is not the least operational overhead choice."
+        "reason": "This can be made to work, but it creates custom operational work such as scheduling, monitoring, failure handling, and cleanup. The exam usually prefers the managed AWS feature when it directly meets the requirement."
       }
     ],
     "services": [
       {
         "name": "EC2",
-        "definition": "Virtual servers in AWS."
+        "definition": "Virtual servers in AWS. Flexible, but you manage more operating system and scaling details than with serverless or fully managed services."
       },
       {
         "name": "AWS Lambda",
-        "definition": "Serverless compute that runs code without managing servers."
+        "definition": "Serverless compute for short-running code. Good for event-driven tasks, but not ideal for long-running jobs beyond Lambda limits."
       },
       {
         "name": "CloudFormation",
-        "definition": "Infrastructure as code service for provisioning AWS resources."
+        "definition": "Infrastructure as code service. It provisions AWS resources from templates so environments can be recreated consistently."
       }
-    ]
+    ],
+    "examTip": "Exam clue: match the service to the main requirement, then eliminate answers that add manual work, change the application model, or solve a different problem."
   },
   {
     "id": 52,
@@ -2582,23 +2669,23 @@ const QUESTIONS = [
       {
         "choice": "A",
         "text": "Implement an interface VPC endpoint for Amazon SQS. Configure the endpoint to use the public subnets. Attach to the interface endpoint a public subnet.",
-        "reason": "This choice misses a key requirement, is less managed, or is less cost-effective than the correct answer."
+        "reason": "This option is weaker because it misses at least one keyword in the question, usually least operational overhead, high availability, private connectivity, compatibility, or cost-effectiveness. The correct answer uses the AWS service that directly matches the requirement."
       },
       {
         "choice": "B",
         "text": "Implement an interface VPC endpoint for Amazon SQS. Configure the endpoint to use the public subnets. Attach an Amazon SQS access policy to the interface VPC endpoint that allows requests from only a specified VPC endpoint.",
-        "reason": "This choice misses a key requirement, is less managed, or is less cost-effective than the correct answer."
+        "reason": "This option is weaker because it misses at least one keyword in the question, usually least operational overhead, high availability, private connectivity, compatibility, or cost-effectiveness. The correct answer uses the AWS service that directly matches the requirement."
       },
       {
         "choice": "C",
         "text": "Implement a gateway endpoint for Amazon SQS. Add a NAT gateway to the private subnets. Attach an IAM role to the EC2 instances that allows access to the SQS queue.",
-        "reason": "This can work in some designs, but it requires more server management than the managed/serverless option."
+        "reason": "A NAT gateway sends private subnet traffic out toward public AWS service endpoints and adds hourly/data processing cost. A VPC endpoint is the private, purpose-built answer."
       }
     ],
     "services": [
       {
         "name": "EC2",
-        "definition": "Virtual servers in AWS."
+        "definition": "Virtual servers in AWS. Flexible, but you manage more operating system and scaling details than with serverless or fully managed services."
       },
       {
         "name": "VPC endpoint",
@@ -2606,9 +2693,10 @@ const QUESTIONS = [
       },
       {
         "name": "SQS",
-        "definition": "Managed message queue for decoupling systems."
+        "definition": "Simple Queue Service. Durable message queue used to decouple producers and workers and smooth traffic spikes."
       }
-    ]
+    ],
+    "examTip": "Exam clue: match the service to the main requirement, then eliminate answers that add manual work, change the application model, or solve a different problem."
   },
   {
     "id": 53,
@@ -2628,29 +2716,30 @@ const QUESTIONS = [
       {
         "choice": "A",
         "text": "Configure a NAT gateway in the same subnet as the EC2 instances.",
-        "reason": "This can work in some designs, but it requires more server management than the managed/serverless option."
+        "reason": "A NAT gateway sends private subnet traffic out toward public AWS service endpoints and adds hourly/data processing cost. A VPC endpoint is the private, purpose-built answer."
       },
       {
         "choice": "B",
         "text": "Create an S3 bucket in the same AWS Region as the EC2 instances.",
-        "reason": "This can work in some designs, but it requires more server management than the managed/serverless option."
+        "reason": "This option is weaker because it misses at least one keyword in the question, usually least operational overhead, high availability, private connectivity, compatibility, or cost-effectiveness. The correct answer uses the AWS service that directly matches the requirement."
       },
       {
         "choice": "C",
         "text": "Create an S3 bucket in a private subnet.",
-        "reason": "This choice misses a key requirement, is less managed, or is less cost-effective than the correct answer."
+        "reason": "This option is weaker because it misses at least one keyword in the question, usually least operational overhead, high availability, private connectivity, compatibility, or cost-effectiveness. The correct answer uses the AWS service that directly matches the requirement."
       }
     ],
     "services": [
       {
         "name": "Amazon S3",
-        "definition": "Object storage for durable, scalable storage of files and data."
+        "definition": "Highly durable object storage for files, logs, backups, static assets, and data lakes. It is not block storage or a mounted file system by default."
       },
       {
         "name": "EC2",
-        "definition": "Virtual servers in AWS."
+        "definition": "Virtual servers in AWS. Flexible, but you manage more operating system and scaling details than with serverless or fully managed services."
       }
-    ]
+    ],
+    "examTip": "Exam clue: private access to AWS services from a VPC usually points to VPC endpoints. S3 and DynamoDB use gateway endpoints; many others, like SQS, use interface endpoints."
   },
   {
     "id": 54,
@@ -2670,37 +2759,42 @@ const QUESTIONS = [
       {
         "choice": "B",
         "text": "Configure AWS Security Hub for all Regions. Create an AWS Config rule to analyze the data that is in Amazon S3.",
-        "reason": "This choice misses a key requirement, is less managed, or is less cost-effective than the correct answer."
+        "reason": "This option is weaker because it misses at least one keyword in the question, usually least operational overhead, high availability, private connectivity, compatibility, or cost-effectiveness. The correct answer uses the AWS service that directly matches the requirement."
       },
       {
         "choice": "C",
         "text": "Configure Amazon Inspector to analyze the data that is in Amazon S3.",
-        "reason": "This choice misses a key requirement, is less managed, or is less cost-effective than the correct answer."
+        "reason": "This option is weaker because it misses at least one keyword in the question, usually least operational overhead, high availability, private connectivity, compatibility, or cost-effectiveness. The correct answer uses the AWS service that directly matches the requirement."
       },
       {
         "choice": "D",
         "text": "Configure Amazon GuardDuty to analyze the data that is in Amazon S3.",
-        "reason": "This choice misses a key requirement, is less managed, or is less cost-effective than the correct answer."
+        "reason": "This option is weaker because it misses at least one keyword in the question, usually least operational overhead, high availability, private connectivity, compatibility, or cost-effectiveness. The correct answer uses the AWS service that directly matches the requirement."
       }
     ],
     "services": [
       {
         "name": "Amazon S3",
-        "definition": "Object storage for durable, scalable storage of files and data."
+        "definition": "Highly durable object storage for files, logs, backups, static assets, and data lakes. It is not block storage or a mounted file system by default."
       },
       {
         "name": "AWS Config",
-        "definition": "Tracks resource configuration and compliance over time."
+        "definition": "Tracks resource configuration history and compliance. Good for auditing changes and detecting noncompliant resources."
       },
       {
         "name": "GuardDuty",
-        "definition": "Threat detection service for AWS accounts and workloads."
+        "definition": "Managed threat detection service that analyzes logs and behavior to find suspicious activity in AWS accounts and workloads."
       },
       {
         "name": "Macie",
-        "definition": "Sensitive data discovery service for S3."
+        "definition": "Managed sensitive data discovery service for S3. It identifies PII and other sensitive data."
+      },
+      {
+        "name": "Amazon Inspector",
+        "definition": "Vulnerability management service for EC2, container images, and Lambda. It is not a general WAF updater."
       }
-    ]
+    ],
+    "examTip": "Exam clue: when the question says least operational overhead, prefer the managed AWS feature that already solves the requirement over custom scripts, EC2 fleets, or manual work."
   },
   {
     "id": 55,
@@ -2720,49 +2814,54 @@ const QUESTIONS = [
       {
         "choice": "A",
         "text": "Create an Amazon Elastic Container Service (Amazon ECS) cluster with an Amazon EC2 launch type and an Auto Scaling group with at least on EC2 instance. Create an Amazon EventBridge Scheduled event to run the ECS task once a day.",
-        "reason": "This choice misses a key requirement, is less managed, or is less cost-effective than the correct answer."
+        "reason": "This option is weaker because it misses at least one keyword in the question, usually least operational overhead, high availability, private connectivity, compatibility, or cost-effectiveness. The correct answer uses the AWS service that directly matches the requirement."
       },
       {
         "choice": "B",
         "text": "Create an AWS Lambda function. Create an Amazon API Gateway HTTP API, and integrate the API with the function. Create an Amazon EventBridge rule to call the API Gateway endpoint on a schedule.",
-        "reason": "This choice misses a key requirement, is less managed, or is less cost-effective than the correct answer."
+        "reason": "Lambda is serverless, but it is not the best fit for this long-running workload. The job duration and predictable CPU/memory point more toward a container task such as ECS on Fargate."
       },
       {
         "choice": "D",
         "text": "Create an AWS Lambda function that has an Amazon EventBridge notification. Schedule the EventBridge event to run once a day.",
-        "reason": "This choice misses a key requirement, is less managed, or is less cost-effective than the correct answer."
+        "reason": "Lambda is serverless, but it is not the best fit for this long-running workload. The job duration and predictable CPU/memory point more toward a container task such as ECS on Fargate."
       }
     ],
     "services": [
       {
         "name": "Amazon S3",
-        "definition": "Object storage for durable, scalable storage of files and data."
+        "definition": "Highly durable object storage for files, logs, backups, static assets, and data lakes. It is not block storage or a mounted file system by default."
       },
       {
         "name": "EC2",
-        "definition": "Virtual servers in AWS."
+        "definition": "Virtual servers in AWS. Flexible, but you manage more operating system and scaling details than with serverless or fully managed services."
       },
       {
         "name": "Auto Scaling",
-        "definition": "Automatically adjusts capacity to match demand."
+        "definition": "Automatically adjusts compute capacity based on demand, schedules, or forecasts. Commonly used with EC2 Auto Scaling groups."
       },
       {
         "name": "EventBridge",
-        "definition": "Event bus and scheduler for routing events and running scheduled tasks."
+        "definition": "Serverless event bus and scheduler. Useful for scheduled jobs and event-driven automation without running a cron server."
       },
       {
         "name": "AWS Lambda",
-        "definition": "Serverless compute that runs code without managing servers."
+        "definition": "Serverless compute for short-running code. Good for event-driven tasks, but not ideal for long-running jobs beyond Lambda limits."
       },
       {
         "name": "Fargate",
-        "definition": "Serverless compute engine for containers on ECS or EKS."
+        "definition": "Serverless compute engine for containers on ECS or EKS. You run containers without managing EC2 instances."
       },
       {
         "name": "ECS",
-        "definition": "Container orchestration service for running Docker containers."
+        "definition": "Elastic Container Service. AWS container orchestration service for running and scaling containers."
+      },
+      {
+        "name": "API Gateway",
+        "definition": "Managed service for creating and securing APIs at scale without managing API servers."
       }
-    ]
+    ],
+    "examTip": "Exam clue: match the service to the main requirement, then eliminate answers that add manual work, change the application model, or solve a different problem."
   },
   {
     "id": 56,
@@ -2782,41 +2881,42 @@ const QUESTIONS = [
       {
         "choice": "B",
         "text": "Configure Amazon Cognito for authentication. Implement AWS Lambda for authorization. Use Amazon S3 Transfer Acceleration to serve the web application globally.",
-        "reason": "This choice misses a key requirement, is less managed, or is less cost-effective than the correct answer."
+        "reason": "This option is weaker because it misses at least one keyword in the question, usually least operational overhead, high availability, private connectivity, compatibility, or cost-effectiveness. The correct answer uses the AWS service that directly matches the requirement."
       },
       {
         "choice": "C",
         "text": "Configure AWS Directory Service for Microsoft Active Directory for authentication. Implement Lambda@Edge for authorization. Use AWS Elastic Beanstalk to serve the web application globally.",
-        "reason": "This choice misses a key requirement, is less managed, or is less cost-effective than the correct answer."
+        "reason": "This option is weaker because it misses at least one keyword in the question, usually least operational overhead, high availability, private connectivity, compatibility, or cost-effectiveness. The correct answer uses the AWS service that directly matches the requirement."
       },
       {
         "choice": "D",
         "text": "Configure AWS Directory Service for Microsoft Active Directory for authentication. Implement AWS Lambda for authorization. Use an Application Load Balancer to serve the web application globally.",
-        "reason": "This choice misses a key requirement, is less managed, or is less cost-effective than the correct answer."
+        "reason": "This option is weaker because it misses at least one keyword in the question, usually least operational overhead, high availability, private connectivity, compatibility, or cost-effectiveness. The correct answer uses the AWS service that directly matches the requirement."
       }
     ],
     "services": [
       {
         "name": "Amazon S3",
-        "definition": "Object storage for durable, scalable storage of files and data."
+        "definition": "Highly durable object storage for files, logs, backups, static assets, and data lakes. It is not block storage or a mounted file system by default."
       },
       {
         "name": "AWS Lambda",
-        "definition": "Serverless compute that runs code without managing servers."
+        "definition": "Serverless compute for short-running code. Good for event-driven tasks, but not ideal for long-running jobs beyond Lambda limits."
       },
       {
         "name": "CloudFront",
-        "definition": "Global content delivery network."
+        "definition": "Global content delivery network. Caches and serves web content close to users and supports signed URLs/cookies for private content."
       },
       {
         "name": "Cognito",
-        "definition": "Managed user sign-up, sign-in, and authentication."
+        "definition": "Managed user identity service for sign-up, sign-in, and authentication in web and mobile apps."
       },
       {
         "name": "Lambda@Edge",
-        "definition": "Runs Lambda code at CloudFront edge locations."
+        "definition": "Runs Lambda code at CloudFront edge locations for low-latency request/response customization and authorization logic."
       }
-    ]
+    ],
+    "examTip": "Exam clue: match the service to the main requirement, then eliminate answers that add manual work, change the application model, or solve a different problem."
   },
   {
     "id": 57,
@@ -2836,25 +2936,26 @@ const QUESTIONS = [
       {
         "choice": "B",
         "text": "Purchase Partial Upfront Reserved Instances for a 3-year term.",
-        "reason": "This choice misses a key requirement, is less managed, or is less cost-effective than the correct answer."
+        "reason": "Reserved Instances are less flexible for changing instance families and types. A Compute Savings Plan gives broader flexibility."
       },
       {
         "choice": "C",
         "text": "Purchase All Upfront Reserved Instances for a 1-year term.",
-        "reason": "This choice misses a key requirement, is less managed, or is less cost-effective than the correct answer."
+        "reason": "Reserved Instances are less flexible for changing instance families and types. A Compute Savings Plan gives broader flexibility."
       },
       {
         "choice": "D",
         "text": "Purchase an All Upfront EC2 Instance Savings Plan for a 1-year term.",
-        "reason": "This choice misses a key requirement, is less managed, or is less cost-effective than the correct answer."
+        "reason": "This option is weaker because it misses at least one keyword in the question, usually least operational overhead, high availability, private connectivity, compatibility, or cost-effectiveness. The correct answer uses the AWS service that directly matches the requirement."
       }
     ],
     "services": [
       {
         "name": "EC2",
-        "definition": "Virtual servers in AWS."
+        "definition": "Virtual servers in AWS. Flexible, but you manage more operating system and scaling details than with serverless or fully managed services."
       }
-    ]
+    ],
+    "examTip": "Exam clue: cost-effective usually means choosing the smallest managed service that directly fits the access pattern instead of overbuilding."
   },
   {
     "id": 58,
@@ -2874,25 +2975,26 @@ const QUESTIONS = [
       {
         "choice": "A",
         "text": "Set up three AWS Direct Connect connections from the data center to a Direct Connect gateway in us-east-1. Establish connectivity by configuring each VPC to use one of the Direct Connect connections.",
-        "reason": "This choice misses a key requirement, is less managed, or is less cost-effective than the correct answer."
+        "reason": "This option is weaker because it misses at least one keyword in the question, usually least operational overhead, high availability, private connectivity, compatibility, or cost-effectiveness. The correct answer uses the AWS service that directly matches the requirement."
       },
       {
         "choice": "C",
         "text": "Configure three AWS Site-to-Site VPN connections from the data center to AWS. Establish connectivity by configuring one VPN connection for each VPC.",
-        "reason": "This choice misses a key requirement, is less managed, or is less cost-effective than the correct answer."
+        "reason": "VPN is for network connectivity between networks, not for privately reaching an AWS service like S3/DynamoDB from inside a VPC when an endpoint exists."
       },
       {
         "choice": "D",
         "text": "Launch a third-party virtual network appliance in each VPC. Establish an IPsec VPN tunnel between the data center and each virtual appliance.",
-        "reason": "This choice misses a key requirement, is less managed, or is less cost-effective than the correct answer."
+        "reason": "VPN is for network connectivity between networks, not for privately reaching an AWS service like S3/DynamoDB from inside a VPC when an endpoint exists."
       }
     ],
     "services": [
       {
         "name": "Direct Connect",
-        "definition": "Dedicated private network connection from on premises to AWS."
+        "definition": "Dedicated private network connection from on-premises locations to AWS. Used for consistent bandwidth and private connectivity."
       }
-    ]
+    ],
+    "examTip": "Exam clue: cost-effective usually means choosing the smallest managed service that directly fits the access pattern instead of overbuilding."
   },
   {
     "id": 59,
@@ -2913,28 +3015,29 @@ const QUESTIONS = [
       {
         "choice": "A",
         "text": "Attach the SCP to the Organizations management account.",
-        "reason": "This choice misses a key requirement, is less managed, or is less cost-effective than the correct answer."
+        "reason": "This option is weaker because it misses at least one keyword in the question, usually least operational overhead, high availability, private connectivity, compatibility, or cost-effectiveness. The correct answer uses the AWS service that directly matches the requirement."
       },
       {
         "choice": "B",
         "text": "Attach the SCP to the root OU for the organization.",
-        "reason": "This choice misses a key requirement, is less managed, or is less cost-effective than the correct answer."
+        "reason": "This option is weaker because it misses at least one keyword in the question, usually least operational overhead, high availability, private connectivity, compatibility, or cost-effectiveness. The correct answer uses the AWS service that directly matches the requirement."
       }
     ],
     "services": [
       {
         "name": "EC2",
-        "definition": "Virtual servers in AWS."
+        "definition": "Virtual servers in AWS. Flexible, but you manage more operating system and scaling details than with serverless or fully managed services."
       },
       {
         "name": "AWS Organizations",
-        "definition": "Central management for multiple AWS accounts."
+        "definition": "Central management service for multiple AWS accounts. Supports service control policies for account guardrails."
       },
       {
         "name": "SCP",
-        "definition": "Service control policy that sets permission guardrails in AWS Organizations."
+        "definition": "Service Control Policy. An Organizations policy that sets maximum allowed permissions for accounts or OUs."
       }
-    ]
+    ],
+    "examTip": "Exam clue: match the service to the main requirement, then eliminate answers that add manual work, change the application model, or solve a different problem."
   },
   {
     "id": 60,
@@ -2954,49 +3057,50 @@ const QUESTIONS = [
       {
         "choice": "B",
         "text": "Create an AWS CloudFormation template to create EC2 instances, ELBs, and DynamoDB tables to be launched when necessary. Configure DNS failover to point to the new DR Region's ELB.",
-        "reason": "This can work in some designs, but it requires more server management than the managed/serverless option."
+        "reason": "This option is weaker because it misses at least one keyword in the question, usually least operational overhead, high availability, private connectivity, compatibility, or cost-effectiveness. The correct answer uses the AWS service that directly matches the requirement."
       },
       {
         "choice": "C",
         "text": "Create an AWS CloudFormation template to create EC2 instances and an ELB to be launched when necessary. Configure the DynamoDB table as a global table. Configure DNS failover to point to the new DR Region's ELB.",
-        "reason": "This can work in some designs, but it requires more server management than the managed/serverless option."
+        "reason": "This option is weaker because it misses at least one keyword in the question, usually least operational overhead, high availability, private connectivity, compatibility, or cost-effectiveness. The correct answer uses the AWS service that directly matches the requirement."
       },
       {
         "choice": "D",
         "text": "Create an Auto Scaling group and an ELB in the DR Region. Configure the DynamoDB table as a global table. Create an Amazon CloudWatch alarm with an evaluation period of 10 minutes to invoke an AWS Lambda function that updates Amazon Route 53 to point to the DR Region's ELB.",
-        "reason": "This choice misses a key requirement, is less managed, or is less cost-effective than the correct answer."
+        "reason": "This option is weaker because it misses at least one keyword in the question, usually least operational overhead, high availability, private connectivity, compatibility, or cost-effectiveness. The correct answer uses the AWS service that directly matches the requirement."
       }
     ],
     "services": [
       {
         "name": "EC2",
-        "definition": "Virtual servers in AWS."
+        "definition": "Virtual servers in AWS. Flexible, but you manage more operating system and scaling details than with serverless or fully managed services."
       },
       {
         "name": "Auto Scaling",
-        "definition": "Automatically adjusts capacity to match demand."
+        "definition": "Automatically adjusts compute capacity based on demand, schedules, or forecasts. Commonly used with EC2 Auto Scaling groups."
       },
       {
         "name": "AWS Lambda",
-        "definition": "Serverless compute that runs code without managing servers."
+        "definition": "Serverless compute for short-running code. Good for event-driven tasks, but not ideal for long-running jobs beyond Lambda limits."
       },
       {
         "name": "CloudWatch",
-        "definition": "Monitoring and metrics service for AWS resources."
+        "definition": "Monitoring service for metrics, logs, alarms, and dashboards across AWS resources."
       },
       {
         "name": "DynamoDB",
-        "definition": "Managed NoSQL key-value and document database."
+        "definition": "Fully managed NoSQL key-value/document database. It scales automatically and is highly available, but it is not a relational SQL database."
       },
       {
         "name": "CloudFormation",
-        "definition": "Infrastructure as code service for provisioning AWS resources."
+        "definition": "Infrastructure as code service. It provisions AWS resources from templates so environments can be recreated consistently."
       },
       {
         "name": "Route 53",
-        "definition": "DNS and health-check service."
+        "definition": "AWS DNS service with routing policies and health checks, often used for failover between Regions."
       }
-    ]
+    ],
+    "examTip": "Exam clue: match the service to the main requirement, then eliminate answers that add manual work, change the application model, or solve a different problem."
   },
   {
     "id": 61,
@@ -3017,32 +3121,33 @@ const QUESTIONS = [
       {
         "choice": "A",
         "text": "Review the Trusted Advisor checks for compute optimization. Crosscheck the results by using AWS Compute Optimizer.",
-        "reason": "This choice misses a key requirement, is less managed, or is less cost-effective than the correct answer."
+        "reason": "This option is weaker because it misses at least one keyword in the question, usually least operational overhead, high availability, private connectivity, compatibility, or cost-effectiveness. The correct answer uses the AWS service that directly matches the requirement."
       },
       {
         "choice": "C",
         "text": "Review the Trusted Advisor checks for Amazon RDS Idle DB Instances.",
-        "reason": "This choice misses a key requirement, is less managed, or is less cost-effective than the correct answer."
+        "reason": "This option is weaker because it misses at least one keyword in the question, usually least operational overhead, high availability, private connectivity, compatibility, or cost-effectiveness. The correct answer uses the AWS service that directly matches the requirement."
       }
     ],
     "services": [
       {
         "name": "Amazon RDS",
-        "definition": "Managed relational database service for engines like MySQL, PostgreSQL, Oracle, and SQL Server."
+        "definition": "Managed relational database service. AWS handles database provisioning, patching, backups, Multi-AZ options, and common admin tasks for engines like MySQL, PostgreSQL, Oracle, and SQL Server."
       },
       {
         "name": "RDS",
-        "definition": "Managed relational database service for relational databases."
+        "definition": "Managed relational database service. On the exam, choose RDS when the workload needs a traditional relational database without managing the database server yourself."
       },
       {
         "name": "AWS Organizations",
-        "definition": "Central management for multiple AWS accounts."
+        "definition": "Central management service for multiple AWS accounts. Supports service control policies for account guardrails."
       },
       {
         "name": "Trusted Advisor",
-        "definition": "AWS best-practice checks for cost, security, performance, and more."
+        "definition": "AWS best-practice checks for cost optimization, security, performance, fault tolerance, and service limits."
       }
-    ]
+    ],
+    "examTip": "Exam clue: cost-effective usually means choosing the smallest managed service that directly fits the access pattern instead of overbuilding."
   },
   {
     "id": 62,
@@ -3062,49 +3167,50 @@ const QUESTIONS = [
       {
         "choice": "A",
         "text": "Use AWS Trusted Advisor to check for certificates that will expire within 30 days. Create an Amazon CloudWatch alarm that is based on Trusted Advisor metrics for check status changes. Configure the alarm to send a custom alert by way of Amazon Simple Notification Service (Amazon SNS).",
-        "reason": "This adds more manual work or custom maintenance, so it is not the least operational overhead choice."
+        "reason": "This can be made to work, but it creates custom operational work such as scheduling, monitoring, failure handling, and cleanup. The exam usually prefers the managed AWS feature when it directly meets the requirement."
       },
       {
         "choice": "B",
         "text": "Create an Amazon EventBridge (Amazon CloudWatch Events) rule to detect any certificates that will expire within 30 days. Configure the rule to invoke an AWS Lambda function. Configure the Lambda function to send a custom alert by way of Amazon Simple Notification Service (Amazon SNS).",
-        "reason": "This adds more manual work or custom maintenance, so it is not the least operational overhead choice."
+        "reason": "This can be made to work, but it creates custom operational work such as scheduling, monitoring, failure handling, and cleanup. The exam usually prefers the managed AWS feature when it directly meets the requirement."
       },
       {
         "choice": "D",
         "text": "Add a rule in ACM to publish a custom message to an Amazon Simple Notification Service (Amazon SNS) topic every day, beginning 30 days before any certificate will expire.",
-        "reason": "This adds more manual work or custom maintenance, so it is not the least operational overhead choice."
+        "reason": "This can be made to work, but it creates custom operational work such as scheduling, monitoring, failure handling, and cleanup. The exam usually prefers the managed AWS feature when it directly meets the requirement."
       }
     ],
     "services": [
       {
         "name": "EventBridge",
-        "definition": "Event bus and scheduler for routing events and running scheduled tasks."
+        "definition": "Serverless event bus and scheduler. Useful for scheduled jobs and event-driven automation without running a cron server."
       },
       {
         "name": "AWS Lambda",
-        "definition": "Serverless compute that runs code without managing servers."
+        "definition": "Serverless compute for short-running code. Good for event-driven tasks, but not ideal for long-running jobs beyond Lambda limits."
       },
       {
         "name": "CloudWatch",
-        "definition": "Monitoring and metrics service for AWS resources."
+        "definition": "Monitoring service for metrics, logs, alarms, and dashboards across AWS resources."
       },
       {
         "name": "SNS",
-        "definition": "Pub/sub notification service that can fan out messages and send emails."
+        "definition": "Simple Notification Service. Pub/sub fanout and notifications, including email subscriptions. It does not hold jobs like a queue."
       },
       {
         "name": "AWS Config",
-        "definition": "Tracks resource configuration and compliance over time."
+        "definition": "Tracks resource configuration history and compliance. Good for auditing changes and detecting noncompliant resources."
       },
       {
         "name": "ACM",
-        "definition": "AWS Certificate Manager for provisioning and renewing TLS certificates."
+        "definition": "AWS Certificate Manager. Provisions, manages, and renews public TLS certificates for supported AWS services."
       },
       {
         "name": "Trusted Advisor",
-        "definition": "AWS best-practice checks for cost, security, performance, and more."
+        "definition": "AWS best-practice checks for cost optimization, security, performance, fault tolerance, and service limits."
       }
-    ]
+    ],
+    "examTip": "Exam clue: match the service to the main requirement, then eliminate answers that add manual work, change the application model, or solve a different problem."
   },
   {
     "id": 63,
@@ -3124,41 +3230,42 @@ const QUESTIONS = [
       {
         "choice": "A",
         "text": "Store the password in AWS Systems Manager Parameter Store. Enable automatic rotation on the parameter.",
-        "reason": "Parameter Store can store values, but it is not the simplest fully managed rotation choice for this database password requirement."
+        "reason": "Parameter Store can store secure strings, but it does not provide the same built-in database credential rotation workflow as Secrets Manager."
       },
       {
         "choice": "C",
         "text": "Store the password in AWS Key Management Service (AWS KMS). Enable automatic rotation on the AWS KMS key.",
-        "reason": "This choice misses a key requirement, is less managed, or is less cost-effective than the correct answer."
+        "reason": "KMS manages encryption keys, not database passwords. Rotating a KMS key is different from rotating the actual database credential."
       },
       {
         "choice": "D",
         "text": "Store the password in AWS Systems Manager Parameter Store. Write an AWS Lambda function that rotates the password.",
-        "reason": "Parameter Store can store values, but it is not the simplest fully managed rotation choice for this database password requirement."
+        "reason": "Parameter Store can store secure strings, but it does not provide the same built-in database credential rotation workflow as Secrets Manager."
       }
     ],
     "services": [
       {
         "name": "Amazon RDS",
-        "definition": "Managed relational database service for engines like MySQL, PostgreSQL, Oracle, and SQL Server."
+        "definition": "Managed relational database service. AWS handles database provisioning, patching, backups, Multi-AZ options, and common admin tasks for engines like MySQL, PostgreSQL, Oracle, and SQL Server."
       },
       {
         "name": "RDS",
-        "definition": "Managed relational database service for relational databases."
+        "definition": "Managed relational database service. On the exam, choose RDS when the workload needs a traditional relational database without managing the database server yourself."
       },
       {
         "name": "AWS Lambda",
-        "definition": "Serverless compute that runs code without managing servers."
+        "definition": "Serverless compute for short-running code. Good for event-driven tasks, but not ideal for long-running jobs beyond Lambda limits."
       },
       {
         "name": "Secrets Manager",
-        "definition": "Secure secret storage with automatic rotation support."
+        "definition": "Secure service for storing, retrieving, and automatically rotating secrets such as database passwords."
       },
       {
         "name": "KMS",
-        "definition": "Key Management Service for creating and controlling encryption keys."
+        "definition": "Key Management Service. Creates and controls encryption keys used by AWS services and applications."
       }
-    ]
+    ],
+    "examTip": "Exam clue: when the question says least operational overhead, prefer the managed AWS feature that already solves the requirement over custom scripts, EC2 fleets, or manual work."
   },
   {
     "id": 64,
@@ -3178,53 +3285,54 @@ const QUESTIONS = [
       {
         "choice": "A",
         "text": "Create an AWS Lambda function and an Amazon DynamoDB table. Use an S3 event to invoke the Lambda function. Configure the Lambda function to convert the .csv files to a format that the COTS application can process and store the output files in Amazon S3.",
-        "reason": "This choice misses a key requirement, is less managed, or is less cost-effective than the correct answer."
+        "reason": "This option is weaker because it misses at least one keyword in the question, usually least operational overhead, high availability, private connectivity, compatibility, or cost-effectiveness. The correct answer uses the AWS service that directly matches the requirement."
       },
       {
         "choice": "B",
         "text": "Use Amazon EventBridge to launch an Amazon EMR cluster on a weekly schedule. Configure the EMR cluster to perform an extract, transform, and load (ETL) job to process the .csv files and store the processed data in an Amazon Redshift table.",
-        "reason": "This choice misses a key requirement, is less managed, or is less cost-effective than the correct answer."
+        "reason": "This option is weaker because it misses at least one keyword in the question, usually least operational overhead, high availability, private connectivity, compatibility, or cost-effectiveness. The correct answer uses the AWS service that directly matches the requirement."
       },
       {
         "choice": "D",
         "text": "Develop a Python script that runs on Amazon EC2 instances to convert the .csv files to .sql files. Invoke the Python script on a cron schedule to store the output files in Amazon S3.",
-        "reason": "This adds more manual work or custom maintenance, so it is not the least operational overhead choice."
+        "reason": "This can be made to work, but it creates custom operational work such as scheduling, monitoring, failure handling, and cleanup. The exam usually prefers the managed AWS feature when it directly meets the requirement."
       }
     ],
     "services": [
       {
         "name": "Amazon EMR",
-        "definition": "Managed big data platform for distributed processing with Spark, Hadoop, and related tools."
+        "definition": "Managed big data platform for distributed processing with Spark, Hadoop, Hive, and Presto. Good for large-scale parallel processing of data in S3 and integration with services like Redshift."
       },
       {
         "name": "Amazon S3",
-        "definition": "Object storage for durable, scalable storage of files and data."
+        "definition": "Highly durable object storage for files, logs, backups, static assets, and data lakes. It is not block storage or a mounted file system by default."
       },
       {
         "name": "Amazon Redshift",
-        "definition": "Managed data warehouse for SQL analytics at scale."
+        "definition": "Managed data warehouse built for large-scale SQL analytics and reporting. Best for analytical queries, not transactional application processing."
       },
       {
         "name": "EC2",
-        "definition": "Virtual servers in AWS."
+        "definition": "Virtual servers in AWS. Flexible, but you manage more operating system and scaling details than with serverless or fully managed services."
       },
       {
         "name": "EventBridge",
-        "definition": "Event bus and scheduler for routing events and running scheduled tasks."
+        "definition": "Serverless event bus and scheduler. Useful for scheduled jobs and event-driven automation without running a cron server."
       },
       {
         "name": "AWS Lambda",
-        "definition": "Serverless compute that runs code without managing servers."
+        "definition": "Serverless compute for short-running code. Good for event-driven tasks, but not ideal for long-running jobs beyond Lambda limits."
       },
       {
         "name": "DynamoDB",
-        "definition": "Managed NoSQL key-value and document database."
+        "definition": "Fully managed NoSQL key-value/document database. It scales automatically and is highly available, but it is not a relational SQL database."
       },
       {
         "name": "Glue",
-        "definition": "Managed ETL and data integration service."
+        "definition": "Managed serverless data integration and ETL service. Commonly used to transform files and load/query data lakes and warehouses."
       }
-    ]
+    ],
+    "examTip": "Exam clue: when the question says least operational overhead, prefer the managed AWS feature that already solves the requirement over custom scripts, EC2 fleets, or manual work."
   },
   {
     "id": 65,
@@ -3244,28 +3352,29 @@ const QUESTIONS = [
       {
         "choice": "A",
         "text": "Generate and activate field-level encryption to block non-premium customers.",
-        "reason": "This adds more manual work or custom maintenance, so it is not the least operational overhead choice."
+        "reason": "This can be made to work, but it creates custom operational work such as scheduling, monitoring, failure handling, and cleanup. The exam usually prefers the managed AWS feature when it directly meets the requirement."
       },
       {
         "choice": "B",
         "text": "Generate and provide S3 signed cookies to premium customers.",
-        "reason": "This adds more manual work or custom maintenance, so it is not the least operational overhead choice."
+        "reason": "This can be made to work, but it creates custom operational work such as scheduling, monitoring, failure handling, and cleanup. The exam usually prefers the managed AWS feature when it directly meets the requirement."
       },
       {
         "choice": "D",
         "text": "Use origin access control (OAC) to limit the access of non-premium customers.",
-        "reason": "This adds more manual work or custom maintenance, so it is not the least operational overhead choice."
+        "reason": "This can be made to work, but it creates custom operational work such as scheduling, monitoring, failure handling, and cleanup. The exam usually prefers the managed AWS feature when it directly meets the requirement."
       }
     ],
     "services": [
       {
         "name": "Amazon S3",
-        "definition": "Object storage for durable, scalable storage of files and data."
+        "definition": "Highly durable object storage for files, logs, backups, static assets, and data lakes. It is not block storage or a mounted file system by default."
       },
       {
         "name": "CloudFront",
-        "definition": "Global content delivery network."
+        "definition": "Global content delivery network. Caches and serves web content close to users and supports signed URLs/cookies for private content."
       }
-    ]
+    ],
+    "examTip": "Exam clue: match the service to the main requirement, then eliminate answers that add manual work, change the application model, or solve a different problem."
   }
 ];
