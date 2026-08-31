@@ -37,6 +37,8 @@ main{max-width:820px;margin:auto;padding:18px 14px 110px} .card{background:var(-
 <div class="meta"><span id="num" class="pill"></span><span id="domain" class="pill"></span><span id="type" class="pill"></span></div>
 <div id="question" class="question"></div>
 <div id="choices"></div>
+<button id="checkbtn" class="primary" style="margin-top:14px;width:100%" onclick="checkCurrent()">Check Answer</button>
+<div id="feedback" class="hidden explain"></div>
 </div>
 <div style="margin-top:12px"><button id="reviewBtn" class="secondary" onclick="showReview()">Question Grid</button></div>
 </section>
@@ -75,6 +77,41 @@ function render(){
  const letter=document.createElement('b');letter.textContent=String.fromCharCode(65+idx)+'.';const span=document.createElement('span');span.textContent=c;lab.append(inp,letter,span);box.append(lab)});
  document.getElementById('flagbtn').classList.toggle('flagged',state.flags.includes(state.i));document.getElementById('flagbtn').textContent=state.flags.includes(state.i)?'★ Flagged':'☆ Flag';renderProgress();window.scrollTo(0,0)
 }
+
+function checkCurrent(){
+ const q=QUESTIONS[state.i];
+ const a=state.answers[state.i]||[];
+ const fb=document.getElementById('feedback');
+ const cb=document.getElementById('checkbtn');
+
+ if(!a.length){
+   fb.className='explain feedback-bad';
+   fb.innerHTML='<b>Choose an answer first.</b>';
+   return;
+ }
+
+ const ok=same(a,q.answer);
+ const correctLetters=q.answer.map(x=>String.fromCharCode(65+x)).join(', ');
+ const yourLetters=a.map(x=>String.fromCharCode(65+x)).join(', ');
+
+ fb.className='explain '+(ok?'feedback-good':'feedback-bad');
+ fb.innerHTML=`<b>${ok?'✓ Correct':'✗ Incorrect'}</b>
+ <p>${ok
+   ? 'You chose the best answer for this scenario.'
+   : `You chose <b>${yourLetters}</b>. The correct answer is <b>${correctLetters}</b>.`
+ }</p>
+ <p>${q.why}</p>`;
+
+ [...document.querySelectorAll('#choices .choice')].forEach((lab,idx)=>{
+   lab.classList.remove('good','bad');
+   if(q.answer.includes(idx)) lab.classList.add('good');
+   else if(a.includes(idx)) lab.classList.add('bad');
+ });
+
+ cb.textContent=ok?'Checked ✓':'Checked — Review Why';
+ save();
+}
+
 function renderProgress(){const done=Object.values(state.answers).filter(a=>a&&a.length).length;document.getElementById('progressbar').style.width=(done/QUESTIONS.length*100)+'%'}
 function nextQ(){if(state.i<QUESTIONS.length-1){state.i++;save();render()}else showReview()}
 function prevQ(){if(state.i>0){state.i--;save();render()}}
